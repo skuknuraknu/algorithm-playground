@@ -1,0 +1,88 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Scrollbar styling for dropdown lists */
+.custom-scrollbar {
+	scrollbar-width: thin;
+	scrollbar-color: #cbd5e1 #f8fafc;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+	width: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+	background: #f8fafc;
+	border-radius: 9999px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+	background-color: #cbd5e1;
+	border-radius: 9999px;
+	border: 2px solid #f8fafc;
+}
+
+/* Purple gradient scrollbar for problem menu */
+.custom-scrollbar-purple {
+	scrollbar-width: thin;
+	scrollbar-color: #a855f7 #f5f3ff;
+}
+
+.custom-scrollbar-purple::-webkit-scrollbar {
+	width: 10px;
+}
+
+.custom-scrollbar-purple::-webkit-scrollbar-track {
+	background: linear-gradient(to bottom, #eff6ff, #faf5ff);
+	border-radius: 9999px;
+}
+
+.custom-scrollbar-purple::-webkit-scrollbar-thumb {
+	background: linear-gradient(to bottom, #3b82f6, #a855f7);
+	border-radius: 9999px;
+	border: 2px solid transparent;
+	background-clip: padding-box;
+}
+
+.custom-scrollbar-purple::-webkit-scrollbar-thumb:hover {
+	background: linear-gradient(to bottom, #2563eb, #9333ea);
+	background-clip: padding-box;
+}
+
+/* Animations */
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+
+@keyframes slideDown {
+	from {
+		opacity: 0;
+		transform: translateY(-20px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+.animate-fadeIn {
+	animation: fadeIn 0.2s ease-out;
+}
+
+.animate-slideDown {
+	animation: slideDown 0.3s ease-out;
+}
+
+/* Line clamp utility */
+.line-clamp-2 {
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+}

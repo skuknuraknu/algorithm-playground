@@ -1,0 +1,62 @@
+import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { Language, Translations, translations } from './translations';
+
+interface LanguageContextType {
+  language: Language;
+  setLanguage: (lang: Language) => void;
+  t: Translations;
+}
+
+const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
+
+const STORAGE_KEY = 'app-language';
+
+export function LanguageProvider({ children }: { children: ReactNode }) {
+  const [language, setLanguageState] = useState<Language>(() => {
+    // Try to get language from localStorage on initial load
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved === 'en' || saved === 'id') {
+        return saved;
+      }
+      // Check browser language preference
+      const browserLang = navigator.language.toLowerCase();
+      if (browserLang.startsWith('id')) {
+        return 'id';
+      }
+    }
+    return 'en';
+  });
+
+  const setLanguage = (lang: Language) => {
+    setLanguageState(lang);
+    localStorage.setItem(STORAGE_KEY, lang);
+  };
+
+  useEffect(() => {
+    // Update HTML lang attribute
+    document.documentElement.lang = language;
+  }, [language]);
+
+  const value: LanguageContextType = {
+    language,
+    setLanguage,
+    t: translations[language],
+  };
+
+  return (
+    <LanguageContext.Provider value={value}>
+      {children}
+    </LanguageContext.Provider>
+  );
+}
+
+export function useLanguage() {
+  const context = useContext(LanguageContext);
+  if (context === undefined) {
+    throw new Error('useLanguage must be used within a LanguageProvider');
+  }
+  return context;
+}
+
+export { type Language, type Translations };
