@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { Droplet, BookOpen, Play, Code2, Lightbulb, Mountain, Anchor, Menu, MoveRight, Type, Search, Bug, Hash, Calculator, Cpu, Bot, PlusCircle, Plus, Copy, Crown, Layers, ScanEye, Braces, Repeat, GitMerge, RefreshCw, RotateCw, Scissors, Shuffle, Grid, Phone, Target, Binary } from 'lucide-react';
+import { Droplet, BookOpen, Play, Code2, Lightbulb, Mountain, Anchor, Menu, MoveRight, Type, Search, Bug, Hash, Calculator, Cpu, Bot, PlusCircle, Plus, Copy, Crown, Layers, ScanEye, Braces, Repeat, GitMerge, RefreshCw, RotateCw, Scissors, Shuffle, Grid, Phone, Target, Binary, TreeDeciduous, GitBranch, Share2, ListOrdered } from 'lucide-react';
 import { ProblemId, PROBLEMS } from './types/Problem';
 import { useLanguage } from './i18n';
 import LanguageSwitcher from './components/LanguageSwitcher';
@@ -172,6 +172,24 @@ import PalindromePartitionVisualizer from './components/palindromepartition/Pali
 import PalindromePartitionSimulator from './components/palindromepartition/PalindromePartitionSimulator';
 import PalindromePartitionCodeEditor from './components/palindromepartition/PalindromePartitionCodeEditor';
 
+import MaxDepthTreeExplanation from './components/maxdepthtree/MaxDepthTreeExplanation';
+import MaxDepthTreeInputPanel from './components/maxdepthtree/MaxDepthTreeInputPanel';
+import MaxDepthTreeVisualizer from './components/maxdepthtree/MaxDepthTreeVisualizer';
+import MaxDepthTreeSimulator from './components/maxdepthtree/MaxDepthTreeSimulator';
+import MaxDepthTreeCodeEditor from './components/maxdepthtree/MaxDepthTreeCodeEditor';
+
+import PathSumExplanation from './components/pathsum/PathSumExplanation';
+import PathSumInputPanel from './components/pathsum/PathSumInputPanel';
+import PathSumVisualizer from './components/pathsum/PathSumVisualizer';
+import PathSumSimulator from './components/pathsum/PathSumSimulator';
+import PathSumCodeEditor from './components/pathsum/PathSumCodeEditor';
+
+import KthSmallestExplanation from './components/kthsmallest/KthSmallestExplanation';
+import KthSmallestInputPanel from './components/kthsmallest/KthSmallestInputPanel';
+import KthSmallestVisualizer from './components/kthsmallest/KthSmallestVisualizer';
+import KthSmallestSimulator from './components/kthsmallest/KthSmallestSimulator';
+import KthSmallestCodeEditor from './components/kthsmallest/KthSmallestCodeEditor';
+
 import SymmetricTreeExplanation from './components/symmetrictree/SymmetricTreeExplanation';
 import SymmetricTreeInputPanel from './components/symmetrictree/SymmetricTreeInputPanel';
 import SymmetricTreeVisualizer from './components/symmetrictree/SymmetricTreeVisualizer';
@@ -229,6 +247,14 @@ function App() {
   const [combinationSumTarget, setCombinationSumTarget] = useState(7);
   const [palindromePartitionString, setPalindromePartitionString] = useState('aab');
   const [symmetricTreeNodes, setSymmetricTreeNodes] = useState<(number | null)[]>([1, 2, 2, 3, 4, 4, 3]);
+  const [maxDepthTreeNodes, setMaxDepthTreeNodes] = useState<(number | null)[]>([3, 9, 20, null, null, 15, 7]);
+  const [pathSumNodes, setPathSumNodes] = useState<(number | null)[]>([5, 4, 8, 11, null, 13, 4, 7, 2, null, null, null, 1]);
+  const [pathSumTarget, setPathSumTarget] = useState(22);
+  const [lcaTree, setLcaTree] = useState('3,5,1,6,2,0,8,null,null,7,4');
+  const [lcaP, setLcaP] = useState('5');
+  const [lcaQ, setLcaQ] = useState('1');
+  const [kthSmallestNodes, setKthSmallestNodes] = useState<(number | null)[]>([5, 3, 6, 2, 4, null, null, 1]);
+  const [kthSmallestK, setKthSmallestK] = useState(3);
   
   // LRU Cache State
   const [lruCapacity, setLruCapacity] = useState(3);
@@ -301,7 +327,7 @@ function App() {
 
   const currentProblem = PROBLEMS[activeProblem];
 
-  const problemIcons = {
+  const problemIcons: Record<ProblemId, any> = {
     'container-water': Droplet,
     'mountain-array': Mountain,
     'boats-people': Anchor,
@@ -332,6 +358,9 @@ function App() {
     'combination-sum': Target,
     'palindrome-partition': Scissors,
     'symmetric-tree': Binary,
+    'max-depth-tree': TreeDeciduous,
+    'path-sum': GitBranch,
+    'kth-smallest-bst': ListOrdered,
   };
 
   const ProblemIcon = problemIcons[activeProblem];
@@ -767,6 +796,32 @@ function App() {
           <div className="mb-8">
             <SymmetricTreeInputPanel 
               onNodesChange={setSymmetricTreeNodes}
+            />
+          </div>
+        )}
+
+        {activeTab !== 'learn' && activeProblem === 'max-depth-tree' && (
+          <div className="mb-8">
+            <MaxDepthTreeInputPanel onNodesChange={setMaxDepthTreeNodes} />
+          </div>
+        )}
+
+        {activeTab !== 'learn' && activeProblem === 'path-sum' && (
+          <div className="mb-8">
+            <PathSumInputPanel onNodesChange={setPathSumNodes} onTargetChange={setPathSumTarget} />
+          </div>
+        )}
+
+        {activeTab !== 'learn' && activeProblem === 'kth-smallest-bst' && (
+          <div className="mb-8">
+            <KthSmallestInputPanel onNodesChange={setKthSmallestNodes} onKChange={setKthSmallestK} />
+          </div>
+        )}
+
+        {activeTab !== 'learn' && activeProblem === 'max-depth-tree' && (
+          <div className="mb-8">
+            <MaxDepthTreeInputPanel 
+              onNodesChange={setMaxDepthTreeNodes}
             />
           </div>
         )}
@@ -2199,6 +2254,99 @@ function App() {
               )}
             </>
           )}
+
+            {/* Path Sum Content */}
+            {activeProblem === 'path-sum' && (
+              <>
+                {activeTab === 'learn' && <PathSumExplanation />}
+
+                {activeTab === 'visualize' && (
+                  <div className="space-y-6">
+                    <PathSumVisualizer nodes={pathSumNodes} targetSum={pathSumTarget} />
+                  </div>
+                )}
+
+                {activeTab === 'simulate' && (
+                  <div className="space-y-6">
+                    <PathSumSimulator nodes={pathSumNodes} targetSum={pathSumTarget} />
+                  </div>
+                )}
+
+                {activeTab === 'code' && (
+                  <div className="space-y-6">
+                    <div className="bg-white rounded-xl p-6 shadow-lg border-2 border-slate-200">
+                      <h2 className="text-2xl font-bold text-slate-800 mb-2">Practice: Path Sum</h2>
+                      <p className="text-slate-600">
+                        Implementasikan solusi DFS (rekursif/iteratif) untuk mengecek path root-to-leaf dengan jumlah sama dengan target.
+                      </p>
+                    </div>
+                    <PathSumCodeEditor />
+                  </div>
+                )}
+              </>
+            )}
+
+            {/* Maximum Depth of Binary Tree Content */}
+            {activeProblem === 'max-depth-tree' && (
+              <>
+                {activeTab === 'learn' && <MaxDepthTreeExplanation />}
+
+                {activeTab === 'visualize' && (
+                  <div className="space-y-6">
+                    <MaxDepthTreeVisualizer nodes={maxDepthTreeNodes} />
+                  </div>
+                )}
+
+                {activeTab === 'simulate' && (
+                  <div className="space-y-6">
+                    <MaxDepthTreeSimulator nodes={maxDepthTreeNodes} />
+                  </div>
+                )}
+
+                {activeTab === 'code' && (
+                  <div className="space-y-6">
+                    <div className="bg-white rounded-xl p-6 shadow-lg border-2 border-slate-200">
+                      <h2 className="text-2xl font-bold text-slate-800 mb-2">Practice: Maximum Depth of Binary Tree</h2>
+                      <p className="text-slate-600">
+                        Implementasikan solusi rekursif atau iteratif untuk menghitung kedalaman maksimum binary tree.
+                      </p>
+                    </div>
+                    <MaxDepthTreeCodeEditor />
+                  </div>
+                )}
+              </>
+            )}
+
+            {/* Kth Smallest Element in a BST Content */}
+            {activeProblem === 'kth-smallest-bst' && (
+              <>
+                {activeTab === 'learn' && <KthSmallestExplanation />}
+
+                {activeTab === 'visualize' && (
+                  <div className="space-y-6">
+                    <KthSmallestVisualizer nodes={kthSmallestNodes} k={kthSmallestK} />
+                  </div>
+                )}
+
+                {activeTab === 'simulate' && (
+                  <div className="space-y-6">
+                    <KthSmallestSimulator nodes={kthSmallestNodes} k={kthSmallestK} />
+                  </div>
+                )}
+
+                {activeTab === 'code' && (
+                  <div className="space-y-6">
+                    <div className="bg-white rounded-xl p-6 shadow-lg border-2 border-slate-200">
+                      <h2 className="text-2xl font-bold text-slate-800 mb-2">Practice: Kth Smallest Element in a BST</h2>
+                      <p className="text-slate-600">
+                        Terapkan traversal inorder untuk menemukan elemen ke-k terkecil dengan pendekatan rekursif atau iteratif.
+                      </p>
+                    </div>
+                    <KthSmallestCodeEditor />
+                  </div>
+                )}
+              </>
+            )}
       </main>
 
       {/* Footer */}
