@@ -28,7 +28,10 @@ export type ProblemId =
   | 'letter-combinations'
   | 'combination-sum'
   | 'palindrome-partition'
-  | 'symmetric-tree';
+  | 'symmetric-tree'
+  | 'max-depth-tree'
+  | 'path-sum'
+  | 'kth-smallest-bst';
 
 export interface Problem {
   id: ProblemId;
@@ -248,6 +251,27 @@ export const PROBLEMS: Record<ProblemId, Problem> = {
     difficulty: 'Easy',
     topics: ['Binary Tree', 'Recursion', 'Tree Traversal'],
     description: 'Cek apakah binary tree symmetric terhadap pusatnya',
+  },
+  'max-depth-tree': {
+    id: 'max-depth-tree',
+    title: 'Maximum Depth of Binary Tree',
+    difficulty: 'Easy',
+    topics: ['Binary Tree', 'Recursion', 'DFS', 'BFS'],
+    description: 'Temukan kedalaman maksimum binary tree',
+  },
+  'path-sum': {
+    id: 'path-sum',
+    title: 'Path Sum',
+    difficulty: 'Easy',
+    topics: ['Binary Tree', 'DFS', 'Backtracking'],
+    description: 'Periksa apakah ada path root-to-leaf yang totalnya sama dengan target',
+  },
+  'kth-smallest-bst': {
+    id: 'kth-smallest-bst',
+    title: 'Kth Smallest Element in a BST',
+    difficulty: 'Medium',
+    topics: ['Binary Search Tree', 'Inorder Traversal', 'DFS', 'Stack'],
+    description: 'Temukan elemen terkecil ke-k di BST menggunakan inorder traversal',
   },
 
 };
