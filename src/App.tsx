@@ -1877,7 +1877,88 @@ function App() {
         )}
 
         {/* Two Sum Content */}
-        {/* Four Sum II Content */}
+        {activeProblem === 'two-sum' && (
+          <>
+            {activeTab === 'learn' && <TwoSumExplanation />}
+            {activeTab === 'visualize' && (
+              <div className="space-y-6">
+                <TwoSumVisualizer nums={twoSumNums} target={twoSumTarget} />
+              </div>
+            )}
+            {activeTab === 'simulate' && (
+              <div className="space-y-6">
+                <TwoSumSimulator nums={twoSumNums} target={twoSumTarget} />
+              </div>
+            )}
+            {activeTab === 'code' && (
+              <div className="space-y-6">
+                <div className="bg-white rounded-xl p-6 shadow-lg border-2 border-slate-200">
+                  <h2 className="text-2xl font-bold text-slate-800 mb-2">Practice: Two Sum</h2>
+                  <p className="text-slate-600">
+                    Cari indices dari dua angka yang jika dijumlahkan menghasilkan target.
+                  </p>
+                </div>
+                <TwoSumCodeEditor />
+              </div>
+            )}
+          </>
+        )}
+
+        {/* Contains Duplicate Content */}
+        {activeProblem === 'contains-duplicate' && (
+          <>
+            {activeTab === 'learn' && <ContainsDuplicateExplanation />}
+            {activeTab === 'visualize' && (
+              <div className="space-y-6">
+                <ContainsDuplicateVisualizer nums={containsDuplicateNums} />
+              </div>
+            )}
+            {activeTab === 'simulate' && (
+              <div className="space-y-6">
+                <ContainsDuplicateSimulator nums={containsDuplicateNums} />
+              </div>
+            )}
+            {activeTab === 'code' && (
+              <div className="space-y-6">
+                <div className="bg-white rounded-xl p-6 shadow-lg border-2 border-slate-200">
+                  <h2 className="text-2xl font-bold text-slate-800 mb-2">Practice: Contains Duplicate</h2>
+                  <p className="text-slate-600">
+                    Cek apakah array memiliki elemen yang berulang.
+                  </p>
+                </div>
+                <ContainsDuplicateCodeEditor />
+              </div>
+            )}
+          </>
+        )}
+
+        {/* Majority Element Content */}
+        {activeProblem === 'majority-element' && (
+          <>
+            {activeTab === 'learn' && <MajorityElementExplanation />}
+            {activeTab === 'visualize' && (
+              <div className="space-y-6">
+                <MajorityElementVisualizer nums={majorityNums} />
+              </div>
+            )}
+            {activeTab === 'simulate' && (
+              <div className="space-y-6">
+                <MajorityElementSimulator nums={majorityNums} />
+              </div>
+            )}
+            {activeTab === 'code' && (
+              <div className="space-y-6">
+                <div className="bg-white rounded-xl p-6 shadow-lg border-2 border-slate-200">
+                  <h2 className="text-2xl font-bold text-slate-800 mb-2">Practice: Majority Element</h2>
+                  <p className="text-slate-600">
+                    Temukan elemen yang muncul {"more than"} n/2 kali.
+                  </p>
+                </div>
+                <MajorityElementCodeEditor />
+              </div>
+            )}
+          </>
+        )}
         {activeProblem === 'four-sum-ii' && (
           <>
             {activeTab === 'learn' && <FourSumTwoExplanation />}
