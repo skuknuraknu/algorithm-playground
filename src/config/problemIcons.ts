@@ -22,7 +22,6 @@ export const PROBLEM_ICONS: Record<ProblemId, LucideIcon> = {
   'group-anagrams': Braces,
   'lru-cache': Repeat,
   'min-stack': Layers,
-  'valid-parentheses': Braces,
   'merge-two-lists': GitMerge,
   'linked-list-cycle': RefreshCw,
   'reverse-linked-list': RefreshCw,
