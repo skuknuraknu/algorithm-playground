@@ -1,5 +1,8 @@
 import { useState, useRef, useEffect } from 'react';
-import { Droplet, BookOpen, Play, Code2, Lightbulb, Mountain, Anchor, Menu, MoveRight, Type, Search, Bug, Hash, Calculator, Cpu, Bot, PlusCircle, Plus, Copy, Crown, Layers, ScanEye, Braces, Repeat, GitMerge, RefreshCw, RotateCw, Scissors, Shuffle, Grid, Phone, Target, Binary, TreeDeciduous, GitBranch, Share2, ListOrdered } from 'lucide-react';
+import {
+  Droplet, BookOpen, Play, Code2, Lightbulb, Mountain, Anchor, Menu, MoveRight, Type, Search, Bug, Hash, Calculator, Cpu, Bot, PlusCircle, Plus, Copy, Crown, Layers, ScanEye, Braces, Repeat, GitMerge, RefreshCw, RotateCw, Scissors, Shuffle, Grid, Phone, Target, Binary, TreeDeciduous, GitBranch, Share2, ListOrdered, Map,
+  Activity, ChevronsUp, Coins, TrendingUp, Home, CloudRain
+} from 'lucide-react';
 import { ProblemId, PROBLEMS } from './types/Problem';
 import { useLanguage } from './i18n';
 import LanguageSwitcher from './components/LanguageSwitcher';
@@ -32,7 +35,7 @@ import LongestSubstringInputPanel from './components/longestsubstring/LongestSub
 import LongestSubstringVisualizer from './components/longestsubstring/LongestSubstringVisualizer';
 import LongestSubstringSimulator from './components/longestsubstring/LongestSubstringSimulator';
 import LongestSubstringCodeEditor from './components/longestsubstring/LongestSubstringCodeEditor';
-import LongestSubstringExplanation from './components/longestsubstring/LongestSubstringCodeEditor';
+import LongestSubstringExplanation from './components/longestsubstring/LongestSubstringExplanation';
 
 import FindPositionInputPanel from './components/findposition/FindPositionInputPanel';
 import FindPositionVisualizer from './components/findposition/FindPositionVisualizer';
@@ -112,6 +115,31 @@ import LRUCacheSimulator from './components/lrucache/LRUCacheSimulator';
 import LRUCacheCodeEditor from './components/lrucache/LRUCacheCodeEditor';
 import LRUCacheExplanation from './components/lrucache/LRUCacheExplanation';
 
+import MinStackExplanation from './components/minstack/MinStackExplanation';
+import MinStackInputPanel from './components/minstack/MinStackInputPanel';
+import MinStackVisualizer from './components/minstack/MinStackVisualizer';
+import MinStackSimulator from './components/minstack/MinStackSimulator';
+import MinStackCodeEditor from './components/minstack/MinStackCodeEditor';
+import { MinStackOp } from './components/minstack/types';
+
+import ValidParenthesesExplanation from './components/validparentheses/ValidParenthesesExplanation';
+import ValidParenthesesInputPanel from './components/validparentheses/ValidParenthesesInputPanel';
+import ValidParenthesesVisualizer from './components/validparentheses/ValidParenthesesVisualizer';
+import ValidParenthesesSimulator from './components/validparentheses/ValidParenthesesSimulator';
+import ValidParenthesesCodeEditor from './components/validparentheses/ValidParenthesesCodeEditor';
+
+import BestTimeStockExplanation from './components/besttimestock/BestTimeStockExplanation';
+import BestTimeStockInputPanel from './components/besttimestock/BestTimeStockInputPanel';
+import BestTimeStockVisualizer from './components/besttimestock/BestTimeStockVisualizer';
+import BestTimeStockSimulator from './components/besttimestock/BestTimeStockSimulator';
+import BestTimeStockCodeEditor from './components/besttimestock/BestTimeStockCodeEditor';
+
+import HouseRobberExplanation from './components/houserobber/HouseRobberExplanation';
+import HouseRobberInputPanel from './components/houserobber/HouseRobberInputPanel';
+import HouseRobberVisualizer from './components/houserobber/HouseRobberVisualizer';
+import HouseRobberSimulator from './components/houserobber/HouseRobberSimulator';
+import HouseRobberCodeEditor from './components/houserobber/HouseRobberCodeEditor';
+
 import MergeTwoListsExplanation from './components/mergetwolists/MergeTwoListsExplanation';
 import MergeTwoListsInputPanel from './components/mergetwolists/MergeTwoListsInputPanel';
 import MergeTwoListsVisualizer from './components/mergetwolists/MergeTwoListsVisualizer';
@@ -147,6 +175,18 @@ import OddEvenInputPanel from './components/oddeven/OddEvenInputPanel';
 import OddEvenVisualizer from './components/oddeven/OddEvenVisualizer';
 import OddEvenSimulator from './components/oddeven/OddEvenSimulator';
 import OddEvenCodeEditor from './components/oddeven/OddEvenCodeEditor';
+
+import ClimbingStairsExplanation from './components/climbingstairs/ClimbingStairsExplanation';
+import ClimbingStairsInputPanel from './components/climbingstairs/ClimbingStairsInputPanel';
+import ClimbingStairsVisualizer from './components/climbingstairs/ClimbingStairsVisualizer';
+import ClimbingStairsSimulator from './components/climbingstairs/ClimbingStairsSimulator';
+import ClimbingStairsCodeEditor from './components/climbingstairs/ClimbingStairsCodeEditor';
+
+import CoinChangeExplanation from './components/coinchange/CoinChangeExplanation';
+import CoinChangeInputPanel from './components/coinchange/CoinChangeInputPanel';
+import CoinChangeVisualizer from './components/coinchange/CoinChangeVisualizer';
+import CoinChangeSimulator from './components/coinchange/CoinChangeSimulator';
+import CoinChangeCodeEditor from './components/coinchange/CoinChangeCodeEditor';
 
 import SubsetsExplanation from './components/subsets/SubsetsExplanation';
 import SubsetsInputPanel from './components/subsets/SubsetsInputPanel';
@@ -190,11 +230,47 @@ import KthSmallestVisualizer from './components/kthsmallest/KthSmallestVisualize
 import KthSmallestSimulator from './components/kthsmallest/KthSmallestSimulator';
 import KthSmallestCodeEditor from './components/kthsmallest/KthSmallestCodeEditor';
 
+import SerializeTreeExplanation from './components/serializetree/SerializeTreeExplanation';
+import SerializeTreeInputPanel from './components/serializetree/SerializeTreeInputPanel';
+import SerializeTreeVisualizer from './components/serializetree/SerializeTreeVisualizer';
+import SerializeTreeSimulator from './components/serializetree/SerializeTreeSimulator';
+import SerializeTreeCodeEditor from './components/serializetree/SerializeTreeCodeEditor';
+
+import MaxPathSumExplanation from './components/maxpathsum/MaxPathSumExplanation';
+import MaxPathSumInputPanel from './components/maxpathsum/MaxPathSumInputPanel';
+import MaxPathSumVisualizer from './components/maxpathsum/MaxPathSumVisualizer';
+import MaxPathSumSimulator from './components/maxpathsum/MaxPathSumSimulator';
+import MaxPathSumCodeEditor from './components/maxpathsum/MaxPathSumCodeEditor';
+
 import SymmetricTreeExplanation from './components/symmetrictree/SymmetricTreeExplanation';
 import SymmetricTreeInputPanel from './components/symmetrictree/SymmetricTreeInputPanel';
 import SymmetricTreeVisualizer from './components/symmetrictree/SymmetricTreeVisualizer';
 import SymmetricTreeSimulator from './components/symmetrictree/SymmetricTreeSimulator';
 import SymmetricTreeCodeEditor from './components/symmetrictree/SymmetricTreeCodeEditor';
+
+import BinaryTreeLevelOrderExplanation from './components/binarytreelevelorder/BinaryTreeLevelOrderExplanation';
+import BinaryTreeLevelOrderInputPanel from './components/binarytreelevelorder/BinaryTreeLevelOrderInputPanel';
+import BinaryTreeLevelOrderVisualizer from './components/binarytreelevelorder/BinaryTreeLevelOrderVisualizer';
+import BinaryTreeLevelOrderSimulator from './components/binarytreelevelorder/BinaryTreeLevelOrderSimulator';
+import BinaryTreeLevelOrderCodeEditor from './components/binarytreelevelorder/BinaryTreeLevelOrderCodeEditor';
+
+import BinaryTreeZigzagExplanation from './components/binarytreezigzag/BinaryTreeZigzagExplanation';
+import BinaryTreeZigzagInputPanel from './components/binarytreezigzag/BinaryTreeZigzagInputPanel';
+import BinaryTreeZigzagVisualizer from './components/binarytreezigzag/BinaryTreeZigzagVisualizer';
+import BinaryTreeZigzagSimulator from './components/binarytreezigzag/BinaryTreeZigzagSimulator';
+import BinaryTreeZigzagCodeEditor, { starterCode as zigzagStarterCode } from './components/binarytreezigzag/BinaryTreeZigzagCodeEditor';
+
+import UniquePathsExplanation from './components/uniquepaths/UniquePathsExplanation';
+import UniquePathsInputPanel from './components/uniquepaths/UniquePathsInputPanel';
+import UniquePathsVisualizer from './components/uniquepaths/UniquePathsVisualizer';
+import UniquePathsSimulator from './components/uniquepaths/UniquePathsSimulator';
+import UniquePathsCodeEditor, { starterCode as uniquePathsStarterCode } from './components/uniquepaths/UniquePathsCodeEditor';
+
+import TrappingRainWaterExplanation from './components/trappingrainwater/TrappingRainWaterExplanation';
+import TrappingRainWaterInputPanel from './components/trappingrainwater/TrappingRainWaterInputPanel';
+import TrappingRainWaterVisualizer from './components/trappingrainwater/TrappingRainWaterVisualizer';
+import TrappingRainWaterSimulator from './components/trappingrainwater/TrappingRainWaterSimulator';
+import TrappingRainWaterCodeEditor, { starterCode as trappingRainWaterStarterCode } from './components/trappingrainwater/TrappingRainWaterCodeEditor';
 
 type Tab = 'visualize' | 'simulate' | 'code' | 'learn';
 
@@ -226,7 +302,7 @@ function App() {
   const [twoSumTarget, setTwoSumTarget] = useState(9);
   const [containsDuplicateNums, setContainsDuplicateNums] = useState([1, 2, 3, 1]);
   const [majorityNums, setMajorityNums] = useState([2, 2, 1, 1, 1, 2, 2]);
-  
+
   // New States
   const [fourSumA, setFourSumA] = useState([1, 2]);
   const [fourSumB, setFourSumB] = useState([-2, -1]);
@@ -241,21 +317,40 @@ function App() {
   const [removeNthList, setRemoveNthList] = useState([1, 2, 3, 4, 5]);
   const [removeNthN, setRemoveNthN] = useState(2);
   const [oddEvenList, setOddEvenList] = useState([1, 2, 3, 4, 5, 6]);
+  const [climbingN, setClimbingN] = useState(5);
+  const [coinChangeCoins, setCoinChangeCoins] = useState([1, 2, 5]);
+  const [coinChangeAmount, setCoinChangeAmount] = useState(11);
+  const [bestTimePrices, setBestTimePrices] = useState([7, 1, 5, 3, 6, 4]);
+  const [houseRobberNums, setHouseRobberNums] = useState([2, 7, 9, 3, 1]);
   const [subsetsNums, setSubsetsNums] = useState([1, 2, 3]);
   const [letterCombinationsDigits, setLetterCombinationsDigits] = useState('23');
   const [combinationSumCandidates, setCombinationSumCandidates] = useState([2, 3, 6, 7]);
   const [combinationSumTarget, setCombinationSumTarget] = useState(7);
   const [palindromePartitionString, setPalindromePartitionString] = useState('aab');
   const [symmetricTreeNodes, setSymmetricTreeNodes] = useState<(number | null)[]>([1, 2, 2, 3, 4, 4, 3]);
+  const [binaryTreeLevelOrderNodes, setBinaryTreeLevelOrderNodes] = useState<(number | null)[]>([3, 9, 20, null, null, 15, 7]);
+  const [binaryTreeZigzagNodes, setBinaryTreeZigzagNodes] = useState<(number | null)[]>([3, 9, 20, null, null, 15, 7]);
+  const [uniquePathsM, setUniquePathsM] = useState(3);
+  const [uniquePathsN, setUniquePathsN] = useState(7);
+  const [trappingRainWaterHeights, setTrappingRainWaterHeights] = useState<number[]>([0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1]);
   const [maxDepthTreeNodes, setMaxDepthTreeNodes] = useState<(number | null)[]>([3, 9, 20, null, null, 15, 7]);
   const [pathSumNodes, setPathSumNodes] = useState<(number | null)[]>([5, 4, 8, 11, null, 13, 4, 7, 2, null, null, null, 1]);
   const [pathSumTarget, setPathSumTarget] = useState(22);
-  const [lcaTree, setLcaTree] = useState('3,5,1,6,2,0,8,null,null,7,4');
-  const [lcaP, setLcaP] = useState('5');
-  const [lcaQ, setLcaQ] = useState('1');
+  const [serializeTreeNodes, setSerializeTreeNodes] = useState<(number | null)[]>([1, 2, 3, null, null, 4, 5]);
+  const [serializeTreeString, setSerializeTreeString] = useState('1,2,3,null,null,4,5');
+  const [maxPathSumNodes, setMaxPathSumNodes] = useState<(number | null)[]>([1, 2, 3]);
   const [kthSmallestNodes, setKthSmallestNodes] = useState<(number | null)[]>([5, 3, 6, 2, 4, null, null, 1]);
   const [kthSmallestK, setKthSmallestK] = useState(3);
-  
+  const [minStackOps, setMinStackOps] = useState<MinStackOp[]>([
+    { id: 'ms-1', type: 'push', value: 3 },
+    { id: 'ms-2', type: 'push', value: 5 },
+    { id: 'ms-3', type: 'push', value: 2 },
+    { id: 'ms-4', type: 'getMin' },
+    { id: 'ms-5', type: 'pop' },
+    { id: 'ms-6', type: 'getMin' },
+  ]);
+  const [vpString, setVpString] = useState('{[()]}');
+
   // LRU Cache State
   const [lruCapacity, setLruCapacity] = useState(3);
   const [lruOperations, setLruOperations] = useState<{ type: 'put' | 'get'; key: number; value?: number }[]>([]);
@@ -347,20 +442,32 @@ function App() {
     'min-window-substring': ScanEye,
     'group-anagrams': Braces,
     'lru-cache': Repeat,
+    'min-stack': Layers,
+    'valid-parentheses': Braces,
     'merge-two-lists': GitMerge,
     'linked-list-cycle': RefreshCw,
     'reverse-linked-list': RotateCw,
     'add-two-numbers': Plus,
     'remove-nth-node': Scissors,
     'odd-even-linked-list': Shuffle,
+    'climbing-stairs': ChevronsUp,
+    'coin-change': Coins,
+    'best-time-stock': TrendingUp,
+    'house-robber': Home,
     'subsets': Grid,
     'letter-combinations': Phone,
     'combination-sum': Target,
     'palindrome-partition': Scissors,
     'symmetric-tree': Binary,
+    'binary-tree-level-order': TreeDeciduous,
+    'binary-tree-zigzag-level-order': GitMerge,
+    'unique-paths': Map,
+    'trapping-rain-water': CloudRain,
     'max-depth-tree': TreeDeciduous,
     'path-sum': GitBranch,
     'kth-smallest-bst': ListOrdered,
+    'serialize-binary-tree': Share2,
+    'max-path-sum': Activity,
   };
 
   const ProblemIcon = problemIcons[activeProblem];
@@ -457,11 +564,11 @@ function App() {
               {showProblemMenu && (
                 <>
                   {/* Backdrop */}
-                  <div 
+                  <div
                     className="fixed inset-0 bg-black/30 backdrop-blur-sm z-40 animate-fadeIn"
                     onClick={() => setShowProblemMenu(false)}
                   />
-                  
+
                   <div className="fixed right-6 top-24 w-[32rem] max-w-[92vw] bg-white rounded-2xl shadow-2xl border-2 border-slate-200 z-50 overflow-hidden animate-slideDown">
                     {/* Header */}
                     <div className="sticky top-0 bg-gradient-to-r from-blue-50 via-purple-50 to-pink-50 border-b-2 border-slate-200 p-4 z-10">
@@ -507,18 +614,16 @@ function App() {
                             key={problem.id}
                             ref={(el) => (problemRefs.current[problem.id] = el)}
                             onClick={() => handleProblemChange(problem.id)}
-                            className={`w-full flex items-start gap-4 p-4 mb-2 rounded-xl transition-all duration-300 text-left group ${
-                              isActive
-                                ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg scale-[1.02] ring-4 ring-blue-100'
-                                : 'bg-white hover:bg-gradient-to-br hover:from-blue-50 hover:to-purple-50 border-2 border-slate-200 hover:border-blue-300 hover:shadow-md hover:scale-[1.01]'
-                            }`}
+                            className={`w-full flex items-start gap-4 p-4 mb-2 rounded-xl transition-all duration-300 text-left group ${isActive
+                              ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg scale-[1.02] ring-4 ring-blue-100'
+                              : 'bg-white hover:bg-gradient-to-br hover:from-blue-50 hover:to-purple-50 border-2 border-slate-200 hover:border-blue-300 hover:shadow-md hover:scale-[1.01]'
+                              }`}
                           >
                             <div
-                              className={`p-3 rounded-xl transition-all duration-300 ${
-                                isActive 
-                                  ? 'bg-white/20 shadow-lg' 
-                                  : 'bg-gradient-to-br from-slate-100 to-slate-200 group-hover:from-blue-100 group-hover:to-purple-100'
-                              }`}
+                              className={`p-3 rounded-xl transition-all duration-300 ${isActive
+                                ? 'bg-white/20 shadow-lg'
+                                : 'bg-gradient-to-br from-slate-100 to-slate-200 group-hover:from-blue-100 group-hover:to-purple-100'
+                                }`}
                             >
                               <Icon
                                 className={isActive ? 'text-white' : 'text-slate-700 group-hover:text-blue-600'}
@@ -534,28 +639,27 @@ function App() {
                               </div>
                               <div className="flex items-center gap-2 flex-wrap">
                                 <span
-                                  className={`text-xs font-bold px-2.5 py-1 rounded-full ${
-                                    isActive
-                                      ? 'bg-white/20 text-white'
-                                      : problem.difficulty === 'Easy'
+                                  className={`text-xs font-bold px-2.5 py-1 rounded-full ${isActive
+                                    ? 'bg-white/20 text-white'
+                                    : problem.difficulty === 'Easy'
                                       ? 'bg-green-100 text-green-700 group-hover:bg-green-200'
                                       : problem.difficulty === 'Medium'
-                                      ? 'bg-orange-100 text-orange-700 group-hover:bg-orange-200'
-                                      : 'bg-red-100 text-red-700 group-hover:bg-red-200'
-                                }`}
-                              >
-                                {problem.difficulty}
-                              </span>
-                              <span className={`text-xs truncate ${isActive ? 'text-white/80' : 'text-slate-500'}`}>
-                                {problem.topics.join(', ')}
-                              </span>
+                                        ? 'bg-orange-100 text-orange-700 group-hover:bg-orange-200'
+                                        : 'bg-red-100 text-red-700 group-hover:bg-red-200'
+                                    }`}
+                                >
+                                  {problem.difficulty}
+                                </span>
+                                <span className={`text-xs truncate ${isActive ? 'text-white/80' : 'text-slate-500'}`}>
+                                  {problem.topics.join(', ')}
+                                </span>
+                              </div>
                             </div>
-                          </div>
-                        </button>
-                      );
-                    })}
+                          </button>
+                        );
+                      })}
+                    </div>
                   </div>
-                </div>
                 </>
               )}
             </div>
@@ -574,11 +678,10 @@ function App() {
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
-                  className={`flex items-center gap-2 px-6 py-4 font-semibold transition-all relative ${
-                    isActive
-                      ? 'text-blue-700 bg-slate-50'
-                      : 'text-slate-600 hover:text-slate-800 hover:bg-slate-50'
-                  }`}
+                  className={`flex items-center gap-2 px-6 py-4 font-semibold transition-all relative ${isActive
+                    ? 'text-blue-700 bg-slate-50'
+                    : 'text-slate-600 hover:text-slate-800 hover:bg-slate-50'
+                    }`}
                 >
                   <Icon size={20} />
                   {tab.name}
@@ -715,6 +818,16 @@ function App() {
             <GroupAnagramsInputPanel strs={groupAnagramsStrs} setStrs={setGroupAnagramsStrs} />
           </div>
         )}
+        {activeTab !== 'learn' && activeProblem === 'binary-tree-zigzag-level-order' && (
+          <div className="mb-8">
+            <BinaryTreeZigzagInputPanel nodes={binaryTreeZigzagNodes} setNodes={setBinaryTreeZigzagNodes} />
+          </div>
+        )}
+        {activeTab !== 'learn' && activeProblem === 'unique-paths' && (
+          <div className="mb-8">
+            <UniquePathsInputPanel m={uniquePathsM} setM={setUniquePathsM} n={uniquePathsN} setN={setUniquePathsN} />
+          </div>
+        )}
         {activeTab !== 'learn' && activeProblem === 'reverse-linked-list' && (
           <div className="mb-8">
             <ReverseLinkedListInputPanel list={reverseList} setList={setReverseList} />
@@ -735,6 +848,31 @@ function App() {
             <OddEvenInputPanel list={oddEvenList} setList={setOddEvenList} />
           </div>
         )}
+        {activeTab !== 'learn' && activeProblem === 'climbing-stairs' && (
+          <div className="mb-8">
+            <ClimbingStairsInputPanel n={climbingN} setN={setClimbingN} />
+          </div>
+        )}
+        {activeTab !== 'learn' && activeProblem === 'coin-change' && (
+          <div className="mb-8">
+            <CoinChangeInputPanel
+              coins={coinChangeCoins}
+              amount={coinChangeAmount}
+              setCoins={setCoinChangeCoins}
+              setAmount={setCoinChangeAmount}
+            />
+          </div>
+        )}
+        {activeTab !== 'learn' && activeProblem === 'best-time-stock' && (
+          <div className="mb-8">
+            <BestTimeStockInputPanel prices={bestTimePrices} setPrices={setBestTimePrices} />
+          </div>
+        )}
+        {activeTab !== 'learn' && activeProblem === 'house-robber' && (
+          <div className="mb-8">
+            <HouseRobberInputPanel houses={houseRobberNums} setHouses={setHouseRobberNums} />
+          </div>
+        )}
         {activeTab !== 'learn' && activeProblem === 'lru-cache' && (
           <div className="mb-8">
             <LRUCacheInputPanel
@@ -747,9 +885,19 @@ function App() {
             />
           </div>
         )}
+        {activeTab !== 'learn' && activeProblem === 'min-stack' && (
+          <div className="mb-8">
+            <MinStackInputPanel operations={minStackOps} setOperations={setMinStackOps} />
+          </div>
+        )}
+        {activeTab !== 'learn' && activeProblem === 'valid-parentheses' && (
+          <div className="mb-8">
+            <ValidParenthesesInputPanel value={vpString} setValue={setVpString} />
+          </div>
+        )}
         {activeTab !== 'learn' && activeProblem === 'merge-two-lists' && (
           <div className="mb-8">
-            <MergeTwoListsInputPanel 
+            <MergeTwoListsInputPanel
               setList1={(l) => setMergeTwoListsState(prev => ({ ...prev, list1: l }))}
               setList2={(l) => setMergeTwoListsState(prev => ({ ...prev, list2: l }))}
             />
@@ -767,15 +915,15 @@ function App() {
         )}
         {activeTab !== 'learn' && activeProblem === 'letter-combinations' && (
           <div className="mb-8">
-            <LetterCombinationsInputPanel 
-              digits={letterCombinationsDigits} 
-              setDigits={setLetterCombinationsDigits} 
+            <LetterCombinationsInputPanel
+              digits={letterCombinationsDigits}
+              setDigits={setLetterCombinationsDigits}
             />
           </div>
         )}
         {activeTab !== 'learn' && activeProblem === 'combination-sum' && (
           <div className="mb-8">
-            <CombinationSumInputPanel 
+            <CombinationSumInputPanel
               candidates={combinationSumCandidates}
               target={combinationSumTarget}
               setCandidates={setCombinationSumCandidates}
@@ -786,7 +934,7 @@ function App() {
 
         {activeTab !== 'learn' && activeProblem === 'palindrome-partition' && (
           <div className="mb-8">
-            <PalindromePartitionInputPanel 
+            <PalindromePartitionInputPanel
               onStringChange={setPalindromePartitionString}
             />
           </div>
@@ -794,9 +942,15 @@ function App() {
 
         {activeTab !== 'learn' && activeProblem === 'symmetric-tree' && (
           <div className="mb-8">
-            <SymmetricTreeInputPanel 
+            <SymmetricTreeInputPanel
               onNodesChange={setSymmetricTreeNodes}
             />
+          </div>
+        )}
+
+        {activeTab !== 'learn' && activeProblem === 'binary-tree-level-order' && (
+          <div className="mb-8">
+            <BinaryTreeLevelOrderInputPanel nodes={binaryTreeLevelOrderNodes} setNodes={setBinaryTreeLevelOrderNodes} />
           </div>
         )}
 
@@ -818,9 +972,25 @@ function App() {
           </div>
         )}
 
+        {activeTab !== 'learn' && activeProblem === 'serialize-binary-tree' && (
+          <div className="mb-8">
+            <SerializeTreeInputPanel
+              serialized={serializeTreeString}
+              onNodesChange={(n: (number | null)[], str?: string) => { setSerializeTreeNodes(n); if (str !== undefined) setSerializeTreeString(str); }}
+              onSerializedChange={setSerializeTreeString}
+            />
+          </div>
+        )}
+
+        {activeTab !== 'learn' && activeProblem === 'max-path-sum' && (
+          <div className="mb-8">
+            <MaxPathSumInputPanel nodes={maxPathSumNodes} onNodesChange={setMaxPathSumNodes} />
+          </div>
+        )}
+
         {activeTab !== 'learn' && activeProblem === 'max-depth-tree' && (
           <div className="mb-8">
-            <MaxDepthTreeInputPanel 
+            <MaxDepthTreeInputPanel
               onNodesChange={setMaxDepthTreeNodes}
             />
           </div>
@@ -950,9 +1120,8 @@ function App() {
                   <p className="text-slate-600 mb-6">
                     Check if the array forms a valid mountain:{' '}
                     <span
-                      className={`font-bold text-xl ${
-                        checkValidMountain() ? 'text-green-600' : 'text-red-600'
-                      }`}
+                      className={`font-bold text-xl ${checkValidMountain() ? 'text-green-600' : 'text-red-600'
+                        }`}
                     >
                       {checkValidMountain() ? 'Valid' : 'Invalid'}
                     </span>
@@ -1354,7 +1523,7 @@ function App() {
                   <p className="text-slate-600 mb-6">
                     See how binary search finds the first bad version efficiently
                   </p>
-                  <FirstBadVersionVisualizer 
+                  <FirstBadVersionVisualizer
                     totalVersions={badVersionTotal}
                     firstBadVersion={badVersionFirst}
                   />
@@ -1551,802 +1720,1224 @@ function App() {
           </>
         )}
 
-          {/* Single Number Content */}
-          {activeProblem === 'single-number' && (
-            <>
-              {activeTab === 'learn' && (
-                <div>
-                  <SingleNumberExplanation />
-                  <div className="mt-8 bg-gradient-to-r from-indigo-600 to-blue-600 rounded-xl p-8 text-white shadow-xl">
-                    <div className="flex items-center gap-4 mb-4">
-                      <Lightbulb size={40} />
-                      <div>
-                        <h3 className="text-2xl font-bold">Siap latihan?</h3>
-                        <p className="text-indigo-100">Temukan angka tunggal menggunakan XOR secara efisien.</p>
-                      </div>
-                    </div>
-                    <div className="flex gap-3 mt-6">
-                      <button
-                        onClick={() => setActiveTab('visualize')}
-                        className="bg-white text-indigo-700 px-6 py-3 rounded-lg font-semibold hover:bg-indigo-50 transition-colors shadow-md"
-                      >
-                        Mulai Visualisasi
-                      </button>
-                      <button
-                        onClick={() => setActiveTab('simulate')}
-                        className="bg-indigo-700 text-white px-6 py-3 rounded-lg font-semibold hover:bg-indigo-800 transition-colors shadow-md"
-                      >
-                        Lihat Simulasi
-                      </button>
+        {/* Single Number Content */}
+        {activeProblem === 'single-number' && (
+          <>
+            {activeTab === 'learn' && (
+              <div>
+                <SingleNumberExplanation />
+                <div className="mt-8 bg-gradient-to-r from-indigo-600 to-blue-600 rounded-xl p-8 text-white shadow-xl">
+                  <div className="flex items-center gap-4 mb-4">
+                    <Lightbulb size={40} />
+                    <div>
+                      <h3 className="text-2xl font-bold">Siap latihan?</h3>
+                      <p className="text-indigo-100">Temukan angka tunggal menggunakan XOR secara efisien.</p>
                     </div>
                   </div>
-                </div>
-              )}
-
-              {activeTab === 'visualize' && (
-                <div className="space-y-6">
-                  <SingleNumberVisualizer nums={singleNumberNums} />
-                </div>
-              )}
-
-              {activeTab === 'simulate' && (
-                <div className="space-y-6">
-                  <SingleNumberSimulator nums={singleNumberNums} />
-                </div>
-              )}
-
-              {activeTab === 'code' && (
-                <div className="space-y-6">
-                  <div className="bg-white rounded-xl p-6 shadow-lg border-2 border-slate-200">
-                    <h2 className="text-2xl font-bold text-slate-800 mb-2">Code Your Solution</h2>
-                    <p className="text-slate-600">Implementasikan fungsi singleNumber menggunakan XOR.</p>
-                  </div>
-                  <SingleNumberCodeEditor />
-                </div>
-              )}
-            </>
-          )}
-
-          {/* Robot Return to Origin Content */}
-          {activeProblem === 'robot-return' && (
-            <>
-              {activeTab === 'learn' && (
-                <div>
-                  <RobotReturnExplanation />
-                  <div className="mt-8 bg-gradient-to-r from-cyan-600 to-blue-600 rounded-xl p-8 text-white shadow-xl">
-                    <div className="flex items-center gap-4 mb-4">
-                      <Lightbulb size={40} />
-                      <div>
-                        <h3 className="text-2xl font-bold">Siap latihan?</h3>
-                        <p className="text-cyan-100">Lihat bagaimana pergerakan U/D/L/R mempengaruhi posisi akhir.</p>
-                      </div>
-                    </div>
-                    <div className="flex gap-3 mt-6">
-                      <button
-                        onClick={() => setActiveTab('visualize')}
-                        className="bg-white text-cyan-700 px-6 py-3 rounded-lg font-semibold hover:bg-cyan-50 transition-colors shadow-md"
-                      >
-                        Mulai Visualisasi
-                      </button>
-                      <button
-                        onClick={() => setActiveTab('simulate')}
-                        className="bg-cyan-700 text-white px-6 py-3 rounded-lg font-semibold hover:bg-cyan-800 transition-colors shadow-md"
-                      >
-                        Lihat Simulasi
-                      </button>
-                    </div>
+                  <div className="flex gap-3 mt-6">
+                    <button
+                      onClick={() => setActiveTab('visualize')}
+                      className="bg-white text-indigo-700 px-6 py-3 rounded-lg font-semibold hover:bg-indigo-50 transition-colors shadow-md"
+                    >
+                      Mulai Visualisasi
+                    </button>
+                    <button
+                      onClick={() => setActiveTab('simulate')}
+                      className="bg-indigo-700 text-white px-6 py-3 rounded-lg font-semibold hover:bg-indigo-800 transition-colors shadow-md"
+                    >
+                      Lihat Simulasi
+                    </button>
                   </div>
                 </div>
-              )}
+              </div>
+            )}
 
-              {activeTab === 'visualize' && (
-                <div className="space-y-6">
-                  <RobotReturnVisualizer moves={robotMoves} />
+            {activeTab === 'visualize' && (
+              <div className="space-y-6">
+                <SingleNumberVisualizer nums={singleNumberNums} />
+              </div>
+            )}
+
+            {activeTab === 'simulate' && (
+              <div className="space-y-6">
+                <SingleNumberSimulator nums={singleNumberNums} />
+              </div>
+            )}
+
+            {activeTab === 'code' && (
+              <div className="space-y-6">
+                <div className="bg-white rounded-xl p-6 shadow-lg border-2 border-slate-200">
+                  <h2 className="text-2xl font-bold text-slate-800 mb-2">Code Your Solution</h2>
+                  <p className="text-slate-600">Implementasikan fungsi singleNumber menggunakan XOR.</p>
                 </div>
-              )}
+                <SingleNumberCodeEditor />
+              </div>
+            )}
+          </>
+        )}
 
-              {activeTab === 'simulate' && (
-                <div className="space-y-6">
-                  <RobotReturnSimulator moves={robotMoves} />
-                </div>
-              )}
-
-              {activeTab === 'code' && (
-                <div className="space-y-6">
-                  <div className="bg-white rounded-xl p-6 shadow-lg border-2 border-slate-200">
-                    <h2 className="text-2xl font-bold text-slate-800 mb-2">Code Your Solution</h2>
-                    <p className="text-slate-600">Tulis fungsi judgeCircle untuk mengevaluasi pergerakan robot.</p>
-                  </div>
-                  <RobotReturnCodeEditor />
-                </div>
-              )}
-            </>
-          )}
-
-          {/* Add Binary Content */}
-          {activeProblem === 'add-binary' && (
-            <>
-              {activeTab === 'learn' && (
-                <div>
-                  <AddBinaryExplanation />
-                  <div className="mt-8 bg-gradient-to-r from-orange-600 to-amber-600 rounded-xl p-8 text-white shadow-xl">
-                    <div className="flex items-center gap-4 mb-4">
-                      <Lightbulb size={40} />
-                      <div>
-                        <h3 className="text-2xl font-bold">Siap latihan?</h3>
-                        <p className="text-orange-100">Latih carry dan penjumlahan digit demi digit pada bilangan biner.</p>
-                      </div>
-                    </div>
-                    <div className="flex gap-3 mt-6">
-                      <button
-                        onClick={() => setActiveTab('visualize')}
-                        className="bg-white text-orange-700 px-6 py-3 rounded-lg font-semibold hover:bg-orange-50 transition-colors shadow-md"
-                      >
-                        Mulai Visualisasi
-                      </button>
-                      <button
-                        onClick={() => setActiveTab('simulate')}
-                        className="bg-orange-700 text-white px-6 py-3 rounded-lg font-semibold hover:bg-orange-800 transition-colors shadow-md"
-                      >
-                        Lihat Simulasi
-                      </button>
+        {/* Robot Return to Origin Content */}
+        {activeProblem === 'robot-return' && (
+          <>
+            {activeTab === 'learn' && (
+              <div>
+                <RobotReturnExplanation />
+                <div className="mt-8 bg-gradient-to-r from-cyan-600 to-blue-600 rounded-xl p-8 text-white shadow-xl">
+                  <div className="flex items-center gap-4 mb-4">
+                    <Lightbulb size={40} />
+                    <div>
+                      <h3 className="text-2xl font-bold">Siap latihan?</h3>
+                      <p className="text-cyan-100">Lihat bagaimana pergerakan U/D/L/R mempengaruhi posisi akhir.</p>
                     </div>
                   </div>
-                </div>
-              )}
-
-              {activeTab === 'visualize' && (
-                <div className="space-y-6">
-                  <AddBinaryVisualizer a={addBinaryA} b={addBinaryB} />
-                </div>
-              )}
-
-              {activeTab === 'simulate' && (
-                <div className="space-y-6">
-                  <AddBinarySimulator a={addBinaryA} b={addBinaryB} />
-                </div>
-              )}
-
-              {activeTab === 'code' && (
-                <div className="space-y-6">
-                  <div className="bg-white rounded-xl p-6 shadow-lg border-2 border-slate-200">
-                    <h2 className="text-2xl font-bold text-slate-800 mb-2">Code Your Solution</h2>
-                    <p className="text-slate-600">Implementasikan penjumlahan biner tanpa konversi ke desimal.</p>
+                  <div className="flex gap-3 mt-6">
+                    <button
+                      onClick={() => setActiveTab('visualize')}
+                      className="bg-white text-cyan-700 px-6 py-3 rounded-lg font-semibold hover:bg-cyan-50 transition-colors shadow-md"
+                    >
+                      Mulai Visualisasi
+                    </button>
+                    <button
+                      onClick={() => setActiveTab('simulate')}
+                      className="bg-cyan-700 text-white px-6 py-3 rounded-lg font-semibold hover:bg-cyan-800 transition-colors shadow-md"
+                    >
+                      Lihat Simulasi
+                    </button>
                   </div>
-                  <AddBinaryCodeEditor />
                 </div>
-              )}
-            </>
-          )}
+              </div>
+            )}
 
-          {/* Two Sum Content */}
-          {/* Four Sum II Content */}
-          {activeProblem === 'four-sum-ii' && (
-            <>
-              {activeTab === 'learn' && <FourSumTwoExplanation />}
+            {activeTab === 'visualize' && (
+              <div className="space-y-6">
+                <RobotReturnVisualizer moves={robotMoves} />
+              </div>
+            )}
 
-              {activeTab === 'visualize' && (
-                <div className="space-y-6">
-                  <FourSumTwoVisualizer a={fourSumA} b={fourSumB} c={fourSumC} d={fourSumD} />
+            {activeTab === 'simulate' && (
+              <div className="space-y-6">
+                <RobotReturnSimulator moves={robotMoves} />
+              </div>
+            )}
+
+            {activeTab === 'code' && (
+              <div className="space-y-6">
+                <div className="bg-white rounded-xl p-6 shadow-lg border-2 border-slate-200">
+                  <h2 className="text-2xl font-bold text-slate-800 mb-2">Code Your Solution</h2>
+                  <p className="text-slate-600">Tulis fungsi judgeCircle untuk mengevaluasi pergerakan robot.</p>
                 </div>
-              )}
+                <RobotReturnCodeEditor />
+              </div>
+            )}
+          </>
+        )}
 
-              {activeTab === 'simulate' && (
-                <div className="space-y-6">
-                  <FourSumTwoSimulator a={fourSumA} b={fourSumB} c={fourSumC} d={fourSumD} />
-                </div>
-              )}
-
-              {activeTab === 'code' && (
-                <div className="space-y-6">
-                  <div className="bg-white rounded-xl p-6 shadow-lg border-2 border-slate-200">
-                    <h2 className="text-2xl font-bold text-slate-800 mb-2">Practice: Hash Map 4-Sum</h2>
-                    <p className="text-slate-600">
-                      Implementasikan solusi <span className="font-semibold text-indigo-600">O(n²)</span> dengan hash map untuk menghitung
-                      jumlah tuple yang menghasilkan nilai nol.
-                    </p>
-                  </div>
-                  <FourSumTwoCodeEditor />
-                </div>
-              )}
-            </>
-          )}
-
-          {/* Minimum Window Substring Content */}
-          {activeProblem === 'min-window-substring' && (
-            <>
-              {activeTab === 'learn' && <MinWindowExplanation />}
-
-              {activeTab === 'visualize' && (
-                <div className="space-y-6">
-                  <MinWindowVisualizer s={minWindowS} t={minWindowT} />
-                </div>
-              )}
-
-              {activeTab === 'simulate' && (
-                <div className="space-y-6">
-                  <MinWindowSimulator s={minWindowS} t={minWindowT} />
-                </div>
-              )}
-
-              {activeTab === 'code' && (
-                <div className="space-y-6">
-                  <div className="bg-white rounded-xl p-6 shadow-lg border-2 border-slate-200">
-                    <h2 className="text-2xl font-bold text-slate-800 mb-2">Code Your Solution</h2>
-                    <p className="text-slate-600">
-                      Implementasikan algoritma sliding window untuk menemukan substring terkecil yang
-                      mengandung semua karakter <span className="font-semibold text-indigo-600">T</span> di dalam <span className="font-semibold text-emerald-600">S</span>.
-                    </p>
-                  </div>
-                                   <MinWindowCodeEditor />
-                </div>
-              )}
-            </>
-          )}
-
-          {/* Group Anagrams Content */}
-          {activeProblem === 'group-anagrams' && (
-            <>
-              {activeTab === 'learn' && <GroupAnagramsExplanation />}
-
-              {activeTab === 'visualize' && (
-                <div className="space-y-6">
-                  <GroupAnagramsVisualizer strs={groupAnagramsStrs} />
-                </div>
-              )}
-
-              {activeTab === 'simulate' && (
-                <div className="space-y-6">
-                  <GroupAnagramsSimulator strs={groupAnagramsStrs} />
-                </div>
-              )}
-
-              {activeTab === 'code' && (
-                <div className="space-y-6">
-                  <div className="bg-white rounded-xl p-6 shadow-lg border-2 border-slate-200">
-                    <h2 className="text-2xl font-bold text-slate-800 mb-2">Code Your Solution</h2>
-                    <p className="text-slate-600">
-                      Implementasikan fungsi untuk mengelompokkan string yang merupakan anagram satu sama lain.
-                    </p>
-                  </div>
-                  <GroupAnagramsCodeEditor />
-                </div>
-              )}
-            </>
-          )}
-
-          {/* LRU Cache Content */}
-          {activeProblem === 'lru-cache' && (
-            <>
-              {activeTab === 'learn' && (
-                <div>
-                  <LRUCacheExplanation />
-                  <div className="mt-8 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-xl p-8 text-white shadow-xl">
-                    <div className="flex items-center gap-4 mb-4">
-                      <Lightbulb size={40} />
-                      <div>
-                        <h3 className="text-2xl font-bold">Pahami mekanisme LRU Cache</h3>
-                        <p className="text-indigo-100">Pelajari bagaimana setiap operasi mempengaruhi urutan penggunaan.</p>
-                      </div>
-                    </div>
-                    <div className="flex gap-3 mt-6">
-                      <button
-                        onClick={() => setActiveTab('visualize')}
-                        className="bg-white text-indigo-700 px-6 py-3 rounded-lg font-semibold hover:bg-indigo-50 transition-colors shadow-md"
-                      >
-                        Lihat Visualisasi
-                      </button>
-                      <button
-                        onClick={() => setActiveTab('simulate')}
-                        className="bg-indigo-700 text-white px-6 py-3 rounded-lg font-semibold hover:bg-indigo-800 transition-colors shadow-md"
-                      >
-                        Jalankan Simulasi
-                      </button>
+        {/* Add Binary Content */}
+        {activeProblem === 'add-binary' && (
+          <>
+            {activeTab === 'learn' && (
+              <div>
+                <AddBinaryExplanation />
+                <div className="mt-8 bg-gradient-to-r from-orange-600 to-amber-600 rounded-xl p-8 text-white shadow-xl">
+                  <div className="flex items-center gap-4 mb-4">
+                    <Lightbulb size={40} />
+                    <div>
+                      <h3 className="text-2xl font-bold">Siap latihan?</h3>
+                      <p className="text-orange-100">Latih carry dan penjumlahan digit demi digit pada bilangan biner.</p>
                     </div>
                   </div>
-                </div>
-              )}
-
-              {activeTab === 'visualize' && (
-                <div className="space-y-6">
-                  <LRUCacheVisualizer
-                    capacity={lruCapacity}
-                    cache={lruCacheState}
-                    lastOperation={lruLastOp}
-                  />
-                </div>
-              )}
-
-              {activeTab === 'simulate' && (
-                <div className="space-y-6">
-                  <LRUCacheSimulator capacity={lruCapacity} />
-                </div>
-              )}
-
-              {activeTab === 'code' && (
-                <div className="space-y-6">
-                  <div className="bg-white rounded-xl p-6 shadow-lg border-2 border-slate-200">
-                    <h2 className="text-2xl font-bold text-slate-800 mb-2">Practice: Design LRU Cache</h2>
-                    <p className="text-slate-600">
-                      Bangun struktur data dengan operasi <span className="font-semibold">O(1)</span> untuk <code>get</code> dan <code>put</code>
-                      menggunakan hash map dan doubly linked list.
-                    </p>
+                  <div className="flex gap-3 mt-6">
+                    <button
+                      onClick={() => setActiveTab('visualize')}
+                      className="bg-white text-orange-700 px-6 py-3 rounded-lg font-semibold hover:bg-orange-50 transition-colors shadow-md"
+                    >
+                      Mulai Visualisasi
+                    </button>
+                    <button
+                      onClick={() => setActiveTab('simulate')}
+                      className="bg-orange-700 text-white px-6 py-3 rounded-lg font-semibold hover:bg-orange-800 transition-colors shadow-md"
+                    >
+                      Lihat Simulasi
+                    </button>
                   </div>
-                  <LRUCacheCodeEditor />
                 </div>
-              )}
-            </>
-          )}
+              </div>
+            )}
 
-          {/* Merge Two Sorted Lists Content */}
-          {activeProblem === 'merge-two-lists' && (
-            <>
-              {activeTab === 'learn' && <MergeTwoListsExplanation />}
+            {activeTab === 'visualize' && (
+              <div className="space-y-6">
+                <AddBinaryVisualizer a={addBinaryA} b={addBinaryB} />
+              </div>
+            )}
 
-              {activeTab === 'visualize' && (
-                <div className="space-y-6">
-                  <MergeTwoListsVisualizer list1={mergeTwoListsState.list1} list2={mergeTwoListsState.list2} />
+            {activeTab === 'simulate' && (
+              <div className="space-y-6">
+                <AddBinarySimulator a={addBinaryA} b={addBinaryB} />
+              </div>
+            )}
+
+            {activeTab === 'code' && (
+              <div className="space-y-6">
+                <div className="bg-white rounded-xl p-6 shadow-lg border-2 border-slate-200">
+                  <h2 className="text-2xl font-bold text-slate-800 mb-2">Code Your Solution</h2>
+                  <p className="text-slate-600">Implementasikan penjumlahan biner tanpa konversi ke desimal.</p>
                 </div>
-              )}
+                <AddBinaryCodeEditor />
+              </div>
+            )}
+          </>
+        )}
 
-              {activeTab === 'simulate' && (
-                <div className="space-y-6">
-                  <MergeTwoListsSimulator list1={mergeTwoListsState.list1} list2={mergeTwoListsState.list2} />
+        {/* Two Sum Content */}
+        {/* Four Sum II Content */}
+        {activeProblem === 'four-sum-ii' && (
+          <>
+            {activeTab === 'learn' && <FourSumTwoExplanation />}
+
+            {activeTab === 'visualize' && (
+              <div className="space-y-6">
+                <FourSumTwoVisualizer a={fourSumA} b={fourSumB} c={fourSumC} d={fourSumD} />
+              </div>
+            )}
+
+            {activeTab === 'simulate' && (
+              <div className="space-y-6">
+                <FourSumTwoSimulator a={fourSumA} b={fourSumB} c={fourSumC} d={fourSumD} />
+              </div>
+            )}
+
+            {activeTab === 'code' && (
+              <div className="space-y-6">
+                <div className="bg-white rounded-xl p-6 shadow-lg border-2 border-slate-200">
+                  <h2 className="text-2xl font-bold text-slate-800 mb-2">Practice: Hash Map 4-Sum</h2>
+                  <p className="text-slate-600">
+                    Implementasikan solusi <span className="font-semibold text-indigo-600">O(n²)</span> dengan hash map untuk menghitung
+                    jumlah tuple yang menghasilkan nilai nol.
+                  </p>
                 </div>
-              )}
+                <FourSumTwoCodeEditor />
+              </div>
+            )}
+          </>
+        )}
 
-              {activeTab === 'code' && (
-                <div className="space-y-6">
-                  <div className="bg-white rounded-xl p-6 shadow-lg border-2 border-slate-200">
-                    <h2 className="text-2xl font-bold text-slate-800 mb-2">Code Your Solution</h2>
-                    <p className="text-slate-600">Gabungkan dua linked list terurut menjadi satu list terurut.</p>
+        {/* Minimum Window Substring Content */}
+        {activeProblem === 'min-window-substring' && (
+          <>
+            {activeTab === 'learn' && <MinWindowExplanation />}
+
+            {activeTab === 'visualize' && (
+              <div className="space-y-6">
+                <MinWindowVisualizer s={minWindowS} t={minWindowT} />
+              </div>
+            )}
+
+            {activeTab === 'simulate' && (
+              <div className="space-y-6">
+                <MinWindowSimulator s={minWindowS} t={minWindowT} />
+              </div>
+            )}
+
+            {activeTab === 'code' && (
+              <div className="space-y-6">
+                <div className="bg-white rounded-xl p-6 shadow-lg border-2 border-slate-200">
+                  <h2 className="text-2xl font-bold text-slate-800 mb-2">Code Your Solution</h2>
+                  <p className="text-slate-600">
+                    Implementasikan algoritma sliding window untuk menemukan substring terkecil yang
+                    mengandung semua karakter <span className="font-semibold text-indigo-600">T</span> di dalam <span className="font-semibold text-emerald-600">S</span>.
+                  </p>
+                </div>
+                <MinWindowCodeEditor />
+              </div>
+            )}
+          </>
+        )}
+
+        {/* Group Anagrams Content */}
+        {activeProblem === 'group-anagrams' && (
+          <>
+            {activeTab === 'learn' && <GroupAnagramsExplanation />}
+
+            {activeTab === 'visualize' && (
+              <div className="space-y-6">
+                <GroupAnagramsVisualizer strs={groupAnagramsStrs} />
+              </div>
+            )}
+
+            {activeTab === 'simulate' && (
+              <div className="space-y-6">
+                <GroupAnagramsSimulator strs={groupAnagramsStrs} />
+              </div>
+            )}
+
+            {activeTab === 'code' && (
+              <div className="space-y-6">
+                <div className="bg-white rounded-xl p-6 shadow-lg border-2 border-slate-200">
+                  <h2 className="text-2xl font-bold text-slate-800 mb-2">Code Your Solution</h2>
+                  <p className="text-slate-600">
+                    Implementasikan fungsi untuk mengelompokkan string yang merupakan anagram satu sama lain.
+                  </p>
+                </div>
+                <GroupAnagramsCodeEditor />
+              </div>
+            )}
+          </>
+        )}
+
+        {/* LRU Cache Content */}
+        {activeProblem === 'lru-cache' && (
+          <>
+            {activeTab === 'learn' && (
+              <div>
+                <LRUCacheExplanation />
+                <div className="mt-8 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-xl p-8 text-white shadow-xl">
+                  <div className="flex items-center gap-4 mb-4">
+                    <Lightbulb size={40} />
+                    <div>
+                      <h3 className="text-2xl font-bold">Pahami mekanisme LRU Cache</h3>
+                      <p className="text-indigo-100">Pelajari bagaimana setiap operasi mempengaruhi urutan penggunaan.</p>
+                    </div>
                   </div>
-                  <MergeTwoListsCodeEditor />
-                </div>
-              )}
-            </>
-          )}
-
-          {/* Linked List Cycle Content */}
-          {activeProblem === 'linked-list-cycle' && (
-            <>
-              {activeTab === 'learn' && <LinkedListCycleExplanation />}
-
-              {activeTab === 'visualize' && (
-                <div className="space-y-6">
-                  <LinkedListCycleVisualizer problemState={linkedListCycleState} />
-                </div>
-              )}
-
-              {activeTab === 'simulate' && (
-                <div className="space-y-6">
-                  <LinkedListCycleSimulator problemState={linkedListCycleState} />
-                </div>
-              )}
-
-              {activeTab === 'code' && (
-                <div className="space-y-6">
-                  <div className="bg-white rounded-xl p-6 shadow-lg border-2 border-slate-200">
-                    <h2 className="text-2xl font-bold text-slate-800 mb-2">Code Your Solution</h2>
-                    <p className="text-slate-600">Deteksi siklus pada linked list menggunakan dua pointer.</p>
+                  <div className="flex gap-3 mt-6">
+                    <button
+                      onClick={() => setActiveTab('visualize')}
+                      className="bg-white text-indigo-700 px-6 py-3 rounded-lg font-semibold hover:bg-indigo-50 transition-colors shadow-md"
+                    >
+                      Lihat Visualisasi
+                    </button>
+                    <button
+                      onClick={() => setActiveTab('simulate')}
+                      className="bg-indigo-700 text-white px-6 py-3 rounded-lg font-semibold hover:bg-indigo-800 transition-colors shadow-md"
+                    >
+                      Jalankan Simulasi
+                    </button>
                   </div>
-                  <LinkedListCycleCodeEditor />
                 </div>
-              )}
-            </>
-          )}
+              </div>
+            )}
 
-          {/* Reverse Linked List Content */}
-          {activeProblem === 'reverse-linked-list' && (
-            <>
-              {activeTab === 'learn' && <ReverseLinkedListExplanation />}
+            {activeTab === 'visualize' && (
+              <div className="space-y-6">
+                <LRUCacheVisualizer
+                  capacity={lruCapacity}
+                  cache={lruCacheState}
+                  lastOperation={lruLastOp}
+                />
+              </div>
+            )}
 
-              {activeTab === 'visualize' && (
-                <div className="space-y-6">
-                  <ReverseLinkedListVisualizer list={reverseList} />
+            {activeTab === 'simulate' && (
+              <div className="space-y-6">
+                <LRUCacheSimulator capacity={lruCapacity} />
+              </div>
+            )}
+
+            {activeTab === 'code' && (
+              <div className="space-y-6">
+                <div className="bg-white rounded-xl p-6 shadow-lg border-2 border-slate-200">
+                  <h2 className="text-2xl font-bold text-slate-800 mb-2">Practice: Design LRU Cache</h2>
+                  <p className="text-slate-600">
+                    Bangun struktur data dengan operasi <span className="font-semibold">O(1)</span> untuk <code>get</code> dan <code>put</code>
+                    menggunakan hash map dan doubly linked list.
+                  </p>
                 </div>
-              )}
+                <LRUCacheCodeEditor />
+              </div>
+            )}
+          </>
+        )}
 
-              {activeTab === 'simulate' && (
-                <div className="space-y-6">
-                  <ReverseLinkedListSimulator list={reverseList} />
-                </div>
-              )}
-
-              {activeTab === 'code' && (
-                <div className="space-y-6">
-                  <div className="bg-white rounded-xl p-6 shadow-lg border-2 border-slate-200">
-                    <h2 className="text-2xl font-bold text-slate-800 mb-2">Practice: Reverse Linked List</h2>
-                    <p className="text-slate-600">
-                      Balikkan singly linked list secara in-place dengan tiga pointer. Coba solusi referensi Go lalu kembangkan versimu.
-                    </p>
+        {/* Min Stack Content */}
+        {activeProblem === 'min-stack' && (
+          <>
+            {activeTab === 'learn' && (
+              <div>
+                <MinStackExplanation />
+                <div className="mt-8 bg-gradient-to-r from-emerald-600 to-teal-600 rounded-xl p-8 text-white shadow-xl">
+                  <div className="flex items-center gap-4 mb-4">
+                    <Lightbulb size={40} />
+                    <div>
+                      <h3 className="text-2xl font-bold">Bangun stack dengan getMin O(1)</h3>
+                      <p className="text-emerald-100">Dual-stack pattern + animasi GSAP untuk memahami update minimum.</p>
+                    </div>
                   </div>
-                  <ReverseLinkedListCodeEditor />
-                </div>
-              )}
-            </>
-          )}
-
-          {/* Add Two Numbers Content */}
-          {activeProblem === 'add-two-numbers' && (
-            <>
-              {activeTab === 'learn' && <AddTwoNumbersExplanation />}
-
-              {activeTab === 'visualize' && (
-                <div className="space-y-6">
-                  <AddTwoNumbersVisualizer l1={addTwoL1} l2={addTwoL2} />
-                </div>
-              )}
-
-              {activeTab === 'simulate' && (
-                <div className="space-y-6">
-                  <AddTwoNumbersSimulator l1={addTwoL1} l2={addTwoL2} />
-                </div>
-              )}
-
-              {activeTab === 'code' && (
-                <div className="space-y-6">
-                  <div className="bg-white rounded-xl p-6 shadow-lg border-2 border-slate-200">
-                    <h2 className="text-2xl font-bold text-slate-800 mb-2">Practice: Add Two Numbers</h2>
-                    <p className="text-slate-600">
-                      Kodekan penjumlahan dua bilangan (head = satuan) dan pastikan carry benar. Lihat referensi Go, lalu coba eksperimen versimu.
-                    </p>
+                  <div className="flex gap-3 mt-6">
+                    <button
+                      onClick={() => setActiveTab('visualize')}
+                      className="bg-white text-emerald-700 px-6 py-3 rounded-lg font-semibold hover:bg-emerald-50 transition-colors shadow-md"
+                    >
+                      Lihat Visualisasi
+                    </button>
+                    <button
+                      onClick={() => setActiveTab('simulate')}
+                      className="bg-emerald-700 text-white px-6 py-3 rounded-lg font-semibold hover:bg-emerald-800 transition-colors shadow-md"
+                    >
+                      Jalankan Simulasi
+                    </button>
                   </div>
-                  <AddTwoNumbersCodeEditor />
                 </div>
-              )}
-            </>
-          )}
+              </div>
+            )}
 
-          {/* Remove Nth Node From End Content */}
-          {activeProblem === 'remove-nth-node' && (
-            <>
-              {activeTab === 'learn' && <RemoveNthExplanation />}
+            {activeTab === 'visualize' && (
+              <div className="space-y-6">
+                <MinStackVisualizer operations={minStackOps} />
+              </div>
+            )}
 
-              {activeTab === 'visualize' && (
-                <div className="space-y-6">
-                  <RemoveNthVisualizer list={removeNthList} n={removeNthN} />
+            {activeTab === 'simulate' && (
+              <div className="space-y-6">
+                <MinStackSimulator operations={minStackOps} />
+              </div>
+            )}
+
+            {activeTab === 'code' && (
+              <div className="space-y-6">
+                <div className="bg-white rounded-xl p-6 shadow-lg border-2 border-slate-200">
+                  <h2 className="text-2xl font-bold text-slate-800 mb-2">Practice: Design Min Stack</h2>
+                  <p className="text-slate-600">Implementasikan <code>push</code>, <code>pop</code>, <code>top</code>, dan <code>getMin</code> dengan waktu konstan.</p>
                 </div>
-              )}
+                <MinStackCodeEditor />
+              </div>
+            )}
+          </>
+        )}
 
-              {activeTab === 'simulate' && (
-                <div className="space-y-6">
-                  <RemoveNthSimulator list={removeNthList} n={removeNthN} />
-                </div>
-              )}
-
-              {activeTab === 'code' && (
-                <div className="space-y-6">
-                  <div className="bg-white rounded-xl p-6 shadow-lg border-2 border-slate-200">
-                    <h2 className="text-2xl font-bold text-slate-800 mb-2">Practice: Remove Nth Node</h2>
-                    <p className="text-slate-600">
-                      Latihan hapus node ke-n dari belakang dengan dummy dan dua pointer satu-pass. Coba variasi test case-mu sendiri.
-                    </p>
+        {/* Valid Parentheses Content */}
+        {activeProblem === 'valid-parentheses' && (
+          <>
+            {activeTab === 'learn' && (
+              <div>
+                <ValidParenthesesExplanation />
+                <div className="mt-8 bg-gradient-to-r from-indigo-600 to-violet-600 rounded-xl p-8 text-white shadow-xl">
+                  <div className="flex items-center gap-4 mb-4">
+                    <Lightbulb size={40} />
+                    <div>
+                      <h3 className="text-2xl font-bold">Validasi bracket pakai stack</h3>
+                      <p className="text-indigo-100">Animasi GSAP menunjukkan push/pop dan mismatch secara visual.</p>
+                    </div>
                   </div>
-                  <RemoveNthCodeEditor />
-                </div>
-              )}
-            </>
-          )}
-
-          {/* Odd Even Linked List Content */}
-          {activeProblem === 'odd-even-linked-list' && (
-            <>
-              {activeTab === 'learn' && <OddEvenExplanation />}
-
-              {activeTab === 'visualize' && (
-                <div className="space-y-6">
-                  <OddEvenVisualizer list={oddEvenList} />
-                </div>
-              )}
-
-              {activeTab === 'simulate' && (
-                <div className="space-y-6">
-                  <OddEvenSimulator list={oddEvenList} />
-                </div>
-              )}
-
-              {activeTab === 'code' && (
-                <div className="space-y-6">
-                  <div className="bg-white rounded-xl p-6 shadow-lg border-2 border-slate-200">
-                    <h2 className="text-2xl font-bold text-slate-800 mb-2">Practice: Odd Even Linked List</h2>
-                    <p className="text-slate-600">
-                      Susun ulang node berdasarkan index ganjil lalu genap secara in-place. Gunakan dua pointer (odd, even) dan koneksi ulang ujung.
-                    </p>
+                  <div className="flex gap-3 mt-6">
+                    <button
+                      onClick={() => setActiveTab('visualize')}
+                      className="bg-white text-indigo-700 px-6 py-3 rounded-lg font-semibold hover:bg-indigo-50 transition-colors shadow-md"
+                    >
+                      Lihat Visualisasi
+                    </button>
+                    <button
+                      onClick={() => setActiveTab('simulate')}
+                      className="bg-indigo-700 text-white px-6 py-3 rounded-lg font-semibold hover:bg-indigo-800 transition-colors shadow-md"
+                    >
+                      Jalankan Simulasi
+                    </button>
                   </div>
-                  <OddEvenCodeEditor />
                 </div>
-              )}
-            </>
-          )}
+              </div>
+            )}
 
-          {/* Subsets Content */}
-          {activeProblem === 'subsets' && (
-            <>
-              {activeTab === 'learn' && <SubsetsExplanation />}
+            {activeTab === 'visualize' && (
+              <div className="space-y-6">
+                <ValidParenthesesVisualizer value={vpString} />
+              </div>
+            )}
 
-              {activeTab === 'visualize' && (
-                <div className="space-y-6">
-                  <SubsetsVisualizer nums={subsetsNums} />
+            {activeTab === 'simulate' && (
+              <div className="space-y-6">
+                <ValidParenthesesSimulator value={vpString} />
+              </div>
+            )}
+
+            {activeTab === 'code' && (
+              <div className="space-y-6">
+                <div className="bg-white rounded-xl p-6 shadow-lg border-2 border-slate-200">
+                  <h2 className="text-2xl font-bold text-slate-800 mb-2">Practice: Valid Parentheses</h2>
+                  <p className="text-slate-600">Implementasikan pengecekan bracket dengan stack dalam O(n).</p>
                 </div>
-              )}
+                <ValidParenthesesCodeEditor />
+              </div>
+            )}
+          </>
+        )}
 
-              {activeTab === 'simulate' && (
-                <div className="space-y-6">
-                  <SubsetsSimulator nums={subsetsNums} />
+        {/* Merge Two Sorted Lists Content */}
+        {activeProblem === 'merge-two-lists' && (
+          <>
+            {activeTab === 'learn' && <MergeTwoListsExplanation />}
+
+            {activeTab === 'visualize' && (
+              <div className="space-y-6">
+                <MergeTwoListsVisualizer list1={mergeTwoListsState.list1} list2={mergeTwoListsState.list2} />
+              </div>
+            )}
+
+            {activeTab === 'simulate' && (
+              <div className="space-y-6">
+                <MergeTwoListsSimulator list1={mergeTwoListsState.list1} list2={mergeTwoListsState.list2} />
+              </div>
+            )}
+
+            {activeTab === 'code' && (
+              <div className="space-y-6">
+                <div className="bg-white rounded-xl p-6 shadow-lg border-2 border-slate-200">
+                  <h2 className="text-2xl font-bold text-slate-800 mb-2">Code Your Solution</h2>
+                  <p className="text-slate-600">Gabungkan dua linked list terurut menjadi satu list terurut.</p>
                 </div>
-              )}
+                <MergeTwoListsCodeEditor />
+              </div>
+            )}
+          </>
+        )}
 
-              {activeTab === 'code' && (
-                <div className="space-y-6">
-                  <div className="bg-white rounded-xl p-6 shadow-lg border-2 border-slate-200">
-                    <h2 className="text-2xl font-bold text-slate-800 mb-2">Practice: Subsets</h2>
-                    <p className="text-slate-600">
-                      Implementasikan solusi backtracking untuk menghasilkan semua subset.
-                    </p>
-                  </div>
-                  <SubsetsCodeEditor />
+        {/* Linked List Cycle Content */}
+        {activeProblem === 'linked-list-cycle' && (
+          <>
+            {activeTab === 'learn' && <LinkedListCycleExplanation />}
+
+            {activeTab === 'visualize' && (
+              <div className="space-y-6">
+                <LinkedListCycleVisualizer problemState={linkedListCycleState} />
+              </div>
+            )}
+
+            {activeTab === 'simulate' && (
+              <div className="space-y-6">
+                <LinkedListCycleSimulator problemState={linkedListCycleState} />
+              </div>
+            )}
+
+            {activeTab === 'code' && (
+              <div className="space-y-6">
+                <div className="bg-white rounded-xl p-6 shadow-lg border-2 border-slate-200">
+                  <h2 className="text-2xl font-bold text-slate-800 mb-2">Code Your Solution</h2>
+                  <p className="text-slate-600">Deteksi siklus pada linked list menggunakan dua pointer.</p>
                 </div>
-              )}
-            </>
-          )}
+                <LinkedListCycleCodeEditor />
+              </div>
+            )}
+          </>
+        )}
 
-          {/* Letter Combinations Content */}
-          {activeProblem === 'letter-combinations' && (
-            <>
-              {activeTab === 'learn' && <LetterCombinationsExplanation />}
+        {/* Reverse Linked List Content */}
+        {activeProblem === 'reverse-linked-list' && (
+          <>
+            {activeTab === 'learn' && <ReverseLinkedListExplanation />}
 
-              {activeTab === 'visualize' && (
-                <div className="space-y-6">
-                  <LetterCombinationsVisualizer digits={letterCombinationsDigits} />
+            {activeTab === 'visualize' && (
+              <div className="space-y-6">
+                <ReverseLinkedListVisualizer list={reverseList} />
+              </div>
+            )}
+
+            {activeTab === 'simulate' && (
+              <div className="space-y-6">
+                <ReverseLinkedListSimulator list={reverseList} />
+              </div>
+            )}
+
+            {activeTab === 'code' && (
+              <div className="space-y-6">
+                <div className="bg-white rounded-xl p-6 shadow-lg border-2 border-slate-200">
+                  <h2 className="text-2xl font-bold text-slate-800 mb-2">Practice: Reverse Linked List</h2>
+                  <p className="text-slate-600">
+                    Balikkan singly linked list secara in-place dengan tiga pointer. Coba solusi referensi Go lalu kembangkan versimu.
+                  </p>
                 </div>
-              )}
+                <ReverseLinkedListCodeEditor />
+              </div>
+            )}
+          </>
+        )}
 
-              {activeTab === 'simulate' && (
-                <div className="space-y-6">
-                  <LetterCombinationsSimulator digits={letterCombinationsDigits} />
+        {/* Add Two Numbers Content */}
+        {activeProblem === 'add-two-numbers' && (
+          <>
+            {activeTab === 'learn' && <AddTwoNumbersExplanation />}
+
+            {activeTab === 'visualize' && (
+              <div className="space-y-6">
+                <AddTwoNumbersVisualizer l1={addTwoL1} l2={addTwoL2} />
+              </div>
+            )}
+
+            {activeTab === 'simulate' && (
+              <div className="space-y-6">
+                <AddTwoNumbersSimulator l1={addTwoL1} l2={addTwoL2} />
+              </div>
+            )}
+
+            {activeTab === 'code' && (
+              <div className="space-y-6">
+                <div className="bg-white rounded-xl p-6 shadow-lg border-2 border-slate-200">
+                  <h2 className="text-2xl font-bold text-slate-800 mb-2">Practice: Add Two Numbers</h2>
+                  <p className="text-slate-600">
+                    Kodekan penjumlahan dua bilangan (head = satuan) dan pastikan carry benar. Lihat referensi Go, lalu coba eksperimen versimu.
+                  </p>
                 </div>
-              )}
+                <AddTwoNumbersCodeEditor />
+              </div>
+            )}
+          </>
+        )}
 
-              {activeTab === 'code' && (
-                <div className="space-y-6">
-                  <div className="bg-white rounded-xl p-6 shadow-lg border-2 border-slate-200">
-                    <h2 className="text-2xl font-bold text-slate-800 mb-2">Practice: Letter Combinations</h2>
-                    <p className="text-slate-600">
-                      Implementasikan solusi backtracking untuk menghasilkan semua kombinasi huruf dari digit telepon.
-                    </p>
-                  </div>
-                  <LetterCombinationsCodeEditor />
+        {/* Remove Nth Node From End Content */}
+        {activeProblem === 'remove-nth-node' && (
+          <>
+            {activeTab === 'learn' && <RemoveNthExplanation />}
+
+            {activeTab === 'visualize' && (
+              <div className="space-y-6">
+                <RemoveNthVisualizer list={removeNthList} n={removeNthN} />
+              </div>
+            )}
+
+            {activeTab === 'simulate' && (
+              <div className="space-y-6">
+                <RemoveNthSimulator list={removeNthList} n={removeNthN} />
+              </div>
+            )}
+
+            {activeTab === 'code' && (
+              <div className="space-y-6">
+                <div className="bg-white rounded-xl p-6 shadow-lg border-2 border-slate-200">
+                  <h2 className="text-2xl font-bold text-slate-800 mb-2">Practice: Remove Nth Node</h2>
+                  <p className="text-slate-600">
+                    Latihan hapus node ke-n dari belakang dengan dummy dan dua pointer satu-pass. Coba variasi test case-mu sendiri.
+                  </p>
                 </div>
-              )}
-            </>
-          )}
+                <RemoveNthCodeEditor />
+              </div>
+            )}
+          </>
+        )}
 
-          {/* Combination Sum Content */}
-          {activeProblem === 'combination-sum' && (
-            <>
-              {activeTab === 'learn' && <CombinationSumExplanation />}
+        {/* Odd Even Linked List Content */}
+        {activeProblem === 'odd-even-linked-list' && (
+          <>
+            {activeTab === 'learn' && <OddEvenExplanation />}
 
-              {activeTab === 'visualize' && (
-                <div className="space-y-6">
-                  <CombinationSumVisualizer 
-                    candidates={combinationSumCandidates} 
-                    target={combinationSumTarget} 
-                  />
+            {activeTab === 'visualize' && (
+              <div className="space-y-6">
+                <OddEvenVisualizer list={oddEvenList} />
+              </div>
+            )}
+
+            {activeTab === 'simulate' && (
+              <div className="space-y-6">
+                <OddEvenSimulator list={oddEvenList} />
+              </div>
+            )}
+
+            {activeTab === 'code' && (
+              <div className="space-y-6">
+                <div className="bg-white rounded-xl p-6 shadow-lg border-2 border-slate-200">
+                  <h2 className="text-2xl font-bold text-slate-800 mb-2">Practice: Odd Even Linked List</h2>
+                  <p className="text-slate-600">
+                    Susun ulang node berdasarkan index ganjil lalu genap secara in-place. Gunakan dua pointer (odd, even) dan koneksi ulang ujung.
+                  </p>
                 </div>
-              )}
+                <OddEvenCodeEditor />
+              </div>
+            )}
+          </>
+        )}
 
-              {activeTab === 'simulate' && (
-                <div className="space-y-6">
-                  <CombinationSumSimulator 
-                    candidates={combinationSumCandidates} 
-                    target={combinationSumTarget} 
-                  />
+        {/* Climbing Stairs Content */}
+        {activeProblem === 'climbing-stairs' && (
+          <>
+            {activeTab === 'learn' && <ClimbingStairsExplanation />}
+
+            {activeTab === 'visualize' && (
+              <div className="space-y-6">
+                <ClimbingStairsVisualizer n={climbingN} />
+              </div>
+            )}
+
+            {activeTab === 'simulate' && (
+              <div className="space-y-6">
+                <ClimbingStairsSimulator n={climbingN} />
+              </div>
+            )}
+
+            {activeTab === 'code' && (
+              <div className="space-y-6">
+                <div className="bg-white rounded-xl p-6 shadow-lg border-2 border-slate-200">
+                  <h2 className="text-2xl font-bold text-slate-800 mb-2">Practice: Climbing Stairs</h2>
+                  <p className="text-slate-600">
+                    Gunakan DP O(1) space (variasi Fibonacci) untuk menghitung jumlah cara menaiki tangga dengan langkah 1 atau 2.
+                  </p>
                 </div>
-              )}
+                <ClimbingStairsCodeEditor />
+              </div>
+            )}
+          </>
+        )}
 
-              {activeTab === 'code' && (
-                <div className="space-y-6">
-                  <div className="bg-white rounded-xl p-6 shadow-lg border-2 border-slate-200">
-                    <h2 className="text-2xl font-bold text-slate-800 mb-2">Practice: Combination Sum</h2>
-                    <p className="text-slate-600">
-                      Implementasikan solusi backtracking dengan pruning untuk menemukan kombinasi yang jumlahnya sama dengan target.
-                    </p>
-                  </div>
-                  <CombinationSumCodeEditor />
+        {/* Coin Change Content */}
+        {activeProblem === 'coin-change' && (
+          <>
+            {activeTab === 'learn' && <CoinChangeExplanation />}
+
+            {activeTab === 'visualize' && (
+              <div className="space-y-6">
+                <CoinChangeVisualizer coins={coinChangeCoins} amount={coinChangeAmount} />
+              </div>
+            )}
+
+            {activeTab === 'simulate' && (
+              <div className="space-y-6">
+                <CoinChangeSimulator coins={coinChangeCoins} amount={coinChangeAmount} />
+              </div>
+            )}
+
+            {activeTab === 'code' && (
+              <div className="space-y-6">
+                <div className="bg-white rounded-xl p-6 shadow-lg border-2 border-slate-200">
+                  <h2 className="text-2xl font-bold text-slate-800 mb-2">Practice: Coin Change</h2>
+                  <p className="text-slate-600">
+                    Terapkan DP bottom-up unbounded knapsack untuk meminimalkan jumlah koin. Perhatikan inisialisasi Infinity dan urutan loop.
+                  </p>
                 </div>
-              )}
-            </>
-          )}
+                <CoinChangeCodeEditor />
+              </div>
+            )}
+          </>
+        )}
 
-          {/* Palindrome Partition Content */}
-          {activeProblem === 'palindrome-partition' && (
-            <>
-              {activeTab === 'learn' && <PalindromePartitionExplanation />}
+        {/* Best Time to Buy & Sell Stock Content */}
+        {activeProblem === 'best-time-stock' && (
+          <>
+            {activeTab === 'learn' && <BestTimeStockExplanation />}
 
-              {activeTab === 'visualize' && (
-                <div className="space-y-6">
-                  <PalindromePartitionVisualizer 
-                    partitions={(() => {
-                      const result: string[][] = [];
-                      function isPalindrome(s: string): boolean {
-                        let left = 0, right = s.length - 1;
-                        while (left < right) {
-                          if (s[left] !== s[right]) return false;
-                          left++; right--;
-                        }
-                        return true;
+            {activeTab === 'visualize' && (
+              <div className="space-y-6">
+                <BestTimeStockVisualizer prices={bestTimePrices} />
+              </div>
+            )}
+
+            {activeTab === 'simulate' && (
+              <div className="space-y-6">
+                <BestTimeStockSimulator prices={bestTimePrices} />
+              </div>
+            )}
+
+            {activeTab === 'code' && (
+              <div className="space-y-6">
+                <div className="bg-white rounded-xl p-6 shadow-lg border-2 border-slate-200">
+                  <h2 className="text-2xl font-bold text-slate-800 mb-2">Practice: Best Time to Buy and Sell Stock</h2>
+                  <p className="text-slate-600">
+                    Lakukan satu pass: simpan harga minimum sejauh ini dan update profit maksimum dengan (harga sekarang - minSoFar).
+                  </p>
+                </div>
+                <BestTimeStockCodeEditor />
+              </div>
+            )}
+          </>
+        )}
+
+        {/* House Robber Content */}
+        {activeProblem === 'house-robber' && (
+          <>
+            {activeTab === 'learn' && <HouseRobberExplanation />}
+
+            {activeTab === 'visualize' && (
+              <div className="space-y-6">
+                <HouseRobberVisualizer houses={houseRobberNums} />
+              </div>
+            )}
+
+            {activeTab === 'simulate' && (
+              <div className="space-y-6">
+                <HouseRobberSimulator houses={houseRobberNums} />
+              </div>
+            )}
+
+            {activeTab === 'code' && (
+              <div className="space-y-6">
+                <div className="bg-white rounded-xl p-6 shadow-lg border-2 border-slate-200">
+                  <h2 className="text-2xl font-bold text-slate-800 mb-2">Practice: House Robber</h2>
+                  <p className="text-slate-600">
+                    Gunakan DP O(n) dengan dua state (ambil / lewati) untuk memaksimalkan uang tanpa merampok rumah bersebelahan.
+                  </p>
+                </div>
+                <HouseRobberCodeEditor />
+              </div>
+            )}
+          </>
+        )}
+
+        {/* Subsets Content */}
+        {activeProblem === 'subsets' && (
+          <>
+            {activeTab === 'learn' && <SubsetsExplanation />}
+
+            {activeTab === 'visualize' && (
+              <div className="space-y-6">
+                <SubsetsVisualizer nums={subsetsNums} />
+              </div>
+            )}
+
+            {activeTab === 'simulate' && (
+              <div className="space-y-6">
+                <SubsetsSimulator nums={subsetsNums} />
+              </div>
+            )}
+
+            {activeTab === 'code' && (
+              <div className="space-y-6">
+                <div className="bg-white rounded-xl p-6 shadow-lg border-2 border-slate-200">
+                  <h2 className="text-2xl font-bold text-slate-800 mb-2">Practice: Subsets</h2>
+                  <p className="text-slate-600">
+                    Implementasikan solusi backtracking untuk menghasilkan semua subset.
+                  </p>
+                </div>
+                <SubsetsCodeEditor />
+              </div>
+            )}
+          </>
+        )}
+
+        {/* Letter Combinations Content */}
+        {activeProblem === 'letter-combinations' && (
+          <>
+            {activeTab === 'learn' && <LetterCombinationsExplanation />}
+
+            {activeTab === 'visualize' && (
+              <div className="space-y-6">
+                <LetterCombinationsVisualizer digits={letterCombinationsDigits} />
+              </div>
+            )}
+
+            {activeTab === 'simulate' && (
+              <div className="space-y-6">
+                <LetterCombinationsSimulator digits={letterCombinationsDigits} />
+              </div>
+            )}
+
+            {activeTab === 'code' && (
+              <div className="space-y-6">
+                <div className="bg-white rounded-xl p-6 shadow-lg border-2 border-slate-200">
+                  <h2 className="text-2xl font-bold text-slate-800 mb-2">Practice: Letter Combinations</h2>
+                  <p className="text-slate-600">
+                    Implementasikan solusi backtracking untuk menghasilkan semua kombinasi huruf dari digit telepon.
+                  </p>
+                </div>
+                <LetterCombinationsCodeEditor />
+              </div>
+            )}
+          </>
+        )}
+
+        {/* Combination Sum Content */}
+        {activeProblem === 'combination-sum' && (
+          <>
+            {activeTab === 'learn' && <CombinationSumExplanation />}
+
+            {activeTab === 'visualize' && (
+              <div className="space-y-6">
+                <CombinationSumVisualizer
+                  candidates={combinationSumCandidates}
+                  target={combinationSumTarget}
+                />
+              </div>
+            )}
+
+            {activeTab === 'simulate' && (
+              <div className="space-y-6">
+                <CombinationSumSimulator
+                  candidates={combinationSumCandidates}
+                  target={combinationSumTarget}
+                />
+              </div>
+            )}
+
+            {activeTab === 'code' && (
+              <div className="space-y-6">
+                <div className="bg-white rounded-xl p-6 shadow-lg border-2 border-slate-200">
+                  <h2 className="text-2xl font-bold text-slate-800 mb-2">Practice: Combination Sum</h2>
+                  <p className="text-slate-600">
+                    Implementasikan solusi backtracking dengan pruning untuk menemukan kombinasi yang jumlahnya sama dengan target.
+                  </p>
+                </div>
+                <CombinationSumCodeEditor />
+              </div>
+            )}
+          </>
+        )}
+
+        {/* Palindrome Partition Content */}
+        {activeProblem === 'palindrome-partition' && (
+          <>
+            {activeTab === 'learn' && <PalindromePartitionExplanation />}
+
+            {activeTab === 'visualize' && (
+              <div className="space-y-6">
+                <PalindromePartitionVisualizer
+                  partitions={(() => {
+                    const result: string[][] = [];
+                    function isPalindrome(s: string): boolean {
+                      let left = 0, right = s.length - 1;
+                      while (left < right) {
+                        if (s[left] !== s[right]) return false;
+                        left++; right--;
                       }
-                      function backtrack(start: number, current: string[]) {
-                        if (start === palindromePartitionString.length) {
-                          result.push([...current]);
-                          return;
-                        }
-                        for (let end = start + 1; end <= palindromePartitionString.length; end++) {
-                          const sub = palindromePartitionString.substring(start, end);
-                          if (isPalindrome(sub)) {
-                            current.push(sub);
-                            backtrack(end, current);
-                            current.pop();
-                          }
+                      return true;
+                    }
+                    function backtrack(start: number, current: string[]) {
+                      if (start === palindromePartitionString.length) {
+                        result.push([...current]);
+                        return;
+                      }
+                      for (let end = start + 1; end <= palindromePartitionString.length; end++) {
+                        const sub = palindromePartitionString.substring(start, end);
+                        if (isPalindrome(sub)) {
+                          current.push(sub);
+                          backtrack(end, current);
+                          current.pop();
                         }
                       }
-                      backtrack(0, []);
-                      return result;
-                    })()}
-                  />
-                </div>
-              )}
-
-              {activeTab === 'simulate' && (
-                <div className="space-y-6">
-                  <PalindromePartitionSimulator 
-                    inputString={palindromePartitionString}
-                  />
-                </div>
-              )}
-
-              {activeTab === 'code' && (
-                <div className="space-y-6">
-                  <div className="bg-white rounded-xl p-6 shadow-lg border-2 border-slate-200">
-                    <h2 className="text-2xl font-bold text-slate-800 mb-2">Practice: Palindrome Partitioning</h2>
-                    <p className="text-slate-600">
-                      Implementasikan solusi backtracking untuk menemukan semua partisi palindrome dari string.
-                    </p>
-                  </div>
-                  <PalindromePartitionCodeEditor />
-                </div>
-              )}
-            </>
-          )}
-
-          {/* Symmetric Tree Content */}
-          {activeProblem === 'symmetric-tree' && (
-            <>
-              {activeTab === 'learn' && <SymmetricTreeExplanation />}
-
-              {activeTab === 'visualize' && (
-                <div className="space-y-6">
-                  <SymmetricTreeVisualizer 
-                    nodes={symmetricTreeNodes}
-                  />
-                </div>
-              )}
-
-              {activeTab === 'simulate' && (
-                <div className="space-y-6">
-                  <SymmetricTreeSimulator 
-                    nodes={symmetricTreeNodes}
-                  />
-                </div>
-              )}
-
-              {activeTab === 'code' && (
-                <div className="space-y-6">
-                  <div className="bg-white rounded-xl p-6 shadow-lg border-2 border-slate-200">
-                    <h2 className="text-2xl font-bold text-slate-800 mb-2">Practice: Symmetric Tree</h2>
-                    <p className="text-slate-600">
-                      Implementasikan solusi rekursif atau iteratif untuk cek apakah tree symmetric.
-                    </p>
-                  </div>
-                  <SymmetricTreeCodeEditor />
-                </div>
-              )}
-            </>
-          )}
-
-            {/* Path Sum Content */}
-            {activeProblem === 'path-sum' && (
-              <>
-                {activeTab === 'learn' && <PathSumExplanation />}
-
-                {activeTab === 'visualize' && (
-                  <div className="space-y-6">
-                    <PathSumVisualizer nodes={pathSumNodes} targetSum={pathSumTarget} />
-                  </div>
-                )}
-
-                {activeTab === 'simulate' && (
-                  <div className="space-y-6">
-                    <PathSumSimulator nodes={pathSumNodes} targetSum={pathSumTarget} />
-                  </div>
-                )}
-
-                {activeTab === 'code' && (
-                  <div className="space-y-6">
-                    <div className="bg-white rounded-xl p-6 shadow-lg border-2 border-slate-200">
-                      <h2 className="text-2xl font-bold text-slate-800 mb-2">Practice: Path Sum</h2>
-                      <p className="text-slate-600">
-                        Implementasikan solusi DFS (rekursif/iteratif) untuk mengecek path root-to-leaf dengan jumlah sama dengan target.
-                      </p>
-                    </div>
-                    <PathSumCodeEditor />
-                  </div>
-                )}
-              </>
+                    }
+                    backtrack(0, []);
+                    return result;
+                  })()}
+                />
+              </div>
             )}
 
-            {/* Maximum Depth of Binary Tree Content */}
-            {activeProblem === 'max-depth-tree' && (
-              <>
-                {activeTab === 'learn' && <MaxDepthTreeExplanation />}
-
-                {activeTab === 'visualize' && (
-                  <div className="space-y-6">
-                    <MaxDepthTreeVisualizer nodes={maxDepthTreeNodes} />
-                  </div>
-                )}
-
-                {activeTab === 'simulate' && (
-                  <div className="space-y-6">
-                    <MaxDepthTreeSimulator nodes={maxDepthTreeNodes} />
-                  </div>
-                )}
-
-                {activeTab === 'code' && (
-                  <div className="space-y-6">
-                    <div className="bg-white rounded-xl p-6 shadow-lg border-2 border-slate-200">
-                      <h2 className="text-2xl font-bold text-slate-800 mb-2">Practice: Maximum Depth of Binary Tree</h2>
-                      <p className="text-slate-600">
-                        Implementasikan solusi rekursif atau iteratif untuk menghitung kedalaman maksimum binary tree.
-                      </p>
-                    </div>
-                    <MaxDepthTreeCodeEditor />
-                  </div>
-                )}
-              </>
+            {activeTab === 'simulate' && (
+              <div className="space-y-6">
+                <PalindromePartitionSimulator
+                  inputString={palindromePartitionString}
+                />
+              </div>
             )}
 
-            {/* Kth Smallest Element in a BST Content */}
-            {activeProblem === 'kth-smallest-bst' && (
-              <>
-                {activeTab === 'learn' && <KthSmallestExplanation />}
-
-                {activeTab === 'visualize' && (
-                  <div className="space-y-6">
-                    <KthSmallestVisualizer nodes={kthSmallestNodes} k={kthSmallestK} />
-                  </div>
-                )}
-
-                {activeTab === 'simulate' && (
-                  <div className="space-y-6">
-                    <KthSmallestSimulator nodes={kthSmallestNodes} k={kthSmallestK} />
-                  </div>
-                )}
-
-                {activeTab === 'code' && (
-                  <div className="space-y-6">
-                    <div className="bg-white rounded-xl p-6 shadow-lg border-2 border-slate-200">
-                      <h2 className="text-2xl font-bold text-slate-800 mb-2">Practice: Kth Smallest Element in a BST</h2>
-                      <p className="text-slate-600">
-                        Terapkan traversal inorder untuk menemukan elemen ke-k terkecil dengan pendekatan rekursif atau iteratif.
-                      </p>
-                    </div>
-                    <KthSmallestCodeEditor />
-                  </div>
-                )}
-              </>
+            {activeTab === 'code' && (
+              <div className="space-y-6">
+                <div className="bg-white rounded-xl p-6 shadow-lg border-2 border-slate-200">
+                  <h2 className="text-2xl font-bold text-slate-800 mb-2">Practice: Palindrome Partitioning</h2>
+                  <p className="text-slate-600">
+                    Implementasikan solusi backtracking untuk menemukan semua partisi palindrome dari string.
+                  </p>
+                </div>
+                <PalindromePartitionCodeEditor />
+              </div>
             )}
+          </>
+        )}
+
+        {/* Symmetric Tree Content */}
+        {activeProblem === 'symmetric-tree' && (
+          <>
+            {activeTab === 'learn' && <SymmetricTreeExplanation />}
+
+            {activeTab === 'visualize' && (
+              <div className="space-y-6">
+                <SymmetricTreeVisualizer
+                  nodes={symmetricTreeNodes}
+                />
+              </div>
+            )}
+
+            {activeTab === 'simulate' && (
+              <div className="space-y-6">
+                <SymmetricTreeSimulator
+                  nodes={symmetricTreeNodes}
+                />
+              </div>
+            )}
+
+            {activeTab === 'code' && (
+              <div className="space-y-6">
+                <div className="bg-white rounded-xl p-6 shadow-lg border-2 border-slate-200">
+                  <h2 className="text-2xl font-bold text-slate-800 mb-2">Practice: Symmetric Tree</h2>
+                  <p className="text-slate-600">
+                    Implementasikan solusi rekursif atau iteratif untuk cek apakah tree symmetric.
+                  </p>
+                </div>
+                <SymmetricTreeCodeEditor />
+              </div>
+            )}
+          </>
+        )}
+
+        {/* Binary Tree Level Order Traversal Content */}
+        {activeProblem === 'binary-tree-level-order' && (
+          <>
+            {activeTab === 'learn' && <BinaryTreeLevelOrderExplanation />}
+
+            {activeTab === 'visualize' && (
+              <div className="space-y-6">
+                <BinaryTreeLevelOrderVisualizer nodes={binaryTreeLevelOrderNodes} />
+              </div>
+            )}
+
+            {activeTab === 'simulate' && (
+              <div className="space-y-6">
+                <BinaryTreeLevelOrderSimulator nodes={binaryTreeLevelOrderNodes} />
+              </div>
+            )}
+
+            {activeTab === 'code' && (
+              <div className="space-y-6">
+                <div className="bg-white rounded-xl p-6 shadow-lg border-2 border-slate-200">
+                  <h2 className="text-2xl font-bold text-slate-800 mb-2">Practice: Binary Tree Level Order Traversal</h2>
+                  <p className="text-slate-600">
+                    Implementasikan BFS menggunakan queue untuk mengumpulkan nilai per level secara berurutan.
+                  </p>
+                </div>
+                <BinaryTreeLevelOrderCodeEditor />
+              </div>
+            )}
+          </>
+        )}
+
+        {/* Binary Tree Maximum Path Sum Content */}
+        {activeProblem === 'max-path-sum' && (
+          <>
+            {activeTab === 'learn' && <MaxPathSumExplanation />}
+
+            {activeTab === 'visualize' && (
+              <div className="space-y-6">
+                <MaxPathSumVisualizer nodes={maxPathSumNodes} />
+              </div>
+            )}
+
+            {activeTab === 'simulate' && (
+              <div className="space-y-6">
+                <MaxPathSumSimulator nodes={maxPathSumNodes} />
+              </div>
+            )}
+
+            {activeTab === 'code' && (
+              <div className="space-y-6">
+                <div className="bg-white rounded-xl p-6 shadow-lg border-2 border-slate-200">
+                  <h2 className="text-2xl font-bold text-slate-800 mb-2">Practice: Binary Tree Maximum Path Sum</h2>
+                  <p className="text-slate-600">
+                    Implementasikan DFS post-order untuk menghitung gain per node dan memperbarui global best path.
+                  </p>
+                </div>
+                <MaxPathSumCodeEditor />
+              </div>
+            )}
+          </>
+        )}
+
+        {/* Path Sum Content */}
+        {activeProblem === 'path-sum' && (
+          <>
+            {activeTab === 'learn' && <PathSumExplanation />}
+
+            {activeTab === 'visualize' && (
+              <div className="space-y-6">
+                <PathSumVisualizer nodes={pathSumNodes} targetSum={pathSumTarget} />
+              </div>
+            )}
+
+            {activeTab === 'simulate' && (
+              <div className="space-y-6">
+                <PathSumSimulator nodes={pathSumNodes} targetSum={pathSumTarget} />
+              </div>
+            )}
+
+            {activeTab === 'code' && (
+              <div className="space-y-6">
+                <div className="bg-white rounded-xl p-6 shadow-lg border-2 border-slate-200">
+                  <h2 className="text-2xl font-bold text-slate-800 mb-2">Practice: Path Sum</h2>
+                  <p className="text-slate-600">
+                    Implementasikan solusi DFS (rekursif/iteratif) untuk mengecek path root-to-leaf dengan jumlah sama dengan target.
+                  </p>
+                </div>
+                <PathSumCodeEditor />
+              </div>
+            )}
+          </>
+        )}
+
+        {/* Maximum Depth of Binary Tree Content */}
+        {activeProblem === 'max-depth-tree' && (
+          <>
+            {activeTab === 'learn' && <MaxDepthTreeExplanation />}
+
+            {activeTab === 'visualize' && (
+              <div className="space-y-6">
+                <MaxDepthTreeVisualizer nodes={maxDepthTreeNodes} />
+              </div>
+            )}
+
+            {activeTab === 'simulate' && (
+              <div className="space-y-6">
+                <MaxDepthTreeSimulator nodes={maxDepthTreeNodes} />
+              </div>
+            )}
+
+            {activeTab === 'code' && (
+              <div className="space-y-6">
+                <div className="bg-white rounded-xl p-6 shadow-lg border-2 border-slate-200">
+                  <h2 className="text-2xl font-bold text-slate-800 mb-2">Practice: Maximum Depth of Binary Tree</h2>
+                  <p className="text-slate-600">
+                    Implementasikan solusi rekursif atau iteratif untuk menghitung kedalaman maksimum binary tree.
+                  </p>
+                </div>
+                <MaxDepthTreeCodeEditor />
+              </div>
+            )}
+          </>
+        )}
+
+        {/* Serialize & Deserialize Binary Tree Content */}
+        {activeProblem === 'serialize-binary-tree' && (
+          <>
+            {activeTab === 'learn' && <SerializeTreeExplanation />}
+
+            {activeTab === 'visualize' && (
+              <div className="space-y-6">
+                <SerializeTreeVisualizer nodes={serializeTreeNodes} serialized={serializeTreeString} onSerializedChange={setSerializeTreeString} />
+              </div>
+            )}
+
+            {activeTab === 'simulate' && (
+              <div className="space-y-6">
+                <SerializeTreeSimulator nodes={serializeTreeNodes} serialized={serializeTreeString} />
+              </div>
+            )}
+
+            {activeTab === 'code' && (
+              <div className="space-y-6">
+                <div className="bg-white rounded-xl p-6 shadow-lg border-2 border-slate-200">
+                  <h2 className="text-2xl font-bold text-slate-800 mb-2">Practice: Serialize & Deserialize Binary Tree</h2>
+                  <p className="text-slate-600">
+                    Implementasikan codec tree yang stabil menggunakan BFS (level-order) atau DFS (preorder) dengan penanda null.
+                  </p>
+                </div>
+                <SerializeTreeCodeEditor />
+              </div>
+            )}
+          </>
+        )}
+
+        {/* Kth Smallest Element in a BST Content */}
+        {activeProblem === 'kth-smallest-bst' && (
+          <>
+            {activeTab === 'learn' && <KthSmallestExplanation />}
+
+            {activeTab === 'visualize' && (
+              <div className="space-y-6">
+                <KthSmallestVisualizer nodes={kthSmallestNodes} k={kthSmallestK} />
+              </div>
+            )}
+
+            {activeTab === 'simulate' && (
+              <div className="space-y-6">
+                <KthSmallestSimulator nodes={kthSmallestNodes} k={kthSmallestK} />
+              </div>
+            )}
+
+            {activeTab === 'code' && (
+              <div className="space-y-6">
+                <div className="bg-white rounded-xl p-6 shadow-lg border-2 border-slate-200">
+                  <h2 className="text-2xl font-bold text-slate-800 mb-2">Practice: Kth Smallest Element in a BST</h2>
+                  <p className="text-slate-600">
+                    Terapkan traversal inorder untuk menemukan elemen ke-k terkecil dengan pendekatan rekursif atau iteratif.
+                  </p>
+                </div>
+                <KthSmallestCodeEditor />
+              </div>
+            )}
+          </>
+        )}
+        {/* Binary Tree Zigzag Level Order Traversal Content */}
+        {activeProblem === 'binary-tree-zigzag-level-order' && (
+          <>
+            {activeTab === 'learn' && <BinaryTreeZigzagExplanation />}
+
+            {activeTab === 'visualize' && (
+              <div className="space-y-6">
+                <BinaryTreeZigzagVisualizer nodes={binaryTreeZigzagNodes} />
+              </div>
+            )}
+
+            {activeTab === 'simulate' && (
+              <div className="space-y-6">
+                <BinaryTreeZigzagSimulator nodes={binaryTreeZigzagNodes} />
+              </div>
+            )}
+
+            {activeTab === 'code' && (
+              <div className="space-y-6">
+                <div className="bg-white rounded-xl p-6 shadow-lg border-2 border-slate-200">
+                  <h2 className="text-2xl font-bold text-slate-800 mb-2">Practice: Zigzag Level Order</h2>
+                  <p className="text-slate-600">
+                    Traverse tree dengan pola zigzag (kiri-kanan, kanan-kiri). Gunakan flag untuk membalik arah penyisipan.
+                  </p>
+                </div>
+                <BinaryTreeZigzagCodeEditor />
+              </div>
+            )}
+          </>
+        )}
+
+        {/* Unique Paths Content */}
+        {activeProblem === 'unique-paths' && (
+          <>
+            {activeTab === 'learn' && <UniquePathsExplanation />}
+
+            {activeTab === 'visualize' && (
+              <div className="space-y-6">
+                <UniquePathsVisualizer m={uniquePathsM} n={uniquePathsN} />
+              </div>
+            )}
+
+            {activeTab === 'simulate' && (
+              <div className="space-y-6">
+                <UniquePathsSimulator m={uniquePathsM} n={uniquePathsN} />
+              </div>
+            )}
+
+            {activeTab === 'code' && (
+              <div className="space-y-6">
+                <div className="bg-white rounded-xl p-6 shadow-lg border-2 border-slate-200">
+                  <h2 className="text-2xl font-bold text-slate-800 mb-2">Practice: Unique Paths</h2>
+                  <p className="text-slate-600">
+                    Gunakan Dynamic Programming untuk menghitung jumlah jalan unik dari (0,0) ke (m-1, n-1).
+                  </p>
+                </div>
+                <UniquePathsCodeEditor />
+              </div>
+            )}
+          </>
+        )}
+
+        {/* Trapping Rain Water Content */}
+        {activeProblem === 'trapping-rain-water' && (
+          <>
+            {activeTab === 'learn' && <TrappingRainWaterExplanation />}
+
+            {activeTab === 'visualize' && (
+              <div className="space-y-6">
+                <TrappingRainWaterVisualizer heights={trappingRainWaterHeights} />
+              </div>
+            )}
+
+            {activeTab === 'simulate' && (
+              <div className="space-y-6">
+                <TrappingRainWaterSimulator heights={trappingRainWaterHeights} />
+              </div>
+            )}
+
+            {activeTab === 'code' && (
+              <div className="space-y-6">
+                <div className="bg-white rounded-xl p-6 shadow-lg border-2 border-slate-200">
+                  <h2 className="text-2xl font-bold text-slate-800 mb-2">Practice: Trapping Rain Water</h2>
+                  <p className="text-slate-600">
+                    Gunakan teknik Two Pointers untuk menghitung total air yang terperangkap.
+                  </p>
+                </div>
+                <TrappingRainWaterCodeEditor />
+              </div>
+            )}
+          </>
+        )}
+
       </main>
 
       {/* Footer */}
@@ -2359,13 +2950,12 @@ function App() {
             <p className="mt-2 text-slate-500">
               Problem difficulty:{' '}
               <span
-                className={`font-semibold ${
-                  currentProblem.difficulty === 'Easy'
-                    ? 'text-green-600'
-                    : currentProblem.difficulty === 'Medium'
+                className={`font-semibold ${currentProblem.difficulty === 'Easy'
+                  ? 'text-green-600'
+                  : currentProblem.difficulty === 'Medium'
                     ? 'text-orange-600'
                     : 'text-red-600'
-                }`}
+                  }`}
               >
                 {currentProblem.difficulty}
               </span>{' '}
