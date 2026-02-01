@@ -19,7 +19,6 @@ export type ProblemId =
   | 'group-anagrams'
   | 'lru-cache'
   | 'min-stack'
-  | 'valid-parentheses'
   | 'merge-two-lists'
   | 'linked-list-cycle'
   | 'reverse-linked-list'
@@ -196,13 +195,6 @@ export const PROBLEMS: Record<ProblemId, Problem> = {
     difficulty: 'Medium',
     topics: ['Stack', 'Design', 'Data Structure'],
     description: 'Rancang stack yang dapat mengembalikan nilai minimum dalam O(1) untuk setiap operasi',
-  },
-  'valid-parentheses': {
-    id: 'valid-parentheses',
-    title: 'Valid Parentheses',
-    difficulty: 'Easy',
-    topics: ['Stack', 'String'],
-    description: 'Periksa apakah string bracket memiliki urutan buka-tutup yang valid menggunakan stack',
   },
   'merge-two-lists': {
     id: 'merge-two-lists',

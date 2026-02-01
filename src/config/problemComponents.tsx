@@ -202,13 +202,6 @@ import MinStackVisualizer from '../components/minstack/MinStackVisualizer';
 import MinStackSimulator from '../components/minstack/MinStackSimulator';
 import MinStackCodeEditor from '../components/minstack/MinStackCodeEditor';
 
-// Valid Parentheses
-import ValidParenthesesExplanation from '../components/validparentheses/ValidParenthesesExplanation';
-import ValidParenthesesInputPanel from '../components/validparentheses/ValidParenthesesInputPanel';
-import ValidParenthesesVisualizer from '../components/validparentheses/ValidParenthesesVisualizer';
-import ValidParenthesesSimulator from '../components/validparentheses/ValidParenthesesSimulator';
-import ValidParenthesesCodeEditor from '../components/validparentheses/ValidParenthesesCodeEditor';
-
 // Best Time to Buy & Sell Stock
 import BestTimeStockExplanation from '../components/besttimestock/BestTimeStockExplanation';
 import BestTimeStockInputPanel from '../components/besttimestock/BestTimeStockInputPanel';
@@ -412,13 +405,6 @@ export const PROBLEM_COMPONENTS: Partial<Record<ProblemId, ProblemComponents>> =
     Visualizer: MinStackVisualizer,
     Simulator: MinStackSimulator,
     CodeEditor: MinStackCodeEditor,
-  },
-  'valid-parentheses': {
-    Explanation: ValidParenthesesExplanation,
-    InputPanel: ValidParenthesesInputPanel,
-    Visualizer: ValidParenthesesVisualizer,
-    Simulator: ValidParenthesesSimulator,
-    CodeEditor: ValidParenthesesCodeEditor,
   },
   'binary-tree-level-order': {
     Explanation: BinaryTreeLevelOrderExplanation,

@@ -122,12 +122,6 @@ import MinStackSimulator from './components/minstack/MinStackSimulator';
 import MinStackCodeEditor from './components/minstack/MinStackCodeEditor';
 import { MinStackOp } from './components/minstack/types';
 
-import ValidParenthesesExplanation from './components/validparentheses/ValidParenthesesExplanation';
-import ValidParenthesesInputPanel from './components/validparentheses/ValidParenthesesInputPanel';
-import ValidParenthesesVisualizer from './components/validparentheses/ValidParenthesesVisualizer';
-import ValidParenthesesSimulator from './components/validparentheses/ValidParenthesesSimulator';
-import ValidParenthesesCodeEditor from './components/validparentheses/ValidParenthesesCodeEditor';
-
 import BestTimeStockExplanation from './components/besttimestock/BestTimeStockExplanation';
 import BestTimeStockInputPanel from './components/besttimestock/BestTimeStockInputPanel';
 import BestTimeStockVisualizer from './components/besttimestock/BestTimeStockVisualizer';
@@ -443,7 +437,6 @@ function App() {
     'group-anagrams': Braces,
     'lru-cache': Repeat,
     'min-stack': Layers,
-    'valid-parentheses': Braces,
     'merge-two-lists': GitMerge,
     'linked-list-cycle': RefreshCw,
     'reverse-linked-list': RotateCw,
@@ -888,11 +881,6 @@ function App() {
         {activeTab !== 'learn' && activeProblem === 'min-stack' && (
           <div className="mb-8">
             <MinStackInputPanel operations={minStackOps} setOperations={setMinStackOps} />
-          </div>
-        )}
-        {activeTab !== 'learn' && activeProblem === 'valid-parentheses' && (
-          <div className="mb-8">
-            <ValidParenthesesInputPanel value={vpString} setValue={setVpString} />
           </div>
         )}
         {activeTab !== 'learn' && activeProblem === 'merge-two-lists' && (
@@ -2102,63 +2090,6 @@ function App() {
             )}
           </>
         )}
-
-        {/* Valid Parentheses Content */}
-        {activeProblem === 'valid-parentheses' && (
-          <>
-            {activeTab === 'learn' && (
-              <div>
-                <ValidParenthesesExplanation />
-                <div className="mt-8 bg-gradient-to-r from-indigo-600 to-violet-600 rounded-xl p-8 text-white shadow-xl">
-                  <div className="flex items-center gap-4 mb-4">
-                    <Lightbulb size={40} />
-                    <div>
-                      <h3 className="text-2xl font-bold">Validasi bracket pakai stack</h3>
-                      <p className="text-indigo-100">Animasi GSAP menunjukkan push/pop dan mismatch secara visual.</p>
-                    </div>
-                  </div>
-                  <div className="flex gap-3 mt-6">
-                    <button
-                      onClick={() => setActiveTab('visualize')}
-                      className="bg-white text-indigo-700 px-6 py-3 rounded-lg font-semibold hover:bg-indigo-50 transition-colors shadow-md"
-                    >
-                      Lihat Visualisasi
-                    </button>
-                    <button
-                      onClick={() => setActiveTab('simulate')}
-                      className="bg-indigo-700 text-white px-6 py-3 rounded-lg font-semibold hover:bg-indigo-800 transition-colors shadow-md"
-                    >
-                      Jalankan Simulasi
-                    </button>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {activeTab === 'visualize' && (
-              <div className="space-y-6">
-                <ValidParenthesesVisualizer value={vpString} />
-              </div>
-            )}
-
-            {activeTab === 'simulate' && (
-              <div className="space-y-6">
-                <ValidParenthesesSimulator value={vpString} />
-              </div>
-            )}
-
-            {activeTab === 'code' && (
-              <div className="space-y-6">
-                <div className="bg-white rounded-xl p-6 shadow-lg border-2 border-slate-200">
-                  <h2 className="text-2xl font-bold text-slate-800 mb-2">Practice: Valid Parentheses</h2>
-                  <p className="text-slate-600">Implementasikan pengecekan bracket dengan stack dalam O(n).</p>
-                </div>
-                <ValidParenthesesCodeEditor />
-              </div>
-            )}
-          </>
-        )}
-
         {/* Merge Two Sorted Lists Content */}
         {activeProblem === 'merge-two-lists' && (
           <>
