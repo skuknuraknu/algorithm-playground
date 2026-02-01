@@ -18,20 +18,35 @@ export type ProblemId =
   | 'min-window-substring'
   | 'group-anagrams'
   | 'lru-cache'
+  | 'min-stack'
+  | 'valid-parentheses'
   | 'merge-two-lists'
   | 'linked-list-cycle'
   | 'reverse-linked-list'
   | 'add-two-numbers'
   | 'remove-nth-node'
   | 'odd-even-linked-list'
+  | 'climbing-stairs'
+  | 'coin-change'
+  | 'best-time-stock'
+  | 'house-robber'
   | 'subsets'
   | 'letter-combinations'
   | 'combination-sum'
   | 'palindrome-partition'
   | 'symmetric-tree'
+  | 'binary-tree-level-order'
   | 'max-depth-tree'
   | 'path-sum'
-  | 'kth-smallest-bst';
+  | 'kth-smallest-bst'
+  | 'serialize-binary-tree'
+  | 'serialize-binary-tree'
+  | 'max-path-sum'
+  | 'serialize-binary-tree'
+  | 'max-path-sum'
+  | 'binary-tree-zigzag-level-order'
+  | 'unique-paths'
+  | 'trapping-rain-water';
 
 export interface Problem {
   id: ProblemId;
@@ -175,6 +190,20 @@ export const PROBLEMS: Record<ProblemId, Problem> = {
     topics: ['Hash Table', 'Linked List', 'Design', 'Doubly Linked List'],
     description: 'Design a data structure that follows the constraints of a Least Recently Used (LRU) cache',
   },
+  'min-stack': {
+    id: 'min-stack',
+    title: 'Min Stack',
+    difficulty: 'Medium',
+    topics: ['Stack', 'Design', 'Data Structure'],
+    description: 'Rancang stack yang dapat mengembalikan nilai minimum dalam O(1) untuk setiap operasi',
+  },
+  'valid-parentheses': {
+    id: 'valid-parentheses',
+    title: 'Valid Parentheses',
+    difficulty: 'Easy',
+    topics: ['Stack', 'String'],
+    description: 'Periksa apakah string bracket memiliki urutan buka-tutup yang valid menggunakan stack',
+  },
   'merge-two-lists': {
     id: 'merge-two-lists',
     title: 'Merge Two Sorted Lists',
@@ -217,6 +246,34 @@ export const PROBLEMS: Record<ProblemId, Problem> = {
     topics: ['Linked List', 'Two Pointers'],
     description: 'Group all odd-indexed nodes together followed by even-indexed nodes',
   },
+  'climbing-stairs': {
+    id: 'climbing-stairs',
+    title: 'Climbing Stairs',
+    difficulty: 'Easy',
+    topics: ['Dynamic Programming', 'Math'],
+    description: 'Hitung banyak cara mencapai puncak tangga dengan 1 atau 2 langkah tiap kali',
+  },
+  'coin-change': {
+    id: 'coin-change',
+    title: 'Coin Change',
+    difficulty: 'Medium',
+    topics: ['Dynamic Programming', 'Unbounded Knapsack'],
+    description: 'Temukan minimum koin untuk membentuk jumlah target atau laporkan tidak mungkin',
+  },
+  'best-time-stock': {
+    id: 'best-time-stock',
+    title: 'Best Time to Buy and Sell Stock',
+    difficulty: 'Easy',
+    topics: ['Array', 'Greedy', 'Sliding Window'],
+    description: 'Temukan profit maksimum dengan satu kali transaksi beli-jual',
+  },
+  'house-robber': {
+    id: 'house-robber',
+    title: 'House Robber',
+    difficulty: 'Medium',
+    topics: ['Dynamic Programming', 'Array'],
+    description: 'Maksimalkan uang yang dicuri tanpa merampok dua rumah bersebelahan',
+  },
   'subsets': {
     id: 'subsets',
     title: 'Subsets',
@@ -252,6 +309,13 @@ export const PROBLEMS: Record<ProblemId, Problem> = {
     topics: ['Binary Tree', 'Recursion', 'Tree Traversal'],
     description: 'Cek apakah binary tree symmetric terhadap pusatnya',
   },
+  'binary-tree-level-order': {
+    id: 'binary-tree-level-order',
+    title: 'Binary Tree Level Order Traversal',
+    difficulty: 'Medium',
+    topics: ['Binary Tree', 'BFS', 'Queue'],
+    description: 'Kembalikan daftar node per level menggunakan BFS (level-order traversal)',
+  },
   'max-depth-tree': {
     id: 'max-depth-tree',
     title: 'Maximum Depth of Binary Tree',
@@ -272,6 +336,41 @@ export const PROBLEMS: Record<ProblemId, Problem> = {
     difficulty: 'Medium',
     topics: ['Binary Search Tree', 'Inorder Traversal', 'DFS', 'Stack'],
     description: 'Temukan elemen terkecil ke-k di BST menggunakan inorder traversal',
+  },
+  'serialize-binary-tree': {
+    id: 'serialize-binary-tree',
+    title: 'Serialize and Deserialize Binary Tree',
+    difficulty: 'Hard',
+    topics: ['Binary Tree', 'BFS', 'DFS', 'Design'],
+    description: 'Rancang fungsi untuk mengubah binary tree menjadi string dan mengembalikannya lagi',
+  },
+  'max-path-sum': {
+    id: 'max-path-sum',
+    title: 'Binary Tree Maximum Path Sum',
+    difficulty: 'Hard',
+    topics: ['Binary Tree', 'DFS', 'Divide and Conquer', 'Dynamic Programming'],
+    description: 'Cari path dengan jumlah nilai maksimum pada binary tree (path boleh mulai/berakhir di node mana saja).',
+  },
+  'binary-tree-zigzag-level-order': {
+    id: 'binary-tree-zigzag-level-order',
+    title: 'Binary Tree Zigzag Level Order Traversal',
+    difficulty: 'Medium',
+    topics: ['Binary Tree', 'BFS', 'Stack', 'Queue'],
+    description: 'Traverse tree secara zigzag: kiri-ke-kanan, lalu kanan-ke-kiri untuk level berikutnya.',
+  },
+  'unique-paths': {
+    id: 'unique-paths',
+    title: 'Unique Paths',
+    difficulty: 'Medium',
+    topics: ['Dynamic Programming', 'Combinatorics'],
+    description: 'Hitung jumlah cara berbeda robot mencapai tujuan di grid m x n (hanya boleh turun/kanan).',
+  },
+  'trapping-rain-water': {
+    id: 'trapping-rain-water',
+    title: 'Trapping Rain Water',
+    difficulty: 'Hard',
+    topics: ['Array', 'Two Pointers', 'Dynamic Programming', 'Stack'],
+    description: 'Hitung berapa banyak air hujan yang bisa tertampung di antara gedung-gedung.',
   },
 
 };

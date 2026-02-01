@@ -183,6 +183,67 @@ import SubsetsSimulator from '../components/subsets/SubsetsSimulator';
 import SubsetsCodeEditor from '../components/subsets/SubsetsCodeEditor';
 import SubsetsExplanation from '../components/subsets/SubsetsExplanation';
 
+import SerializeTreeExplanation from '../components/serializetree/SerializeTreeExplanation';
+import SerializeTreeInputPanel from '../components/serializetree/SerializeTreeInputPanel';
+import SerializeTreeVisualizer from '../components/serializetree/SerializeTreeVisualizer';
+import SerializeTreeSimulator from '../components/serializetree/SerializeTreeSimulator';
+import SerializeTreeCodeEditor from '../components/serializetree/SerializeTreeCodeEditor';
+
+import MaxPathSumExplanation from '../components/maxpathsum/MaxPathSumExplanation';
+import MaxPathSumInputPanel from '../components/maxpathsum/MaxPathSumInputPanel';
+import MaxPathSumVisualizer from '../components/maxpathsum/MaxPathSumVisualizer';
+import MaxPathSumSimulator from '../components/maxpathsum/MaxPathSumSimulator';
+import MaxPathSumCodeEditor from '../components/maxpathsum/MaxPathSumCodeEditor';
+
+// Min Stack
+import MinStackExplanation from '../components/minstack/MinStackExplanation';
+import MinStackInputPanel from '../components/minstack/MinStackInputPanel';
+import MinStackVisualizer from '../components/minstack/MinStackVisualizer';
+import MinStackSimulator from '../components/minstack/MinStackSimulator';
+import MinStackCodeEditor from '../components/minstack/MinStackCodeEditor';
+
+// Valid Parentheses
+import ValidParenthesesExplanation from '../components/validparentheses/ValidParenthesesExplanation';
+import ValidParenthesesInputPanel from '../components/validparentheses/ValidParenthesesInputPanel';
+import ValidParenthesesVisualizer from '../components/validparentheses/ValidParenthesesVisualizer';
+import ValidParenthesesSimulator from '../components/validparentheses/ValidParenthesesSimulator';
+import ValidParenthesesCodeEditor from '../components/validparentheses/ValidParenthesesCodeEditor';
+
+// Best Time to Buy & Sell Stock
+import BestTimeStockExplanation from '../components/besttimestock/BestTimeStockExplanation';
+import BestTimeStockInputPanel from '../components/besttimestock/BestTimeStockInputPanel';
+import BestTimeStockVisualizer from '../components/besttimestock/BestTimeStockVisualizer';
+import BestTimeStockSimulator from '../components/besttimestock/BestTimeStockSimulator';
+import BestTimeStockCodeEditor from '../components/besttimestock/BestTimeStockCodeEditor';
+
+// House Robber
+import HouseRobberExplanation from '../components/houserobber/HouseRobberExplanation';
+import HouseRobberInputPanel from '../components/houserobber/HouseRobberInputPanel';
+import HouseRobberVisualizer from '../components/houserobber/HouseRobberVisualizer';
+import HouseRobberSimulator from '../components/houserobber/HouseRobberSimulator';
+import HouseRobberCodeEditor from '../components/houserobber/HouseRobberCodeEditor';
+
+// Climbing Stairs
+import ClimbingStairsExplanation from '../components/climbingstairs/ClimbingStairsExplanation';
+import ClimbingStairsInputPanel from '../components/climbingstairs/ClimbingStairsInputPanel';
+import ClimbingStairsVisualizer from '../components/climbingstairs/ClimbingStairsVisualizer';
+import ClimbingStairsSimulator from '../components/climbingstairs/ClimbingStairsSimulator';
+import ClimbingStairsCodeEditor from '../components/climbingstairs/ClimbingStairsCodeEditor';
+
+// Coin Change
+import CoinChangeExplanation from '../components/coinchange/CoinChangeExplanation';
+import CoinChangeInputPanel from '../components/coinchange/CoinChangeInputPanel';
+import CoinChangeVisualizer from '../components/coinchange/CoinChangeVisualizer';
+import CoinChangeSimulator from '../components/coinchange/CoinChangeSimulator';
+import CoinChangeCodeEditor from '../components/coinchange/CoinChangeCodeEditor';
+
+// Binary Tree Level Order Traversal
+import BinaryTreeLevelOrderExplanation from '../components/binarytreelevelorder/BinaryTreeLevelOrderExplanation';
+import BinaryTreeLevelOrderInputPanel from '../components/binarytreelevelorder/BinaryTreeLevelOrderInputPanel';
+import BinaryTreeLevelOrderVisualizer from '../components/binarytreelevelorder/BinaryTreeLevelOrderVisualizer';
+import BinaryTreeLevelOrderSimulator from '../components/binarytreelevelorder/BinaryTreeLevelOrderSimulator';
+import BinaryTreeLevelOrderCodeEditor from '../components/binarytreelevelorder/BinaryTreeLevelOrderCodeEditor';
+
 export interface ProblemComponents {
   Explanation: ComponentType;
   InputPanel: ComponentType<any>;
@@ -197,7 +258,7 @@ export interface ProblemComponents {
 //   </div>
 // );
 
-export const PROBLEM_COMPONENTS: Record<ProblemId, ProblemComponents> = {
+export const PROBLEM_COMPONENTS: Partial<Record<ProblemId, ProblemComponents>> = {
   'container-water': {
     Explanation: ProblemExplanation,
     InputPanel: InputPanel,
@@ -345,6 +406,27 @@ export const PROBLEM_COMPONENTS: Record<ProblemId, ProblemComponents> = {
     Simulator: LRUCacheSimulator,
     CodeEditor: LRUCacheCodeEditor,
   },
+  'min-stack': {
+    Explanation: MinStackExplanation,
+    InputPanel: MinStackInputPanel,
+    Visualizer: MinStackVisualizer,
+    Simulator: MinStackSimulator,
+    CodeEditor: MinStackCodeEditor,
+  },
+  'valid-parentheses': {
+    Explanation: ValidParenthesesExplanation,
+    InputPanel: ValidParenthesesInputPanel,
+    Visualizer: ValidParenthesesVisualizer,
+    Simulator: ValidParenthesesSimulator,
+    CodeEditor: ValidParenthesesCodeEditor,
+  },
+  'binary-tree-level-order': {
+    Explanation: BinaryTreeLevelOrderExplanation,
+    InputPanel: BinaryTreeLevelOrderInputPanel,
+    Visualizer: BinaryTreeLevelOrderVisualizer,
+    Simulator: BinaryTreeLevelOrderSimulator,
+    CodeEditor: BinaryTreeLevelOrderCodeEditor,
+  },
   'reverse-linked-list': {
     Explanation: ReverseLinkedListExplanation,
     InputPanel: ReverseLinkedListInputPanel,
@@ -373,11 +455,53 @@ export const PROBLEM_COMPONENTS: Record<ProblemId, ProblemComponents> = {
     Simulator: OddEvenSimulator,
     CodeEditor: OddEvenCodeEditor,
   },
+  'best-time-stock': {
+    Explanation: BestTimeStockExplanation,
+    InputPanel: BestTimeStockInputPanel,
+    Visualizer: BestTimeStockVisualizer,
+    Simulator: BestTimeStockSimulator,
+    CodeEditor: BestTimeStockCodeEditor,
+  },
+  'house-robber': {
+    Explanation: HouseRobberExplanation,
+    InputPanel: HouseRobberInputPanel,
+    Visualizer: HouseRobberVisualizer,
+    Simulator: HouseRobberSimulator,
+    CodeEditor: HouseRobberCodeEditor,
+  },
+  'climbing-stairs': {
+    Explanation: ClimbingStairsExplanation,
+    InputPanel: ClimbingStairsInputPanel,
+    Visualizer: ClimbingStairsVisualizer,
+    Simulator: ClimbingStairsSimulator,
+    CodeEditor: ClimbingStairsCodeEditor,
+  },
+  'coin-change': {
+    Explanation: CoinChangeExplanation,
+    InputPanel: CoinChangeInputPanel,
+    Visualizer: CoinChangeVisualizer,
+    Simulator: CoinChangeSimulator,
+    CodeEditor: CoinChangeCodeEditor,
+  },
   subsets: {
     Explanation: SubsetsExplanation,
     InputPanel: SubsetsInputPanel,
     Visualizer: SubsetsVisualizer,
     Simulator: SubsetsSimulator,
     CodeEditor: SubsetsCodeEditor,
+  },
+  'serialize-binary-tree': {
+    Explanation: SerializeTreeExplanation,
+    InputPanel: SerializeTreeInputPanel,
+    Visualizer: SerializeTreeVisualizer,
+    Simulator: SerializeTreeSimulator,
+    CodeEditor: SerializeTreeCodeEditor,
+  },
+  'max-path-sum': {
+    Explanation: MaxPathSumExplanation,
+    InputPanel: MaxPathSumInputPanel,
+    Visualizer: MaxPathSumVisualizer,
+    Simulator: MaxPathSumSimulator,
+    CodeEditor: MaxPathSumCodeEditor,
   },
 };

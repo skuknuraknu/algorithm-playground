@@ -1,4 +1,4 @@
-import { LucideIcon, Droplet, Mountain, Anchor, MoveRight, Type, Search, Bug, Hash, Calculator, Cpu, Bot, PlusCircle, Plus, Copy, Crown, Layers, ScanEye, Braces, Repeat, GitMerge, RefreshCw, Scissors, Shuffle, Grid, Phone, Target, Binary, TreeDeciduous, GitBranch, Share2, ListOrdered } from 'lucide-react';
+import { LucideIcon, Droplet, Mountain, Anchor, MoveRight, Type, Search, Bug, Hash, Calculator, Cpu, Bot, PlusCircle, Plus, Copy, Crown, Layers, ScanEye, Braces, Repeat, GitMerge, RefreshCw, Scissors, Shuffle, Grid, Phone, Target, Binary, TreeDeciduous, GitBranch, Share2, ListOrdered, Activity, Home, TrendingUp, Coins, ChevronsUp } from 'lucide-react';
 import { ProblemId } from '../types/Problem';
 
 export const PROBLEM_ICONS: Record<ProblemId, LucideIcon> = {
@@ -21,18 +21,27 @@ export const PROBLEM_ICONS: Record<ProblemId, LucideIcon> = {
   'min-window-substring': ScanEye,
   'group-anagrams': Braces,
   'lru-cache': Repeat,
+  'min-stack': Layers,
+  'valid-parentheses': Braces,
   'merge-two-lists': GitMerge,
   'linked-list-cycle': RefreshCw,
   'reverse-linked-list': RefreshCw,
   'add-two-numbers': Plus,
   'remove-nth-node': Scissors,
   'odd-even-linked-list': Shuffle,
+  'climbing-stairs': ChevronsUp,
+  'coin-change': Coins,
+  'best-time-stock': TrendingUp,
+  'house-robber': Home,
   'subsets': Grid,
   'letter-combinations': Phone,
   'combination-sum': Target,
   'palindrome-partition': Scissors,
   'symmetric-tree': Binary,
+  'binary-tree-level-order': TreeDeciduous,
   'max-depth-tree': TreeDeciduous,
   'path-sum': GitBranch,
   'kth-smallest-bst': ListOrdered,
+  'serialize-binary-tree': Share2,
+  'max-path-sum': Activity,
 };
