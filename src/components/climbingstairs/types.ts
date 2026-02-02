@@ -23,7 +23,7 @@ export function climbWithSteps(n: number): ClimbResult {
 
   for (let i = 3; i <= n; i++) {
     const ways = prev1 + prev2;
-    steps.push({ step: i, ways, prev1: ways, prev2: prev1 });
+    steps.push({ step: i, ways, prev1: prev1, prev2: prev2 });
     prev2 = prev1;
     prev1 = ways;
   }
