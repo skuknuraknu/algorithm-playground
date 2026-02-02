@@ -23,33 +23,33 @@ interface Step {
 
 function buildTree(nodes: (number | null)[]): TreeNode | null {
   if (nodes.length === 0 || nodes[0] === null) return null;
-  
+
   const root: TreeNode = { val: nodes[0], left: null, right: null };
   const queue: TreeNode[] = [root];
   let i = 1;
-  
+
   while (queue.length > 0 && i < nodes.length) {
     const node = queue.shift()!;
-    
+
     if (i < nodes.length && nodes[i] !== null) {
       node.left = { val: nodes[i]!, left: null, right: null };
       queue.push(node.left);
     }
     i++;
-    
+
     if (i < nodes.length && nodes[i] !== null) {
       node.right = { val: nodes[i]!, left: null, right: null };
       queue.push(node.right);
     }
     i++;
   }
-  
+
   return root;
 }
 
 function generateSteps(root: TreeNode | null): Step[] {
   const steps: Step[] = [];
-  
+
   if (!root) {
     steps.push({
       description: 'Tree kosong, dianggap symmetric',
@@ -61,7 +61,7 @@ function generateSteps(root: TreeNode | null): Step[] {
     });
     return steps;
   }
-  
+
   function isMirror(left: TreeNode | null, right: TreeNode | null, depth: number): boolean {
     // Both null
     if (!left && !right) {
@@ -75,7 +75,7 @@ function generateSteps(root: TreeNode | null): Step[] {
       });
       return true;
     }
-    
+
     // One is null
     if (!left || !right) {
       steps.push({
@@ -88,11 +88,11 @@ function generateSteps(root: TreeNode | null): Step[] {
       });
       return false;
     }
-    
+
     // Compare values
     const valuesMatch = left.val === right.val;
     steps.push({
-      description: valuesMatch 
+      description: valuesMatch
         ? `Membandingkan ${left.val} dengan ${right.val} - cocok!`
         : `Membandingkan ${left.val} dengan ${right.val} - tidak cocok!`,
       leftNode: left.val,
@@ -101,20 +101,20 @@ function generateSteps(root: TreeNode | null): Step[] {
       type: 'compare',
       depth
     });
-    
+
     if (!valuesMatch) return false;
-    
+
     // Recursive checks
     const leftMatch = isMirror(left.left, right.right, depth + 1);
     const rightMatch = isMirror(left.right, right.left, depth + 1);
-    
+
     return leftMatch && rightMatch;
   }
-  
+
   const result = isMirror(root.left, root.right, 1);
-  
+
   steps.push({
-    description: result 
+    description: result
       ? '✓ Tree adalah SYMMETRIC!'
       : '✗ Tree TIDAK symmetric',
     leftNode: null,
@@ -123,7 +123,7 @@ function generateSteps(root: TreeNode | null): Step[] {
     type: 'result',
     depth: 0
   });
-  
+
   return steps;
 }
 
@@ -336,15 +336,14 @@ export default function SymmetricTreeSimulator({ nodes }: SymmetricTreeSimulator
               <div className="flex items-center justify-center gap-8">
                 <div className="text-center">
                   <p className="text-sm text-white/70 mb-3">Left Node</p>
-                  <div className={`w-16 h-16 rounded-full flex items-center justify-center text-white font-bold text-xl shadow-lg border-4 ${
-                    currentStepData.leftNode === null
-                      ? 'bg-slate-400 border-slate-300'
-                      : 'bg-white/30 border-white/50'
-                  }`}>
+                  <div className={`w-16 h-16 rounded-full flex items-center justify-center text-white font-bold text-xl shadow-lg border-4 ${currentStepData.leftNode === null
+                    ? 'bg-slate-400 border-slate-300'
+                    : 'bg-white/30 border-white/50'
+                    }`}>
                     {currentStepData.leftNode ?? 'null'}
                   </div>
                 </div>
-                
+
                 <div className="flex items-center gap-2">
                   {currentStepData.isMatch ? (
                     <CheckCircle2 size={32} className="text-white" />
@@ -352,19 +351,18 @@ export default function SymmetricTreeSimulator({ nodes }: SymmetricTreeSimulator
                     <XCircle size={32} className="text-white" />
                   )}
                 </div>
-                
+
                 <div className="text-center">
                   <p className="text-sm text-white/70 mb-3">Right Node</p>
-                  <div className={`w-16 h-16 rounded-full flex items-center justify-center text-white font-bold text-xl shadow-lg border-4 ${
-                    currentStepData.rightNode === null
-                      ? 'bg-slate-400 border-slate-300'
-                      : 'bg-white/30 border-white/50'
-                  }`}>
+                  <div className={`w-16 h-16 rounded-full flex items-center justify-center text-white font-bold text-xl shadow-lg border-4 ${currentStepData.rightNode === null
+                    ? 'bg-slate-400 border-slate-300'
+                    : 'bg-white/30 border-white/50'
+                    }`}>
                     {currentStepData.rightNode ?? 'null'}
                   </div>
                 </div>
               </div>
-              
+
               <div className="mt-4 text-center">
                 <div className="inline-block px-4 py-2 bg-white/20 rounded-lg">
                   <span className="text-sm text-white/80">Depth: </span>
