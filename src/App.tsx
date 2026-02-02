@@ -1,11 +1,18 @@
 import { useState, useRef, useEffect } from 'react';
 import {
   Droplet, BookOpen, Play, Code2, Lightbulb, Mountain, Anchor, Menu, MoveRight, Type, Search, Bug, Hash, Calculator, Cpu, Bot, PlusCircle, Plus, Copy, Crown, Layers, ScanEye, Braces, Repeat, GitMerge, RefreshCw, RotateCw, Scissors, Shuffle, Grid, Phone, Target, Binary, TreeDeciduous, GitBranch, Share2, ListOrdered, Map,
-  Activity, ChevronsUp, Coins, TrendingUp, Home, CloudRain
+  Activity, ChevronsUp, Coins, TrendingUp, Home, CloudRain, Check, Keyboard
 } from 'lucide-react';
 import { ProblemId, PROBLEMS } from './types/Problem';
 import { useLanguage } from './i18n';
 import LanguageSwitcher from './components/LanguageSwitcher';
+import ThemeSwitcher from './components/ThemeSwitcher';
+import ProgressStats from './components/ProgressStats';
+import CompletionToggle from './components/CompletionToggle';
+import ShortcutsHelp from './components/ShortcutsHelp';
+import { useProgress } from './progress';
+import { useTheme } from './theme';
+import { useKeyboardShortcuts, ShortcutAction } from './hooks/useKeyboardShortcuts';
 
 import InputPanel from './components/InputPanel';
 import ContainerVisualizer from './components/ContainerVisualizer';
@@ -269,10 +276,13 @@ import TrappingRainWaterCodeEditor, { starterCode as trappingRainWaterStarterCod
 type Tab = 'visualize' | 'simulate' | 'code' | 'learn';
 
 function App() {
-  const { t } = useLanguage();
+  const { t, language, setLanguage } = useLanguage();
+  const { isSolved, toggleSolved } = useProgress();
+  const { theme, toggleTheme } = useTheme();
   const [activeProblem, setActiveProblem] = useState<ProblemId>('container-water');
   const [activeTab, setActiveTab] = useState<Tab>('learn');
   const [showProblemMenu, setShowProblemMenu] = useState(false);
+  const [showShortcutsHelp, setShowShortcutsHelp] = useState(false);
   const [problemSearch, setProblemSearch] = useState('');
   const problemRefs = useRef<Record<string, HTMLButtonElement | null>>({});
 
@@ -524,10 +534,54 @@ function App() {
     return boats;
   };
 
+  // Navigate to next/previous problem
+  const problemIds = Object.keys(PROBLEMS) as ProblemId[];
+  const currentProblemIndex = problemIds.indexOf(activeProblem);
+
+  const navigateToNextProblem = () => {
+    if (currentProblemIndex < problemIds.length - 1) {
+      handleProblemChange(problemIds[currentProblemIndex + 1]);
+    }
+  };
+
+  const navigateToPreviousProblem = () => {
+    if (currentProblemIndex > 0) {
+      handleProblemChange(problemIds[currentProblemIndex - 1]);
+    }
+  };
+
+  // Define keyboard shortcuts
+  const shortcuts: ShortcutAction[] = [
+    // Navigation - Tabs
+    { key: '1', description: 'Switch to Learn tab', action: () => setActiveTab('learn') },
+    { key: '2', description: 'Switch to Visualize tab', action: () => setActiveTab('visualize') },
+    { key: '3', description: 'Switch to Simulate tab', action: () => setActiveTab('simulate') },
+    { key: '4', description: 'Switch to Practice tab', action: () => setActiveTab('code') },
+
+    // Navigation - Problems
+    { key: 'j', description: 'Next problem', action: navigateToNextProblem },
+    { key: 'k', description: 'Previous problem', action: navigateToPreviousProblem },
+    { key: 'ArrowDown', description: 'Next problem', action: navigateToNextProblem },
+    { key: 'ArrowUp', description: 'Previous problem', action: navigateToPreviousProblem },
+    { key: 'k', ctrlKey: true, description: 'Open problem menu', action: () => setShowProblemMenu(prev => !prev) },
+
+    // Actions
+    { key: 'm', description: 'Mark problem as done/undone', action: () => toggleSolved(activeProblem) },
+    { key: 't', description: 'Toggle theme', action: toggleTheme },
+    { key: 'l', description: 'Toggle language', action: () => setLanguage(language === 'en' ? 'id' : 'en') },
+    { key: 'Escape', description: 'Close modal/menu', action: () => { setShowProblemMenu(false); setShowShortcutsHelp(false); } },
+
+    // Help
+    { key: '?', description: 'Show keyboard shortcuts', action: () => setShowShortcutsHelp(true) },
+  ];
+
+  // Use keyboard shortcuts hook
+  useKeyboardShortcuts({ shortcuts });
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-slate-100">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-slate-100 dark:from-slate-900 dark:via-slate-900 dark:to-slate-800">
       {/* Header */}
-      <header className="bg-white shadow-md border-b-2 border-slate-200">
+      <header className="bg-white dark:bg-slate-800 shadow-md border-b-2 border-slate-200 dark:border-slate-700">
         <div className="max-w-7xl mx-auto px-6 py-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
@@ -535,16 +589,25 @@ function App() {
                 <ProblemIcon className="text-white" size={32} />
               </div>
               <div>
-                <h1 className="text-3xl font-bold text-slate-800">
+                <h1 className="text-3xl font-bold text-slate-800 dark:text-white">
                   {currentProblem.title}
                 </h1>
-                <p className="text-slate-600 mt-1">
+                <p className="text-slate-600 dark:text-slate-400 mt-1">
                   {t.platformSubtitle}
                 </p>
               </div>
             </div>
 
             <div className="relative flex items-center gap-3">
+              <button
+                onClick={() => setShowShortcutsHelp(true)}
+                className="flex items-center justify-center w-10 h-10 bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 rounded-lg font-medium transition-all duration-300 border-2 border-slate-300 dark:border-slate-600"
+                aria-label="Keyboard shortcuts"
+                title="Keyboard shortcuts (?)"
+              >
+                <Keyboard size={20} />
+              </button>
+              <ThemeSwitcher />
               <LanguageSwitcher />
               <button
                 onClick={() => setShowProblemMenu(!showProblemMenu)}
@@ -562,9 +625,9 @@ function App() {
                     onClick={() => setShowProblemMenu(false)}
                   />
 
-                  <div className="fixed right-6 top-24 w-[32rem] max-w-[92vw] bg-white rounded-2xl shadow-2xl border-2 border-slate-200 z-50 overflow-hidden animate-slideDown">
+                  <div className="fixed right-6 top-24 w-[32rem] max-w-[92vw] bg-white dark:bg-slate-800 rounded-2xl shadow-2xl border-2 border-slate-200 dark:border-slate-700 z-50 overflow-hidden animate-slideDown">
                     {/* Header */}
-                    <div className="sticky top-0 bg-gradient-to-r from-blue-50 via-purple-50 to-pink-50 border-b-2 border-slate-200 p-4 z-10">
+                    <div className="sticky top-0 bg-gradient-to-r from-blue-50 via-purple-50 to-pink-50 dark:from-slate-800 dark:via-slate-800 dark:to-slate-800 border-b-2 border-slate-200 dark:border-slate-700 p-4 z-10">
                       <div className="flex items-center gap-3 mb-3">
                         <div className="p-2 bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg shadow-md">
                           <Search size={20} className="text-white" />
@@ -579,12 +642,12 @@ function App() {
                           value={problemSearch}
                           onChange={(e) => setProblemSearch(e.target.value)}
                           placeholder={t.searchPlaceholder}
-                          className="flex-1 text-sm px-4 py-3 rounded-xl border-2 border-slate-200 bg-white text-slate-800 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition-all shadow-inner"
+                          className="flex-1 text-sm px-4 py-3 rounded-xl border-2 border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-800 dark:text-slate-200 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-100 dark:focus:ring-blue-900 transition-all shadow-inner placeholder:text-slate-400 dark:placeholder:text-slate-500"
                         />
                         {problemSearch && (
                           <button
                             onClick={() => setProblemSearch('')}
-                            className="px-3 py-2 text-xs font-semibold text-slate-600 hover:text-slate-800 bg-slate-100 hover:bg-slate-200 rounded-lg transition-colors"
+                            className="px-3 py-2 text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-slate-800 dark:hover:text-white bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 rounded-lg transition-colors"
                           >
                             {t.clear}
                           </button>
@@ -594,7 +657,7 @@ function App() {
 
                     <div className="p-3 max-h-[28rem] overflow-y-auto custom-scrollbar-purple">
                       {filteredProblems.length === 0 && (
-                        <div className="text-center text-sm text-slate-500 py-8">
+                        <div className="text-center text-sm text-slate-500 dark:text-slate-400 py-8">
                           <div className="mb-2">🔍</div>
                           {t.noMatchingProblems}
                         </div>
@@ -602,32 +665,38 @@ function App() {
                       {filteredProblems.map((problem) => {
                         const Icon = problemIcons[problem.id];
                         const isActive = problem.id === activeProblem;
+                        const problemSolved = isSolved(problem.id);
                         return (
                           <button
                             key={problem.id}
                             ref={(el) => (problemRefs.current[problem.id] = el)}
                             onClick={() => handleProblemChange(problem.id)}
                             className={`w-full flex items-start gap-4 p-4 mb-2 rounded-xl transition-all duration-300 text-left group ${isActive
-                              ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg scale-[1.02] ring-4 ring-blue-100'
-                              : 'bg-white hover:bg-gradient-to-br hover:from-blue-50 hover:to-purple-50 border-2 border-slate-200 hover:border-blue-300 hover:shadow-md hover:scale-[1.01]'
+                              ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg scale-[1.02] ring-4 ring-blue-100 dark:ring-blue-900'
+                              : 'bg-white dark:bg-slate-700 hover:bg-gradient-to-br hover:from-blue-50 hover:to-purple-50 dark:hover:from-slate-600 dark:hover:to-slate-600 border-2 border-slate-200 dark:border-slate-600 hover:border-blue-300 dark:hover:border-blue-500 hover:shadow-md hover:scale-[1.01]'
                               }`}
                           >
                             <div
                               className={`p-3 rounded-xl transition-all duration-300 ${isActive
                                 ? 'bg-white/20 shadow-lg'
-                                : 'bg-gradient-to-br from-slate-100 to-slate-200 group-hover:from-blue-100 group-hover:to-purple-100'
+                                : 'bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-600 dark:to-slate-600 group-hover:from-blue-100 group-hover:to-purple-100 dark:group-hover:from-slate-500 dark:group-hover:to-slate-500'
                                 }`}
                             >
                               <Icon
-                                className={isActive ? 'text-white' : 'text-slate-700 group-hover:text-blue-600'}
+                                className={isActive ? 'text-white' : 'text-slate-700 dark:text-slate-300 group-hover:text-blue-600 dark:group-hover:text-blue-400'}
                                 size={24}
                               />
                             </div>
                             <div className="flex-1 text-left min-w-0">
-                              <div className={`font-bold text-base mb-1 ${isActive ? 'text-white' : 'text-slate-800 group-hover:text-blue-700'}`}>
+                              <div className={`font-bold text-base mb-1 flex items-center gap-2 ${isActive ? 'text-white' : 'text-slate-800 dark:text-slate-100 group-hover:text-blue-700 dark:group-hover:text-blue-400'}`}>
                                 {problem.title}
+                                {problemSolved && !isActive && (
+                                  <span className="flex items-center justify-center w-5 h-5 bg-green-500 rounded-full">
+                                    <Check className="text-white" size={12} strokeWidth={3} />
+                                  </span>
+                                )}
                               </div>
-                              <div className={`text-xs mb-2 line-clamp-2 ${isActive ? 'text-white/90' : 'text-slate-600 group-hover:text-slate-700'}`}>
+                              <div className={`text-xs mb-2 line-clamp-2 ${isActive ? 'text-white/90' : 'text-slate-600 dark:text-slate-400 group-hover:text-slate-700 dark:group-hover:text-slate-300'}`}>
                                 {problem.description}
                               </div>
                               <div className="flex items-center gap-2 flex-wrap">
@@ -643,7 +712,7 @@ function App() {
                                 >
                                   {problem.difficulty}
                                 </span>
-                                <span className={`text-xs truncate ${isActive ? 'text-white/80' : 'text-slate-500'}`}>
+                                <span className={`text-xs truncate ${isActive ? 'text-white/80' : 'text-slate-500 dark:text-slate-400'}`}>
                                   {problem.topics.join(', ')}
                                 </span>
                               </div>
@@ -661,7 +730,7 @@ function App() {
       </header>
 
       {/* Navigation Tabs */}
-      <div className="bg-white shadow-sm border-b-2 border-slate-200">
+      <div className="bg-white dark:bg-slate-800 shadow-sm border-b-2 border-slate-200 dark:border-slate-700">
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex gap-1">
             {tabs.map((tab) => {
@@ -672,8 +741,8 @@ function App() {
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
                   className={`flex items-center gap-2 px-6 py-4 font-semibold transition-all relative ${isActive
-                    ? 'text-blue-700 bg-slate-50'
-                    : 'text-slate-600 hover:text-slate-800 hover:bg-slate-50'
+                    ? 'text-blue-700 dark:text-blue-400 bg-slate-50 dark:bg-slate-700'
+                    : 'text-slate-600 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700'
                     }`}
                 >
                   <Icon size={20} />
@@ -687,6 +756,9 @@ function App() {
           </div>
         </div>
       </div>
+
+      {/* Progress Stats */}
+      <ProgressStats />
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-6 py-8">
@@ -1015,6 +1087,9 @@ function App() {
                     </button>
                   </div>
                 </div>
+                <div className="mt-6 flex justify-end">
+                  <CompletionToggle problemId="container-water" />
+                </div>
               </div>
             )}
 
@@ -1095,6 +1170,9 @@ function App() {
                       Watch Simulation
                     </button>
                   </div>
+                </div>
+                <div className="mt-6 flex justify-end">
+                  <CompletionToggle problemId="mountain-array" />
                 </div>
               </div>
             )}
@@ -1179,6 +1257,9 @@ function App() {
                       Watch Simulation
                     </button>
                   </div>
+                </div>
+                <div className="mt-6 flex justify-end">
+                  <CompletionToggle problemId="boats-people" />
                 </div>
               </div>
             )}
@@ -1265,6 +1346,9 @@ function App() {
                     </button>
                   </div>
                 </div>
+                <div className="mt-6 flex justify-end">
+                  <CompletionToggle problemId="move-zeroes" />
+                </div>
               </div>
             )}
 
@@ -1342,6 +1426,9 @@ function App() {
                       Watch Simulation
                     </button>
                   </div>
+                </div>
+                <div className="mt-6 flex justify-end">
+                  <CompletionToggle problemId="longest-substring" />
                 </div>
               </div>
             )}
@@ -1421,6 +1508,9 @@ function App() {
                     </button>
                   </div>
                 </div>
+                <div className="mt-6 flex justify-end">
+                  <CompletionToggle problemId="find-position" />
+                </div>
               </div>
             )}
 
@@ -1498,6 +1588,9 @@ function App() {
                       Watch Simulation
                     </button>
                   </div>
+                </div>
+                <div className="mt-6 flex justify-end">
+                  <CompletionToggle problemId="first-bad-version" />
                 </div>
               </div>
             )}
@@ -1583,6 +1676,9 @@ function App() {
                     </button>
                   </div>
                 </div>
+                <div className="mt-6 flex justify-end">
+                  <CompletionToggle problemId="missing-number" />
+                </div>
               </div>
             )}
 
@@ -1661,6 +1757,9 @@ function App() {
                     </button>
                   </div>
                 </div>
+                <div className="mt-6 flex justify-end">
+                  <CompletionToggle problemId="count-primes" />
+                </div>
               </div>
             )}
 
@@ -1737,6 +1836,9 @@ function App() {
                     </button>
                   </div>
                 </div>
+                <div className="mt-6 flex justify-end">
+                  <CompletionToggle problemId="single-number" />
+                </div>
               </div>
             )}
 
@@ -1792,6 +1894,9 @@ function App() {
                       Lihat Simulasi
                     </button>
                   </div>
+                </div>
+                <div className="mt-6 flex justify-end">
+                  <CompletionToggle problemId="robot-return" />
                 </div>
               </div>
             )}
@@ -1849,6 +1954,9 @@ function App() {
                     </button>
                   </div>
                 </div>
+                <div className="mt-6 flex justify-end">
+                  <CompletionToggle problemId="add-binary" />
+                </div>
               </div>
             )}
 
@@ -1879,7 +1987,14 @@ function App() {
         {/* Two Sum Content */}
         {activeProblem === 'two-sum' && (
           <>
-            {activeTab === 'learn' && <TwoSumExplanation />}
+            {activeTab === 'learn' && (
+              <div>
+                <TwoSumExplanation />
+                <div className="mt-6 flex justify-end">
+                  <CompletionToggle problemId="two-sum" />
+                </div>
+              </div>
+            )}
             {activeTab === 'visualize' && (
               <div className="space-y-6">
                 <TwoSumVisualizer nums={twoSumNums} target={twoSumTarget} />
@@ -1907,7 +2022,14 @@ function App() {
         {/* Contains Duplicate Content */}
         {activeProblem === 'contains-duplicate' && (
           <>
-            {activeTab === 'learn' && <ContainsDuplicateExplanation />}
+            {activeTab === 'learn' && (
+              <div>
+                <ContainsDuplicateExplanation />
+                <div className="mt-6 flex justify-end">
+                  <CompletionToggle problemId="contains-duplicate" />
+                </div>
+              </div>
+            )}
             {activeTab === 'visualize' && (
               <div className="space-y-6">
                 <ContainsDuplicateVisualizer nums={containsDuplicateNums} />
@@ -1935,7 +2057,14 @@ function App() {
         {/* Majority Element Content */}
         {activeProblem === 'majority-element' && (
           <>
-            {activeTab === 'learn' && <MajorityElementExplanation />}
+            {activeTab === 'learn' && (
+              <div>
+                <MajorityElementExplanation />
+                <div className="mt-6 flex justify-end">
+                  <CompletionToggle problemId="majority-element" />
+                </div>
+              </div>
+            )}
             {activeTab === 'visualize' && (
               <div className="space-y-6">
                 <MajorityElementVisualizer nums={majorityNums} />
@@ -1961,7 +2090,14 @@ function App() {
         )}
         {activeProblem === 'four-sum-ii' && (
           <>
-            {activeTab === 'learn' && <FourSumTwoExplanation />}
+            {activeTab === 'learn' && (
+              <div>
+                <FourSumTwoExplanation />
+                <div className="mt-6 flex justify-end">
+                  <CompletionToggle problemId="four-sum-ii" />
+                </div>
+              </div>
+            )}
 
             {activeTab === 'visualize' && (
               <div className="space-y-6">
@@ -1993,7 +2129,14 @@ function App() {
         {/* Minimum Window Substring Content */}
         {activeProblem === 'min-window-substring' && (
           <>
-            {activeTab === 'learn' && <MinWindowExplanation />}
+            {activeTab === 'learn' && (
+              <div>
+                <MinWindowExplanation />
+                <div className="mt-6 flex justify-end">
+                  <CompletionToggle problemId="min-window-substring" />
+                </div>
+              </div>
+            )}
 
             {activeTab === 'visualize' && (
               <div className="space-y-6">
@@ -2025,7 +2168,14 @@ function App() {
         {/* Group Anagrams Content */}
         {activeProblem === 'group-anagrams' && (
           <>
-            {activeTab === 'learn' && <GroupAnagramsExplanation />}
+            {activeTab === 'learn' && (
+              <div>
+                <GroupAnagramsExplanation />
+                <div className="mt-6 flex justify-end">
+                  <CompletionToggle problemId="group-anagrams" />
+                </div>
+              </div>
+            )}
 
             {activeTab === 'visualize' && (
               <div className="space-y-6">
@@ -2081,6 +2231,9 @@ function App() {
                       Jalankan Simulasi
                     </button>
                   </div>
+                </div>
+                <div className="mt-6 flex justify-end">
+                  <CompletionToggle problemId="lru-cache" />
                 </div>
               </div>
             )}
@@ -2145,6 +2298,9 @@ function App() {
                     </button>
                   </div>
                 </div>
+                <div className="mt-6 flex justify-end">
+                  <CompletionToggle problemId="min-stack" />
+                </div>
               </div>
             )}
 
@@ -2174,7 +2330,14 @@ function App() {
         {/* Merge Two Sorted Lists Content */}
         {activeProblem === 'merge-two-lists' && (
           <>
-            {activeTab === 'learn' && <MergeTwoListsExplanation />}
+            {activeTab === 'learn' && (
+              <div>
+                <MergeTwoListsExplanation />
+                <div className="mt-6 flex justify-end">
+                  <CompletionToggle problemId="merge-two-lists" />
+                </div>
+              </div>
+            )}
 
             {activeTab === 'visualize' && (
               <div className="space-y-6">
@@ -2203,7 +2366,14 @@ function App() {
         {/* Linked List Cycle Content */}
         {activeProblem === 'linked-list-cycle' && (
           <>
-            {activeTab === 'learn' && <LinkedListCycleExplanation />}
+            {activeTab === 'learn' && (
+              <div>
+                <LinkedListCycleExplanation />
+                <div className="mt-6 flex justify-end">
+                  <CompletionToggle problemId="linked-list-cycle" />
+                </div>
+              </div>
+            )}
 
             {activeTab === 'visualize' && (
               <div className="space-y-6">
@@ -2232,7 +2402,14 @@ function App() {
         {/* Reverse Linked List Content */}
         {activeProblem === 'reverse-linked-list' && (
           <>
-            {activeTab === 'learn' && <ReverseLinkedListExplanation />}
+            {activeTab === 'learn' && (
+              <div>
+                <ReverseLinkedListExplanation />
+                <div className="mt-6 flex justify-end">
+                  <CompletionToggle problemId="reverse-linked-list" />
+                </div>
+              </div>
+            )}
 
             {activeTab === 'visualize' && (
               <div className="space-y-6">
@@ -2263,7 +2440,14 @@ function App() {
         {/* Add Two Numbers Content */}
         {activeProblem === 'add-two-numbers' && (
           <>
-            {activeTab === 'learn' && <AddTwoNumbersExplanation />}
+            {activeTab === 'learn' && (
+              <div>
+                <AddTwoNumbersExplanation />
+                <div className="mt-6 flex justify-end">
+                  <CompletionToggle problemId="add-two-numbers" />
+                </div>
+              </div>
+            )}
 
             {activeTab === 'visualize' && (
               <div className="space-y-6">
@@ -2294,7 +2478,14 @@ function App() {
         {/* Remove Nth Node From End Content */}
         {activeProblem === 'remove-nth-node' && (
           <>
-            {activeTab === 'learn' && <RemoveNthExplanation />}
+            {activeTab === 'learn' && (
+              <div>
+                <RemoveNthExplanation />
+                <div className="mt-6 flex justify-end">
+                  <CompletionToggle problemId="remove-nth-node" />
+                </div>
+              </div>
+            )}
 
             {activeTab === 'visualize' && (
               <div className="space-y-6">
@@ -2325,7 +2516,14 @@ function App() {
         {/* Odd Even Linked List Content */}
         {activeProblem === 'odd-even-linked-list' && (
           <>
-            {activeTab === 'learn' && <OddEvenExplanation />}
+            {activeTab === 'learn' && (
+              <div>
+                <OddEvenExplanation />
+                <div className="mt-6 flex justify-end">
+                  <CompletionToggle problemId="odd-even-linked-list" />
+                </div>
+              </div>
+            )}
 
             {activeTab === 'visualize' && (
               <div className="space-y-6">
@@ -2356,7 +2554,14 @@ function App() {
         {/* Climbing Stairs Content */}
         {activeProblem === 'climbing-stairs' && (
           <>
-            {activeTab === 'learn' && <ClimbingStairsExplanation />}
+            {activeTab === 'learn' && (
+              <div>
+                <ClimbingStairsExplanation />
+                <div className="mt-6 flex justify-end">
+                  <CompletionToggle problemId="climbing-stairs" />
+                </div>
+              </div>
+            )}
 
             {activeTab === 'visualize' && (
               <div className="space-y-6">
@@ -2387,7 +2592,14 @@ function App() {
         {/* Coin Change Content */}
         {activeProblem === 'coin-change' && (
           <>
-            {activeTab === 'learn' && <CoinChangeExplanation />}
+            {activeTab === 'learn' && (
+              <div>
+                <CoinChangeExplanation />
+                <div className="mt-6 flex justify-end">
+                  <CompletionToggle problemId="coin-change" />
+                </div>
+              </div>
+            )}
 
             {activeTab === 'visualize' && (
               <div className="space-y-6">
@@ -2418,7 +2630,14 @@ function App() {
         {/* Best Time to Buy & Sell Stock Content */}
         {activeProblem === 'best-time-stock' && (
           <>
-            {activeTab === 'learn' && <BestTimeStockExplanation />}
+            {activeTab === 'learn' && (
+              <div>
+                <BestTimeStockExplanation />
+                <div className="mt-6 flex justify-end">
+                  <CompletionToggle problemId="best-time-stock" />
+                </div>
+              </div>
+            )}
 
             {activeTab === 'visualize' && (
               <div className="space-y-6">
@@ -2449,7 +2668,14 @@ function App() {
         {/* House Robber Content */}
         {activeProblem === 'house-robber' && (
           <>
-            {activeTab === 'learn' && <HouseRobberExplanation />}
+            {activeTab === 'learn' && (
+              <div>
+                <HouseRobberExplanation />
+                <div className="mt-6 flex justify-end">
+                  <CompletionToggle problemId="house-robber" />
+                </div>
+              </div>
+            )}
 
             {activeTab === 'visualize' && (
               <div className="space-y-6">
@@ -2480,7 +2706,14 @@ function App() {
         {/* Subsets Content */}
         {activeProblem === 'subsets' && (
           <>
-            {activeTab === 'learn' && <SubsetsExplanation />}
+            {activeTab === 'learn' && (
+              <div>
+                <SubsetsExplanation />
+                <div className="mt-6 flex justify-end">
+                  <CompletionToggle problemId="subsets" />
+                </div>
+              </div>
+            )}
 
             {activeTab === 'visualize' && (
               <div className="space-y-6">
@@ -2511,7 +2744,14 @@ function App() {
         {/* Letter Combinations Content */}
         {activeProblem === 'letter-combinations' && (
           <>
-            {activeTab === 'learn' && <LetterCombinationsExplanation />}
+            {activeTab === 'learn' && (
+              <div>
+                <LetterCombinationsExplanation />
+                <div className="mt-6 flex justify-end">
+                  <CompletionToggle problemId="letter-combinations" />
+                </div>
+              </div>
+            )}
 
             {activeTab === 'visualize' && (
               <div className="space-y-6">
@@ -2542,7 +2782,14 @@ function App() {
         {/* Combination Sum Content */}
         {activeProblem === 'combination-sum' && (
           <>
-            {activeTab === 'learn' && <CombinationSumExplanation />}
+            {activeTab === 'learn' && (
+              <div>
+                <CombinationSumExplanation />
+                <div className="mt-6 flex justify-end">
+                  <CompletionToggle problemId="combination-sum" />
+                </div>
+              </div>
+            )}
 
             {activeTab === 'visualize' && (
               <div className="space-y-6">
@@ -2579,7 +2826,14 @@ function App() {
         {/* Palindrome Partition Content */}
         {activeProblem === 'palindrome-partition' && (
           <>
-            {activeTab === 'learn' && <PalindromePartitionExplanation />}
+            {activeTab === 'learn' && (
+              <div>
+                <PalindromePartitionExplanation />
+                <div className="mt-6 flex justify-end">
+                  <CompletionToggle problemId="palindrome-partition" />
+                </div>
+              </div>
+            )}
 
             {activeTab === 'visualize' && (
               <div className="space-y-6">
@@ -2640,7 +2894,14 @@ function App() {
         {/* Symmetric Tree Content */}
         {activeProblem === 'symmetric-tree' && (
           <>
-            {activeTab === 'learn' && <SymmetricTreeExplanation />}
+            {activeTab === 'learn' && (
+              <div>
+                <SymmetricTreeExplanation />
+                <div className="mt-6 flex justify-end">
+                  <CompletionToggle problemId="symmetric-tree" />
+                </div>
+              </div>
+            )}
 
             {activeTab === 'visualize' && (
               <div className="space-y-6">
@@ -2675,7 +2936,14 @@ function App() {
         {/* Binary Tree Level Order Traversal Content */}
         {activeProblem === 'binary-tree-level-order' && (
           <>
-            {activeTab === 'learn' && <BinaryTreeLevelOrderExplanation />}
+            {activeTab === 'learn' && (
+              <div>
+                <BinaryTreeLevelOrderExplanation />
+                <div className="mt-6 flex justify-end">
+                  <CompletionToggle problemId="binary-tree-level-order" />
+                </div>
+              </div>
+            )}
 
             {activeTab === 'visualize' && (
               <div className="space-y-6">
@@ -2706,7 +2974,14 @@ function App() {
         {/* Binary Tree Maximum Path Sum Content */}
         {activeProblem === 'max-path-sum' && (
           <>
-            {activeTab === 'learn' && <MaxPathSumExplanation />}
+            {activeTab === 'learn' && (
+              <div>
+                <MaxPathSumExplanation />
+                <div className="mt-6 flex justify-end">
+                  <CompletionToggle problemId="max-path-sum" />
+                </div>
+              </div>
+            )}
 
             {activeTab === 'visualize' && (
               <div className="space-y-6">
@@ -2737,7 +3012,14 @@ function App() {
         {/* Path Sum Content */}
         {activeProblem === 'path-sum' && (
           <>
-            {activeTab === 'learn' && <PathSumExplanation />}
+            {activeTab === 'learn' && (
+              <div>
+                <PathSumExplanation />
+                <div className="mt-6 flex justify-end">
+                  <CompletionToggle problemId="path-sum" />
+                </div>
+              </div>
+            )}
 
             {activeTab === 'visualize' && (
               <div className="space-y-6">
@@ -2768,7 +3050,14 @@ function App() {
         {/* Maximum Depth of Binary Tree Content */}
         {activeProblem === 'max-depth-tree' && (
           <>
-            {activeTab === 'learn' && <MaxDepthTreeExplanation />}
+            {activeTab === 'learn' && (
+              <div>
+                <MaxDepthTreeExplanation />
+                <div className="mt-6 flex justify-end">
+                  <CompletionToggle problemId="max-depth-tree" />
+                </div>
+              </div>
+            )}
 
             {activeTab === 'visualize' && (
               <div className="space-y-6">
@@ -2799,7 +3088,14 @@ function App() {
         {/* Serialize & Deserialize Binary Tree Content */}
         {activeProblem === 'serialize-binary-tree' && (
           <>
-            {activeTab === 'learn' && <SerializeTreeExplanation />}
+            {activeTab === 'learn' && (
+              <div>
+                <SerializeTreeExplanation />
+                <div className="mt-6 flex justify-end">
+                  <CompletionToggle problemId="serialize-binary-tree" />
+                </div>
+              </div>
+            )}
 
             {activeTab === 'visualize' && (
               <div className="space-y-6">
@@ -2830,7 +3126,14 @@ function App() {
         {/* Kth Smallest Element in a BST Content */}
         {activeProblem === 'kth-smallest-bst' && (
           <>
-            {activeTab === 'learn' && <KthSmallestExplanation />}
+            {activeTab === 'learn' && (
+              <div>
+                <KthSmallestExplanation />
+                <div className="mt-6 flex justify-end">
+                  <CompletionToggle problemId="kth-smallest-bst" />
+                </div>
+              </div>
+            )}
 
             {activeTab === 'visualize' && (
               <div className="space-y-6">
@@ -2860,7 +3163,14 @@ function App() {
         {/* Binary Tree Zigzag Level Order Traversal Content */}
         {activeProblem === 'binary-tree-zigzag-level-order' && (
           <>
-            {activeTab === 'learn' && <BinaryTreeZigzagExplanation />}
+            {activeTab === 'learn' && (
+              <div>
+                <BinaryTreeZigzagExplanation />
+                <div className="mt-6 flex justify-end">
+                  <CompletionToggle problemId="binary-tree-zigzag-level-order" />
+                </div>
+              </div>
+            )}
 
             {activeTab === 'visualize' && (
               <div className="space-y-6">
@@ -2891,7 +3201,14 @@ function App() {
         {/* Unique Paths Content */}
         {activeProblem === 'unique-paths' && (
           <>
-            {activeTab === 'learn' && <UniquePathsExplanation />}
+            {activeTab === 'learn' && (
+              <div>
+                <UniquePathsExplanation />
+                <div className="mt-6 flex justify-end">
+                  <CompletionToggle problemId="unique-paths" />
+                </div>
+              </div>
+            )}
 
             {activeTab === 'visualize' && (
               <div className="space-y-6">
@@ -2922,7 +3239,14 @@ function App() {
         {/* Trapping Rain Water Content */}
         {activeProblem === 'trapping-rain-water' && (
           <>
-            {activeTab === 'learn' && <TrappingRainWaterExplanation />}
+            {activeTab === 'learn' && (
+              <div>
+                <TrappingRainWaterExplanation />
+                <div className="mt-6 flex justify-end">
+                  <CompletionToggle problemId="trapping-rain-water" />
+                </div>
+              </div>
+            )}
 
             {activeTab === 'visualize' && (
               <div className="space-y-6">
@@ -2976,6 +3300,13 @@ function App() {
           </div>
         </div>
       </footer>
+
+      {/* Keyboard Shortcuts Help Modal */}
+      <ShortcutsHelp
+        isOpen={showShortcutsHelp}
+        onClose={() => setShowShortcutsHelp(false)}
+        shortcuts={shortcuts}
+      />
     </div>
   );
 }

@@ -10,6 +10,13 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
+
+  /* Smooth transition for theme switching */
+  html, body, * {
+    transition-property: background-color, border-color;
+    transition-duration: 150ms;
+    transition-timing-function: ease-out;
+  }
 }
 
 /* Scrollbar styling for dropdown lists */
