@@ -1,6 +1,6 @@
-import { useEffect, useMemo, useRef } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import gsap from 'gsap';
-import { ListOrdered, Target } from 'lucide-react';
+import { ListOrdered, Target, Play, Sparkles } from 'lucide-react';
 
 interface TreeNode {
   val: number;
@@ -44,6 +44,8 @@ function inorder(root: TreeNode | null, visit: (node: TreeNode) => void) {
 export default function KthSmallestVisualizer({ nodes, k }: KthSmallestVisualizerProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const svgRef = useRef<SVGSVGElement>(null);
+  const [isAnimating, setIsAnimating] = useState(false);
+
   const inorderList = useMemo(() => {
     const tree = buildTree(nodes);
     const list: number[] = [];
@@ -51,57 +53,116 @@ export default function KthSmallestVisualizer({ nodes, k }: KthSmallestVisualize
     return list;
   }, [nodes]);
 
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      const circles = gsap.utils.toArray<SVGCircleElement>('circle.node');
-      gsap.fromTo(
-        circles,
-        { scale: 0, opacity: 0, rotateY: -90 },
-        { scale: 1, opacity: 1, rotateY: 0, duration: 0.7, stagger: 0.05, ease: 'elastic.out(1,0.6)' }
-      );
-      const pathNodes = circles.slice(0, k);
-      gsap.to(pathNodes, {
-        scale: 1.1,
-        filter: 'drop-shadow(0 8px 12px rgba(79,70,229,0.35))',
-        duration: 0.6,
-        ease: 'back.out(1.7)',
-        stagger: 0.08
-      });
-    }, containerRef);
-    return () => ctx.revert();
-  }, [k, nodes]);
-
   const tree = useMemo(() => buildTree(nodes), [nodes]);
-
-  const levels: Array<TreeNode[]> = useMemo(() => {
-    if (!tree) return [];
-    const result: Array<TreeNode[]> = [];
-    const queue: Array<{ node: TreeNode; level: number }> = [{ node: tree, level: 0 }];
-    while (queue.length) {
-      const { node, level } = queue.shift()!;
-      if (!result[level]) result[level] = [];
-      result[level].push(node);
-      if (node.left) queue.push({ node: node.left, level: level + 1 });
-      if (node.right) queue.push({ node: node.right, level: level + 1 });
-    }
-    return result;
-  }, [tree]);
-
   const kthValue = inorderList[k - 1];
 
-  // Calculate positions for simple layered layout
+  // Calculate positions for tree layout
   const nodePositions = useMemo(() => {
     const positions = new Map<TreeNode, { x: number; y: number }>();
     const traverse = (node: TreeNode | null, depth: number, left: number, right: number) => {
       if (!node) return;
       const mid = (left + right) / 2;
-      positions.set(node, { x: mid, y: depth * 120 });
+      positions.set(node, { x: mid, y: depth * 120 + 60 });
       traverse(node.left, depth + 1, left, mid - 40);
       traverse(node.right, depth + 1, mid + 40, right);
     };
     traverse(tree, 0, 0, 800);
     return positions;
   }, [tree]);
+
+  // Entrance animation
+  useEffect(() => {
+    if (!containerRef.current) return;
+
+    const ctx = gsap.context(() => {
+      gsap.from(containerRef.current, {
+        opacity: 0,
+        y: 20,
+        duration: 0.6,
+        ease: 'power2.out'
+      });
+    }, containerRef);
+
+    return () => ctx.revert();
+  }, []);
+
+  // Animate nodes on load or k change
+  useEffect(() => {
+    if (!svgRef.current) return;
+
+    const circles = gsap.utils.toArray<SVGCircleElement>('circle.node');
+
+    const ctx = gsap.context(() => {
+      // Entrance animation
+      gsap.fromTo(
+        circles,
+        { scale: 0, opacity: 0, rotation: -180 },
+        { scale: 1, opacity: 1, rotation: 0, duration: 0.7, stagger: 0.07, ease: 'elastic.out(1,0.6)' }
+      );
+    }, svgRef);
+
+    return () => ctx.revert();
+  }, [nodes, k]);
+
+  const handleAnimate = () => {
+    if (isAnimating || !svgRef.current) return;
+    setIsAnimating(true);
+
+    const circles = gsap.utils.toArray<SVGElement>('circle.node');
+    const texts = gsap.utils.toArray<SVGElement>('text.node-text');
+
+    const tl = gsap.timeline({
+      onComplete: () => setIsAnimating(false)
+    });
+
+    // Reset all nodes
+    tl.to(circles, {
+      scale: 1,
+      filter: 'none',
+      duration: 0.3
+    });
+
+    // Highlight path nodes sequentially
+    const pathIndices = inorderList.slice(0, k);
+    pathIndices.forEach((val, idx) => {
+      const nodeIndex = circles.findIndex((c: any) => {
+        const text = c.nextElementSibling;
+        return text && text.textContent === String(val);
+      });
+
+      if (nodeIndex !== -1) {
+        tl.to([circles[nodeIndex], texts[nodeIndex]], {
+          scale: 1.15,
+          filter: idx === k - 1 ? 'drop-shadow(0 0 15px rgba(34,197,94,0.8))' : 'drop-shadow(0 0 10px rgba(99,102,241,0.6))',
+          duration: 0.4,
+          ease: 'back.out(1.7)'
+        }, `+=${idx === 0 ? 0 : 0.2}`);
+      }
+    });
+
+    // Final celebration for kth element
+    const kthIndex = circles.findIndex((c: any) => {
+      const text = c.nextElementSibling;
+      return text && text.textContent === String(kthValue);
+    });
+
+    if (kthIndex !== -1) {
+      tl.to([circles[kthIndex], texts[kthIndex]], {
+        scale: 1.3,
+        rotation: 360,
+        duration: 0.6,
+        ease: 'back.out(1.7)'
+      });
+
+      tl.to([circles[kthIndex], texts[kthIndex]], {
+        y: -10,
+        yoyo: true,
+        repeat: 2,
+        duration: 0.2,
+        ease: 'power2.inOut'
+      });
+    }
+  };
 
   const renderEdges = () => {
     const edges: JSX.Element[] = [];
@@ -142,12 +203,18 @@ export default function KthSmallestVisualizer({ nodes, k }: KthSmallestVisualize
             className="node"
             cx={pos.x}
             cy={pos.y}
-            r={28}
+            r={32}
             fill={isTarget(node.val) ? 'url(#gradTarget)' : visitedSet.has(node.val) ? 'url(#gradVisited)' : 'white'}
             stroke={isTarget(node.val) ? '#22c55e' : visitedSet.has(node.val) ? '#6366f1' : '#cbd5e1'}
-            strokeWidth={4}
+            strokeWidth={isTarget(node.val) ? 5 : 3}
           />
-          <text x={pos.x} y={pos.y + 4} textAnchor="middle" className="font-bold" fill={isTarget(node.val) ? '#0f172a' : '#0f172a'}>
+          <text
+            className="node-text font-bold text-lg"
+            x={pos.x}
+            y={pos.y + 5}
+            textAnchor="middle"
+            fill={isTarget(node.val) || visitedSet.has(node.val) ? '#0f172a' : '#64748b'}
+          >
             {node.val}
           </text>
         </g>
@@ -159,38 +226,96 @@ export default function KthSmallestVisualizer({ nodes, k }: KthSmallestVisualize
     return items;
   };
 
+  const levels = useMemo(() => {
+    if (!tree) return [];
+    const result: Array<TreeNode[]> = [];
+    const queue: Array<{ node: TreeNode; level: number }> = [{ node: tree, level: 0 }];
+    while (queue.length) {
+      const { node, level } = queue.shift()!;
+      if (!result[level]) result[level] = [];
+      result[level].push(node);
+      if (node.left) queue.push({ node: node.left, level: level + 1 });
+      if (node.right) queue.push({ node: node.right, level: level + 1 });
+    }
+    return result;
+  }, [tree]);
+
   return (
     <div ref={containerRef} className="space-y-6">
-      <div className="bg-white rounded-2xl p-6 shadow-lg border-2 border-indigo-100 flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <div className="p-3 bg-indigo-100 text-indigo-700 rounded-xl">
-            <ListOrdered size={22} />
+      <div className="bg-white rounded-2xl p-6 shadow-xl border-2 border-purple-200">
+        <div className="flex items-center justify-between gap-4 flex-wrap">
+          <div className="flex items-center gap-3">
+            <div className="p-3 bg-gradient-to-br from-purple-500 to-violet-500 text-white rounded-xl">
+              <ListOrdered size={24} />
+            </div>
+            <div>
+              <h3 className="text-2xl font-bold text-slate-800">BST Visualization</h3>
+              <p className="text-sm text-slate-600">Inorder traversal highlights path to Kth element</p>
+            </div>
           </div>
-          <div>
-            <h3 className="text-xl font-bold text-slate-800">Visualisasi BST & Inorder</h3>
-            <p className="text-sm text-slate-500">Kunjungan inorder ke-{k} akan di-highlight.</p>
-          </div>
+          <button
+            onClick={handleAnimate}
+            disabled={isAnimating || !tree}
+            className={`flex items-center gap-2 px-6 py-3 rounded-lg font-semibold shadow-md transition-all ${isAnimating || !tree
+              ? 'bg-slate-300 text-slate-500 cursor-not-allowed'
+              : 'bg-gradient-to-r from-purple-600 to-violet-600 text-white hover:from-purple-700 hover:to-violet-700 hover:shadow-lg active:scale-95'
+              }`}
+          >
+            {isAnimating ? (
+              <>
+                <Sparkles className="animate-spin" size={20} />
+                Animating...
+              </>
+            ) : (
+              <>
+                <Play size={20} />
+                Animate Path
+              </>
+            )}
+          </button>
         </div>
-        <div className="flex items-center gap-3">
-          <div className="px-3 py-2 bg-indigo-50 rounded-lg border border-indigo-100 text-sm text-slate-700">
-            Kunjungan inorder: {inorderList.join(', ') || '-'}
+
+        <div className="mt-4 grid grid-cols-2 gap-4">
+          <div className="bg-purple-50 border-2 border-purple-200 rounded-lg p-4">
+            <div className="text-sm text-purple-700 font-semibold mb-2">Inorder Sequence:</div>
+            <div className="flex flex-wrap gap-2">
+              {inorderList.map((val, idx) => (
+                <div
+                  key={idx}
+                  className={`px-3 py-1 rounded-lg font-bold text-sm ${idx === k - 1
+                    ? 'bg-green-500 text-white ring-2 ring-green-300'
+                    : idx < k
+                      ? 'bg-purple-200 text-purple-800'
+                      : 'bg-slate-200 text-slate-600'
+                    }`}
+                >
+                  {val}
+                </div>
+              ))}
+            </div>
           </div>
-          <div className="px-3 py-2 bg-emerald-50 rounded-lg border border-emerald-100 text-sm text-emerald-700 flex items-center gap-2">
-            <Target size={16} /> kth = {kthValue ?? 'n/a'}
+          <div className="bg-green-50 border-2 border-green-200 rounded-lg p-4 flex items-center justify-center">
+            <div className="text-center">
+              <div className="flex items-center justify-center gap-2 mb-2">
+                <Target className="text-green-600" size={20} />
+                <span className="text-sm text-green-700 font-semibold">Kth Smallest (K={k})</span>
+              </div>
+              <div className="text-4xl font-bold text-green-600">{kthValue ?? 'N/A'}</div>
+            </div>
           </div>
         </div>
       </div>
 
-      <div className="bg-gradient-to-br from-indigo-50 to-violet-50 rounded-2xl p-4 shadow-inner border-2 border-indigo-100">
-        <svg ref={svgRef} width="100%" height={(levels.length + 1) * 120} viewBox="-40 0 900 600" className="overflow-visible">
+      <div className="bg-gradient-to-br from-purple-50 via-violet-50 to-indigo-50 rounded-2xl p-6 shadow-inner border-2 border-purple-200">
+        <svg ref={svgRef} width="100%" height={(levels.length + 1) * 120 + 40} viewBox="-40 0 900 650" className="overflow-visible">
           <defs>
             <linearGradient id="gradVisited" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#c7d2fe" />
-              <stop offset="100%" stopColor="#a5b4fc" />
+              <stop offset="0%" stopColor="#ddd6fe" />
+              <stop offset="100%" stopColor="#c4b5fd" />
             </linearGradient>
             <linearGradient id="gradTarget" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#befae4" />
-              <stop offset="100%" stopColor="#34d399" />
+              <stop offset="0%" stopColor="#86efac" />
+              <stop offset="100%" stopColor="#22c55e" />
             </linearGradient>
           </defs>
           {renderEdges()}

@@ -123,8 +123,8 @@ export default function KthSmallestSimulator({ nodes, k }: Props) {
     if (cardRef.current) {
       gsap.fromTo(
         cardRef.current,
-        { y: 8, opacity: 0, scale: 0.97 },
-        { y: 0, opacity: 1, scale: 1, duration: 0.4, ease: 'back.out(1.6)' }
+        { x: -20, opacity: 0, scale: 0.95 },
+        { x: 0, opacity: 1, scale: 1, duration: 0.5, ease: 'back.out(1.7)' }
       );
     }
   }, [currentStep]);
@@ -142,9 +142,13 @@ export default function KthSmallestSimulator({ nodes, k }: Props) {
       }, speed);
     } else if (intervalRef.current) {
       clearInterval(intervalRef.current);
+      intervalRef.current = null;
     }
     return () => {
-      if (intervalRef.current) clearInterval(intervalRef.current);
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+        intervalRef.current = null;
+      }
     };
   }, [isPlaying, currentStep, steps.length, speed]);
 
@@ -153,20 +157,22 @@ export default function KthSmallestSimulator({ nodes, k }: Props) {
 
   return (
     <div className="space-y-6">
-      <div className="bg-gradient-to-r from-indigo-50 to-violet-50 rounded-2xl p-6 shadow-xl border-2 border-indigo-100">
-        <div className="flex items-center justify-between mb-4">
+      <div className="bg-gradient-to-r from-purple-50 via-violet-50 to-indigo-50 rounded-2xl p-6 shadow-xl border-2 border-purple-200">
+        <div className="flex items-center justify-between mb-4 flex-wrap gap-4">
           <div className="flex items-center gap-3">
-            <div className="p-3 bg-indigo-100 text-indigo-700 rounded-xl"><ListOrdered size={22} /></div>
+            <div className="p-3 bg-gradient-to-br from-purple-500 to-violet-500 text-white rounded-xl shadow-lg">
+              <ListOrdered size={24} />
+            </div>
             <div>
-              <h3 className="text-xl font-bold text-slate-800">Simulasi Inorder (Iteratif)</h3>
-              <p className="text-sm text-slate-500">Langkah {currentStep + 1} / {steps.length}</p>
+              <h3 className="text-2xl font-bold text-slate-800">Inorder Traversal Simulation</h3>
+              <p className="text-sm text-slate-600">Iterative approach with stack - Step {currentStep + 1} / {steps.length}</p>
             </div>
           </div>
           <div className="flex items-center gap-2">
             <select
               value={speed}
               onChange={(e) => setSpeed(Number(e.target.value))}
-              className="px-3 py-2 rounded-lg border-2 border-indigo-100 text-sm font-semibold text-indigo-700 bg-white"
+              className="px-3 py-2 rounded-lg border-2 border-purple-200 text-sm font-semibold text-purple-700 bg-white shadow-sm hover:border-purple-300 transition-colors"
             >
               <option value={1500}>0.5x</option>
               <option value={900}>1x</option>
@@ -175,39 +181,71 @@ export default function KthSmallestSimulator({ nodes, k }: Props) {
             </select>
             <button
               onClick={() => setIsPlaying((p) => !p)}
-              className="px-3 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white font-semibold shadow"
+              disabled={currentStep >= steps.length - 1}
+              className={`px-4 py-2 rounded-lg font-semibold shadow-md transition-all ${currentStep >= steps.length - 1
+                  ? 'bg-slate-300 text-slate-500 cursor-not-allowed'
+                  : 'bg-gradient-to-r from-purple-600 to-violet-600 hover:from-purple-700 hover:to-violet-700 text-white active:scale-95'
+                }`}
             >
-              {isPlaying ? <Pause size={16} /> : <Play size={16} />}
+              {isPlaying ? <Pause size={18} /> : <Play size={18} />}
             </button>
-            <button onClick={() => { setIsPlaying(false); setCurrentStep(0); }} className="px-3 py-2 rounded-lg bg-white border-2 border-indigo-100 text-slate-700 hover:border-indigo-200 shadow"><RotateCcw size={16} /></button>
-            <button onClick={() => setCurrentStep((v) => Math.max(0, v - 1))} className="px-3 py-2 rounded-lg bg-white border-2 border-indigo-100 text-slate-700 hover:border-indigo-200 shadow"><StepBack size={16} /></button>
-            <button onClick={() => setCurrentStep((v) => Math.min(steps.length - 1, v + 1))} className="px-3 py-2 rounded-lg bg-white border-2 border-indigo-100 text-slate-700 hover:border-indigo-200 shadow"><StepForward size={16} /></button>
+            <button onClick={() => { setIsPlaying(false); setCurrentStep(0); }} className="px-4 py-2 rounded-lg bg-white border-2 border-purple-200 text-purple-700 hover:border-purple-300 shadow-sm transition-all active:scale-95">
+              <RotateCcw size={18} />
+            </button>
+            <button onClick={() => setCurrentStep((v) => Math.max(0, v - 1))} className="px-4 py-2 rounded-lg bg-white border-2 border-purple-200 text-purple-700 hover:border-purple-300 shadow-sm transition-all active:scale-95">
+              <StepBack size={18} />
+            </button>
+            <button onClick={() => setCurrentStep((v) => Math.min(steps.length - 1, v + 1))} className="px-4 py-2 rounded-lg bg-white border-2 border-purple-200 text-purple-700 hover:border-purple-300 shadow-sm transition-all active:scale-95">
+              <StepForward size={18} />
+            </button>
           </div>
         </div>
 
-        <div className="bg-white rounded-xl border-2 border-indigo-100 p-5 shadow-lg" ref={cardRef}>
-          <p className="text-sm font-semibold text-indigo-700 mb-3">{s.description}</p>
+        <div className="bg-white rounded-xl border-2 border-purple-200 p-6 shadow-lg" ref={cardRef}>
+          {s.found && s.type === 'done' && (
+            <div className="mb-4 bg-gradient-to-r from-green-500 to-emerald-500 text-white p-4 rounded-lg flex items-center gap-3 shadow-lg animate-pulse">
+              <div className="text-3xl">🎉</div>
+              <div className="flex-1">
+                <div className="font-bold text-lg">Kth Smallest Element Found!</div>
+                <div className="text-sm opacity-90">Successfully located element via inorder traversal</div>
+              </div>
+              <div className="text-4xl font-bold">{s.node}</div>
+            </div>
+          )}
+
+          <p className={`text-base font-semibold mb-4 ${s.type === 'found' || s.type === 'done' ? 'text-green-700' :
+              s.type === 'visit' ? 'text-purple-700' : 'text-indigo-700'
+            }`}>
+            {s.description}
+          </p>
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="p-4 rounded-xl bg-indigo-50 border border-indigo-100">
-              <p className="text-xs text-slate-500 mb-1">Node</p>
-              <p className="text-2xl font-bold text-slate-800">{s.node ?? 'null'}</p>
+            <div className={`p-5 rounded-xl border-2 transition-all ${s.node !== null ? 'bg-gradient-to-br from-purple-50 to-violet-50 border-purple-200 scale-105' : 'bg-slate-50 border-slate-200'
+              }`}>
+              <p className="text-xs text-slate-600 font-semibold mb-2">Current Node</p>
+              <p className="text-3xl font-bold text-purple-700">{s.node ?? 'null'}</p>
             </div>
-            <div className="p-4 rounded-xl bg-violet-50 border border-violet-100">
-              <p className="text-xs text-slate-500 mb-1">k tersisa</p>
-              <p className="text-2xl font-bold text-slate-800">{s.kRemaining}</p>
+            <div className={`p-5 rounded-xl border-2 ${s.kRemaining === 0 ? 'bg-gradient-to-br from-green-50 to-emerald-50 border-green-300 scale-105' : 'bg-violet-50 border-violet-200'
+              }`}>
+              <p className="text-xs text-slate-600 font-semibold mb-2">K Remaining</p>
+              <p className={`text-3xl font-bold ${s.kRemaining === 0 ? 'text-green-600' : 'text-violet-700'}`}>{s.kRemaining}</p>
             </div>
-            <div className="p-4 rounded-xl bg-emerald-50 border border-emerald-100">
-              <p className="text-xs text-slate-500 mb-1">Status</p>
-              <p className="text-lg font-semibold text-emerald-700">{s.found ? 'Ditemukan' : s.type === 'done' ? 'Selesai' : 'Berlanjut'}</p>
+            <div className={`p-5 rounded-xl border-2 ${s.found ? 'bg-gradient-to-br from-emerald-50 to-teal-50 border-emerald-300' : 'bg-slate-50 border-slate-200'
+              }`}>
+              <p className="text-xs text-slate-600 font-semibold mb-2">Status</p>
+              <p className={`text-lg font-bold ${s.found ? 'text-emerald-700' : s.type === 'done' ? 'text-slate-700' : 'text-indigo-700'
+                }`}>
+                {s.found ? '✅ Found' : s.type === 'done' ? 'Complete' : 'Searching'}
+              </p>
             </div>
           </div>
 
           {s.path.length > 0 && (
-            <div className="mt-4">
-              <p className="text-xs text-slate-500 mb-2">Stack path (kiri):</p>
+            <div className="mt-5 bg-gradient-to-r from-indigo-50 to-purple-50 p-4 rounded-xl border-2 border-indigo-200">
+              <p className="text-xs text-indigo-700 font-bold mb-3">Stack Path (Left Traversal):</p>
               <div className="flex flex-wrap gap-2">
                 {s.path.map((v, idx) => (
-                  <span key={idx} className="px-3 py-1 bg-indigo-100 text-indigo-700 rounded-lg border border-indigo-200 text-sm font-semibold">
+                  <span key={idx} className="px-4 py-2 bg-white text-indigo-700 rounded-lg border-2 border-indigo-300 text-sm font-bold shadow-sm">
                     {v}
                   </span>
                 ))}
